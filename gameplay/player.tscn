@@ -1,21 +1,17 @@
 [gd_scene load_steps=5 format=3 uid="uid://j6jadv606ilq"]
 
+[ext_resource type="PhysicsMaterial" uid="uid://dnncxm4s5mbyl" path="res://gameplay/player_phys_mat.tres" id="1_6on0q"]
 [ext_resource type="Script" path="res://gameplay/player.gd" id="1_ln4ra"]
 [ext_resource type="Texture2D" uid="uid://bqb7yawwso2kk" path="res://art/sprites/test_circle.png" id="1_ndund"]
-
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_b74tg"]
-rough = true
-bounce = 1.0
-absorbent = true
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_x2wkc"]
 radius = 24.0208
 
 [node name="player" type="RigidBody2D" groups=["player"]]
-physics_material_override = SubResource("PhysicsMaterial_b74tg")
+physics_material_override = ExtResource("1_6on0q")
 max_contacts_reported = 2
 contact_monitor = true
-constant_torque = 1000.0
+lock_rotation = true
 script = ExtResource("1_ln4ra")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
