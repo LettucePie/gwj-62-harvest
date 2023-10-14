@@ -1,8 +1,8 @@
 extends PathFollow2D
 
 @export var GRAVITY = 9.8
-@export var FRICTION = 1.12
-@export var SPEED_MIN = 4.0
+@export var FRICTION = 0.8
+@export var SPEED_MIN = 2.0
 @export var SPEED_MAX = 20.0
 @export var speed_damp : Curve ## Controls rate of deccelleration
 @export var GRAV_FORCE_MIN = 0.05
@@ -12,6 +12,7 @@ extends PathFollow2D
 var direction : Vector2 = Vector2.ZERO
 var speed : float = 0.0
 var velocity : Vector2 = Vector2.ZERO
+var status : String = "soaring"
 
 var ramp_area : Area2D = null
 var landing_progress = 0.0
@@ -33,44 +34,42 @@ func _physics_process(delta):
 			print("Reassigned Parent")
 			progress = landing_progress
 			$Sprite2D.position = Vector2(0, -14.5)
-		riding()
+		riding(delta)
 	else:
 		soaring()
 
 
-func riding():
-	print("Riding")
-	print("Player Progress Ratio = ", progress_ratio)
+func riding(deltatime):
+	if status != "riding":
+		status = "riding"
 	var prev_progress = clamp(progress - 2, 0.0, progress + 20)
 	var prev_path_pos = current_ramp.curve.sample_baked(prev_progress)
 	var current_path_pos = current_ramp.curve.sample_baked(progress)
-	print("Prev Pos: ", prev_path_pos, " Current Pos: ", current_path_pos)
+#	print("Prev Pos: ", prev_path_pos, " Current Pos: ", current_path_pos)
 	direction = prev_path_pos.direction_to(current_path_pos).normalized()
 	var angle = direction.angle()
 	var vert_intensity = abs(angle) / abs(PI / 2.0)
+	print(vert_intensity)
 	if angle < 0.0 and angle > -PI / 2:
 		## Going uphill, reduce speed
 		speed = clamp(
-			speed - lerp(
-				GRAV_FORCE_MIN,
-				GRAV_FORCE_MAX,
-				gravity_damp.sample(vert_intensity)
-			) * GRAVITY,
+			speed - (GRAVITY * vert_intensity) * deltatime,
 			SPEED_MIN,
 			SPEED_MAX
 		)
 	elif angle > 0.0:
 		speed = clamp(
-			speed + (GRAVITY * vert_intensity) - FRICTION,
+			speed + ((GRAVITY * FRICTION) * vert_intensity) * deltatime,
 			SPEED_MIN,
 			SPEED_MAX
 		)
-	print("Speed: ", speed, " Direction: ", direction, " Angle: ", angle, " Vert_Intensity: ", vert_intensity)
 	progress += speed
+#	print("Speed: ", speed, " Direction: ", direction, " Angle: ", angle, " Vert_Intensity: ", vert_intensity)
 
 
 func soaring():
-	print("Soaring")
+	if status != "soaring":
+		status = "soaring"
 	if current_ramp != null:
 		print("What on earth am I doing?")
 	var speed_force = speed_damp.sample(

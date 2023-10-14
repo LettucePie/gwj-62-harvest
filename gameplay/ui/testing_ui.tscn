@@ -1,0 +1,76 @@
+[gd_scene load_steps=2 format=3 uid="uid://cw6hjpk8bxtcm"]
+
+[ext_resource type="Script" path="res://gameplay/ui/testing_ui.gd" id="1_wwupk"]
+
+[node name="testing_ui" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_wwupk")
+
+[node name="Panel" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 40.0
+grow_horizontal = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+layout_mode = 2
+
+[node name="velocity_container" type="HBoxContainer" parent="Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="velocity_label" type="Label" parent="Panel/VBoxContainer/velocity_container"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "Velocity: "
+
+[node name="velocity" type="Label" parent="Panel/VBoxContainer/velocity_container"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+text = "0000"
+
+[node name="direction_container" type="HBoxContainer" parent="Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="direction_label" type="Label" parent="Panel/VBoxContainer/direction_container"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "Direction: "
+
+[node name="direction" type="Label" parent="Panel/VBoxContainer/direction_container"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+text = "0000"
+
+[node name="speed_container" type="HBoxContainer" parent="Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="speed_label" type="Label" parent="Panel/VBoxContainer/speed_container"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "Speed: "
+
+[node name="speed" type="Label" parent="Panel/VBoxContainer/speed_container"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+text = "0000"
+
+[node name="status_container" type="HBoxContainer" parent="Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="status_label" type="Label" parent="Panel/VBoxContainer/status_container"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "Status: "
+
+[node name="status" type="Label" parent="Panel/VBoxContainer/status_container"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+text = "0000"

@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://b6slq6rw31kqq"]
+
+[ext_resource type="PackedScene" uid="uid://cw6hjpk8bxtcm" path="res://gameplay/ui/testing_ui.tscn" id="1_40yjw"]
+[ext_resource type="PackedScene" uid="uid://b70d2vbt525p5" path="res://levels/stage_path.tscn" id="2_6vty4"]
+
+[node name="test_zone" type="Node"]
+
+[node name="testing_ui" parent="." instance=ExtResource("1_40yjw")]
+
+[node name="stage_path" parent="." instance=ExtResource("2_6vty4")]
