@@ -15,6 +15,7 @@ point_count = 2
 radius = 23.0868
 
 [node name="player_follow" type="PathFollow2D" groups=["player"]]
+rotates = false
 loop = false
 script = ExtResource("1_0i1hn")
 speed_damp = SubResource("Curve_w7oli")

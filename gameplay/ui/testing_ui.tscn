@@ -21,6 +21,7 @@ offset_bottom = 40.0
 grow_horizontal = 0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
 
 [node name="velocity_container" type="HBoxContainer" parent="Panel/VBoxContainer"]
@@ -32,9 +33,10 @@ layout_mode = 2
 text = "Velocity: "
 
 [node name="velocity" type="Label" parent="Panel/VBoxContainer/velocity_container"]
-custom_minimum_size = Vector2(80, 0)
+custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 text = "0000"
+clip_text = true
 
 [node name="direction_container" type="HBoxContainer" parent="Panel/VBoxContainer"]
 layout_mode = 2
@@ -45,9 +47,10 @@ layout_mode = 2
 text = "Direction: "
 
 [node name="direction" type="Label" parent="Panel/VBoxContainer/direction_container"]
-custom_minimum_size = Vector2(80, 0)
+custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 text = "0000"
+clip_text = true
 
 [node name="speed_container" type="HBoxContainer" parent="Panel/VBoxContainer"]
 layout_mode = 2
@@ -58,9 +61,10 @@ layout_mode = 2
 text = "Speed: "
 
 [node name="speed" type="Label" parent="Panel/VBoxContainer/speed_container"]
-custom_minimum_size = Vector2(80, 0)
+custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 text = "0000"
+clip_text = true
 
 [node name="status_container" type="HBoxContainer" parent="Panel/VBoxContainer"]
 layout_mode = 2
@@ -71,6 +75,7 @@ layout_mode = 2
 text = "Status: "
 
 [node name="status" type="Label" parent="Panel/VBoxContainer/status_container"]
-custom_minimum_size = Vector2(80, 0)
+custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 text = "0000"
+clip_text = true

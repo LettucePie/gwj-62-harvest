@@ -5,6 +5,8 @@
 
 [node name="test_zone" type="Node"]
 
-[node name="testing_ui" parent="." instance=ExtResource("1_40yjw")]
-
 [node name="stage_path" parent="." instance=ExtResource("2_6vty4")]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="testing_ui" parent="CanvasLayer" instance=ExtResource("1_40yjw")]

@@ -27,7 +27,6 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
-	velocity = velocity.lerp(Vector2.ZERO, delta)
 	if ramp_area != null and current_ramp == null:
 		current_ramp = ramp_area.get_parent().close_enough(self)
 	if current_ramp != null and !launched_ramps.has(current_ramp):
@@ -37,6 +36,7 @@ func _physics_process(delta):
 			print("Reassigned Parent")
 			progress = landing_progress
 			$Sprite2D.position = Vector2(0, -14.5)
+			print("RAMP: ", current_ramp)
 		riding(delta)
 	else:
 		soaring(delta)
@@ -71,7 +71,8 @@ func riding(deltatime):
 	if Input.is_action_pressed("ui_down"):
 		boost = BRAKE_MULTIPLIER
 	progress += (speed * boost)
-	velocity = (velocity + (direction * speed)).clamp(Vector2.ONE * -20.0, Vector2.ONE * 20.0)
+	velocity = direction * speed
+#	velocity = (velocity + (direction * speed)).clamp(Vector2.ONE * -20.0, Vector2.ONE * 20.0)
 	if progress_ratio >= 0.98:
 		launch()
 
@@ -79,18 +80,23 @@ func riding(deltatime):
 func launch():
 	launched_ramps.append(current_ramp)
 	current_ramp = null
+	var stage_parent = get_parent().get_parent()
+	get_parent().remove_child(self)
+	stage_parent.add_child(self)
+	$Sprite2D.position = Vector2.ZERO
 
 
 func soaring(deltatime):
 	if status != "soaring":
 		status = "soaring"
-	var speed_percent = speed - SPEED_MIN / SPEED_MAX - SPEED_MIN
-	var down_force_gravity = gravity_damp.sample(speed_percent)
-	var down_direction = direction.lerp(Vector2.DOWN, down_force_gravity)
-	direction = direction.slerp(down_direction, deltatime)
-	var down_force_speed = GRAVITY * speed_damp.sample(speed_percent)
-	speed = clamp(speed + down_force_speed * deltatime, SPEED_MIN, SPEED_MAX)
+	direction = direction.slerp(Vector2.DOWN, deltatime * 2)
+	speed = lerp(speed, GRAVITY, deltatime * 2)
+	velocity.x = clamp(
+		velocity.x - FRICTION , 
+		SPEED_MIN, 
+		SPEED_MAX)
 	velocity = (velocity + (direction * speed)).clamp(Vector2.ONE * -20.0, Vector2.ONE * 20.0)
+#	var speed_percent = velocity.x - SPEED_MIN / SPEED_MAX - SPEED_MIN
 	translate(velocity / 2)
 
 
