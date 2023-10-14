@@ -6,7 +6,7 @@
 [node name="stage_path" type="Node2D"]
 
 [node name="player_follow" parent="." instance=ExtResource("1_3fmwe")]
-position = Vector2(145, 45)
+position = Vector2(532, 64)
 
 [node name="path" parent="." instance=ExtResource("2_1hcjy")]
 position = Vector2(40, 43)

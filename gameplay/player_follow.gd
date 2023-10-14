@@ -9,6 +9,9 @@ extends PathFollow2D
 @export var GRAV_FORCE_MAX = 0.5
 @export var gravity_damp : Curve ## Controls influence of gravity at x speed (flight)
 
+@export var BOOST_MULTIPLIER = 1.25
+@export var BRAKE_MULTIPLIER = 0.6
+
 var direction : Vector2 = Vector2.ZERO
 var speed : float = 0.0
 var velocity : Vector2 = Vector2.ZERO
@@ -25,6 +28,7 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
+	velocity = velocity.lerp(Vector2.ZERO, delta)
 	if ramp_area != null and current_ramp == null:
 		current_ramp = ramp_area.get_parent().close_enough(self)
 	if current_ramp != null:
@@ -45,7 +49,6 @@ func riding(deltatime):
 	var prev_progress = clamp(progress - 2, 0.0, progress + 20)
 	var prev_path_pos = current_ramp.curve.sample_baked(prev_progress)
 	var current_path_pos = current_ramp.curve.sample_baked(progress)
-#	print("Prev Pos: ", prev_path_pos, " Current Pos: ", current_path_pos)
 	direction = prev_path_pos.direction_to(current_path_pos).normalized()
 	var angle = direction.angle()
 	var vert_intensity = abs(angle) / abs(PI / 2.0)
@@ -63,8 +66,13 @@ func riding(deltatime):
 			SPEED_MIN,
 			SPEED_MAX
 		)
-	progress += speed
-#	print("Speed: ", speed, " Direction: ", direction, " Angle: ", angle, " Vert_Intensity: ", vert_intensity)
+	var boost = 1.0
+	if Input.is_action_pressed("ui_up"):
+		boost = BOOST_MULTIPLIER
+	if Input.is_action_pressed("ui_down"):
+		boost = BRAKE_MULTIPLIER
+	progress += (speed * boost)
+	velocity = (velocity + (direction * speed)).clamp(Vector2.ONE * -20.0, Vector2.ONE * 20.0)
 
 
 func soaring():
@@ -83,7 +91,6 @@ func soaring():
 	direction = direction.slerp(Vector2.DOWN, grav_force).normalized()
 	speed = clamp(lerp(speed, GRAVITY, grav_force), 4.0, GRAVITY)
 	velocity = (velocity + (direction * speed)).clamp(Vector2.ONE * -20.0, Vector2.ONE * 20.0)
-	print("Velocity: ", velocity, " direction: ", direction, " speed: ", speed)
 	translate(velocity / 2)
 
 
