@@ -8,8 +8,8 @@ _data = [Vector2(0, 1), 0.0, -0.177016, 0, 0, Vector2(1, 0.454545), -1.11409, 0.
 point_count = 2
 
 [sub_resource type="Curve" id="Curve_8v5kt"]
-_data = [Vector2(0, 1), 0.0, -0.171619, 0, 0, Vector2(0.391473, 0.945454), -0.173738, -0.173738, 0, 0, Vector2(0.992248, 0.327273), -1.91901, 0.0, 0, 0]
-point_count = 3
+_data = [Vector2(0, 0), 0.0, 0.117273, 0, 0, Vector2(1, 1), 0.187636, 0.0, 0, 0]
+point_count = 2
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1porx"]
 radius = 23.0868

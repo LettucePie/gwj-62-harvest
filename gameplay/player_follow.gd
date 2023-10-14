@@ -5,8 +5,6 @@ extends PathFollow2D
 @export var SPEED_MIN = 2.0
 @export var SPEED_MAX = 20.0
 @export var speed_damp : Curve ## Controls rate of deccelleration
-@export var GRAV_FORCE_MIN = 0.05
-@export var GRAV_FORCE_MAX = 0.5
 @export var gravity_damp : Curve ## Controls influence of gravity at x speed (flight)
 
 @export var BOOST_MULTIPLIER = 1.25
@@ -20,6 +18,7 @@ var status : String = "soaring"
 var ramp_area : Area2D = null
 var landing_progress = 0.0
 var current_ramp : RampPath = null
+var launched_ramps : Array = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -31,7 +30,7 @@ func _physics_process(delta):
 	velocity = velocity.lerp(Vector2.ZERO, delta)
 	if ramp_area != null and current_ramp == null:
 		current_ramp = ramp_area.get_parent().close_enough(self)
-	if current_ramp != null:
+	if current_ramp != null and !launched_ramps.has(current_ramp):
 		if current_ramp != get_parent():
 			get_parent().remove_child(self)
 			current_ramp.add_child(self)
@@ -40,7 +39,7 @@ func _physics_process(delta):
 			$Sprite2D.position = Vector2(0, -14.5)
 		riding(delta)
 	else:
-		soaring()
+		soaring(delta)
 
 
 func riding(deltatime):
@@ -73,23 +72,24 @@ func riding(deltatime):
 		boost = BRAKE_MULTIPLIER
 	progress += (speed * boost)
 	velocity = (velocity + (direction * speed)).clamp(Vector2.ONE * -20.0, Vector2.ONE * 20.0)
+	if progress_ratio >= 0.98:
+		launch()
 
 
-func soaring():
+func launch():
+	launched_ramps.append(current_ramp)
+	current_ramp = null
+
+
+func soaring(deltatime):
 	if status != "soaring":
 		status = "soaring"
-	if current_ramp != null:
-		print("What on earth am I doing?")
-	var speed_force = speed_damp.sample(
-		(speed - SPEED_MIN) / (SPEED_MAX - SPEED_MIN)
-	)
-	var grav_force = lerp(
-		GRAV_FORCE_MAX, ## Max amount of Gravity Force for slowest percent speed
-		GRAV_FORCE_MIN, ## Min amount of force for greatest speed (achieving flight)
-		gravity_damp.sample(speed_force)
-	)
-	direction = direction.slerp(Vector2.DOWN, grav_force).normalized()
-	speed = clamp(lerp(speed, GRAVITY, grav_force), 4.0, GRAVITY)
+	var speed_percent = speed - SPEED_MIN / SPEED_MAX - SPEED_MIN
+	var down_force_gravity = gravity_damp.sample(speed_percent)
+	var down_direction = direction.lerp(Vector2.DOWN, down_force_gravity)
+	direction = direction.slerp(down_direction, deltatime)
+	var down_force_speed = GRAVITY * speed_damp.sample(speed_percent)
+	speed = clamp(speed + down_force_speed * deltatime, SPEED_MIN, SPEED_MAX)
 	velocity = (velocity + (direction * speed)).clamp(Vector2.ONE * -20.0, Vector2.ONE * 20.0)
 	translate(velocity / 2)
 
