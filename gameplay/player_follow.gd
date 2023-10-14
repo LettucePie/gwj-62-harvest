@@ -89,14 +89,17 @@ func launch():
 func soaring(deltatime):
 	if status != "soaring":
 		status = "soaring"
-	direction = direction.slerp(Vector2.DOWN, deltatime * 2)
+	direction = direction.slerp(Vector2.DOWN, deltatime)
 	speed = lerp(speed, GRAVITY, deltatime * 2)
+	var speed_percent = velocity.x - SPEED_MIN / SPEED_MAX - SPEED_MIN
 	velocity.x = clamp(
-		velocity.x - FRICTION , 
+		velocity.x - 5 * gravity_damp.sample(speed_percent), 
 		SPEED_MIN, 
 		SPEED_MAX)
+	if Input.is_action_pressed("ui_down"):
+		speed = lerp(speed, GRAVITY, deltatime * 4)
+		direction = direction.slerp(Vector2.DOWN, deltatime * 4)
 	velocity = (velocity + (direction * speed)).clamp(Vector2.ONE * -20.0, Vector2.ONE * 20.0)
-#	var speed_percent = velocity.x - SPEED_MIN / SPEED_MAX - SPEED_MIN
 	translate(velocity / 2)
 
 
