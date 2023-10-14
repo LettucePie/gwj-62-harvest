@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://epytuq0d8ga1"]
+
+[ext_resource type="PackedScene" uid="uid://j6jadv606ilq" path="res://gameplay/player.tscn" id="2_7u7gf"]
+[ext_resource type="PackedScene" uid="uid://byguw3klw03de" path="res://levels/ramps/ramp_3.tscn" id="2_dgeku"]
+
+[node name="stage" type="Node2D"]
+
+[node name="player" parent="." instance=ExtResource("2_7u7gf")]
+position = Vector2(49, -48)
+
+[node name="ramp_3" parent="." instance=ExtResource("2_dgeku")]
+position = Vector2(9, 25)

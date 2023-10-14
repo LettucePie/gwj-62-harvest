@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://j6jadv606ilq"]
+
+[ext_resource type="Script" path="res://gameplay/player.gd" id="1_ln4ra"]
+[ext_resource type="Texture2D" uid="uid://bqb7yawwso2kk" path="res://art/sprites/test_circle.png" id="1_ndund"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_b74tg"]
+rough = true
+bounce = 1.0
+absorbent = true
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_x2wkc"]
+radius = 24.0208
+
+[node name="player" type="RigidBody2D" groups=["player"]]
+physics_material_override = SubResource("PhysicsMaterial_b74tg")
+max_contacts_reported = 2
+contact_monitor = true
+constant_torque = 1000.0
+script = ExtResource("1_ln4ra")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_x2wkc")
+
+[node name="Sprite2D" type="Sprite2D" parent="CollisionShape2D"]
+texture = ExtResource("1_ndund")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

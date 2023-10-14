@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://c21okqmkgx6k1"]
+
+[ext_resource type="Script" path="res://levels/ramps/ramp.gd" id="1_4uybr"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_cv2y3"]
+rough = true
+bounce = 1.0
+absorbent = true
+
+[sub_resource type="Curve2D" id="Curve2D_5jnf7"]
+bake_interval = 10.0
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 2, -205.061, -2.82843, 205.061, 2.82843, 425, 576, 0, 0, 0, 0, 672, 443)
+}
+point_count = 3
+
+[node name="ramp_2" type="StaticBody2D" groups=["ramp"]]
+physics_material_override = SubResource("PhysicsMaterial_cv2y3")
+script = ExtResource("1_4uybr")
+
+[node name="col" type="CollisionPolygon2D" parent="."]
+
+[node name="vis" type="Polygon2D" parent="."]
+
+[node name="path" type="Path2D" parent="."]
+curve = SubResource("Curve2D_5jnf7")
