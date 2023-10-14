@@ -19,13 +19,13 @@ func build_vis_poly():
 	for i in size:
 		var point_pos = curve.get_point_position(i)
 		if point_pos.x < min_clamp.x:
-			min_clamp.x = point_pos.x - 5
+			min_clamp.x = point_pos.x - 50
 		if point_pos.x > max_clamp.x:
-			max_clamp.x = point_pos.x + 5
+			max_clamp.x = point_pos.x + 50
 		if point_pos.y < min_clamp.y:
-			min_clamp.y = point_pos.y - 5
+			min_clamp.y = point_pos.y - 50
 		if point_pos.y > max_clamp.y:
-			max_clamp.y = point_pos.y + 5
+			max_clamp.y = point_pos.y + 50
 	baked_points_rounded.clear()
 	var shape : PackedVector2Array = []
 	shape.append(Vector2(min_clamp.x, max_clamp.y))
@@ -49,6 +49,7 @@ func close_enough(player : PathFollow2D):
 	var closest_pos = curve.get_closest_point(player_pos)
 	var dist = player_pos.distance_to(closest_pos)
 	if dist < 25:
+		player.landing_progress = curve.get_closest_offset(closest_pos)
 		return self
 	else:
 		return null

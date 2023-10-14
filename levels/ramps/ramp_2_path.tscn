@@ -11,7 +11,7 @@ point_count = 3
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mqpnj"]
 
-[node name="path" type="Path2D"]
+[node name="ramp_2_path" type="Path2D"]
 curve = SubResource("Curve2D_5jnf7")
 script = ExtResource("1_2ofly")
 
