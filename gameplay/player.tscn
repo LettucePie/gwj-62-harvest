@@ -13,11 +13,16 @@ max_contacts_reported = 2
 contact_monitor = true
 lock_rotation = true
 script = ExtResource("1_ln4ra")
+sticky = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_x2wkc")
 
 [node name="Sprite2D" type="Sprite2D" parent="CollisionShape2D"]
 texture = ExtResource("1_ndund")
+
+[node name="ray" type="RayCast2D" parent="."]
+position = Vector2(25, 0)
+target_position = Vector2(0, 100)
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
