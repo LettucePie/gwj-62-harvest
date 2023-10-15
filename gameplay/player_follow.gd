@@ -1,31 +1,28 @@
 extends PathFollow2D
 
-@export var GRAVITY = 9.8
-@export var FRICTION = 0.8
-@export var SPEED_MIN = 2.0
-@export var SPEED_MAX = 20.0
-@export var speed_damp : Curve ## Controls rate of deccelleration
-@export var gravity_damp : Curve ## Controls influence of gravity at x speed (flight)
+@export var PROGRESS_SPEED = 8.0
 
 @export var BOOST_MULTIPLIER = 1.25
 @export var BRAKE_MULTIPLIER = 0.6
 
-var direction : Vector2 = Vector2.ZERO
-var speed : float = 0.0
-var velocity : Vector2 = Vector2.ZERO
-var status : String = "soaring"
-
 var ramp_area : Area2D = null
-var landing_progress = 0.0
+var landing_progress : float = 0.0
 var current_ramp : RampPath = null
 var launched_ramps : Array = []
+var status = "soaring"
+var current_speed : float
+var soar_arc : Curve2D
+var soar_progress : float
+var launch_speed : float = PROGRESS_SPEED
 
-# Called when the node enters the scene tree for the first time.
+
 func _ready():
-	pass # Replace with function body.
+	var new_arc = Curve2D.new()
+	new_arc.add_point(self.position)
+	new_arc.add_point(self.position + Vector2(0, 600))
+	soar_arc = new_arc
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
 	if ramp_area != null and current_ramp == null:
 		current_ramp = ramp_area.get_parent().close_enough(self)
@@ -48,33 +45,37 @@ func riding(deltatime):
 	var prev_progress = clamp(progress - 2, 0.0, progress + 20)
 	var prev_path_pos = current_ramp.curve.sample_baked(prev_progress)
 	var current_path_pos = current_ramp.curve.sample_baked(progress)
-	direction = prev_path_pos.direction_to(current_path_pos).normalized()
-	var angle = direction.angle()
-	var vert_intensity = abs(angle) / abs(PI / 2.0)
-	print(vert_intensity)
-	if angle < 0.0 and angle > -PI / 2:
-		## Going uphill, reduce speed
-		speed = clamp(
-			speed - (GRAVITY * vert_intensity) * deltatime,
-			SPEED_MIN,
-			SPEED_MAX
-		)
-	elif angle > 0.0:
-		speed = clamp(
-			speed + ((GRAVITY * FRICTION) * vert_intensity) * deltatime,
-			SPEED_MIN,
-			SPEED_MAX
-		)
 	var boost = 1.0
 	if Input.is_action_pressed("ui_up"):
 		boost = BOOST_MULTIPLIER
 	if Input.is_action_pressed("ui_down"):
 		boost = BRAKE_MULTIPLIER
-	progress += (speed * boost)
-	velocity = direction * speed
-#	velocity = (velocity + (direction * speed)).clamp(Vector2.ONE * -20.0, Vector2.ONE * 20.0)
+	current_speed = PROGRESS_SPEED * boost
+	progress += current_speed
+	predict_soar()
 	if progress_ratio >= 0.98:
 		launch()
+
+
+func predict_soar():
+	var ramp_end = current_ramp.get_ramp_final_position()
+	var highest_point = ramp_end + (current_ramp.launch_vector * current_speed)
+	var follow_point = highest_point \
+		+ (current_ramp.launch_vector.rotated(deg_to_rad(30)) \
+		* (current_speed * 0.66))
+	var final_point = follow_point \
+		+ (current_ramp.launch_vector.rotated(deg_to_rad(60)) \
+		* (current_speed * 0.33))
+	var new_arc = Curve2D.new()
+	var coords = PackedVector2Array()
+	for i in 7:
+		coords.append(ramp_end.bezier_interpolate(highest_point, follow_point, final_point, float(i) / 7.0))
+	new_arc.add_point(coords[0], Vector2.ZERO, coords[1])
+	new_arc.add_point(coords[2], coords[1], coords[3])
+	new_arc.add_point(coords[4], coords[3], coords[5])
+	new_arc.add_point(coords[6], coords[5], Vector2.ZERO)
+	soar_arc = new_arc
+	current_ramp.draw_arc_prediction(new_arc.get_baked_points())
 
 
 func launch():
@@ -84,20 +85,16 @@ func launch():
 	get_parent().remove_child(self)
 	stage_parent.add_child(self)
 	$Sprite2D.position = Vector2.ZERO
+	soar_progress = 0.0
+	launch_speed = current_speed
 
 
 func soaring(deltatime):
 	if status != "soaring":
 		status = "soaring"
-	direction = direction.slerp(Vector2.DOWN, deltatime * 2)
-	speed = lerp(speed, GRAVITY, deltatime * 2)
-	velocity.x = clamp(
-		velocity.x - FRICTION , 
-		SPEED_MIN, 
-		SPEED_MAX)
-	velocity = (velocity + (direction * speed)).clamp(Vector2.ONE * -20.0, Vector2.ONE * 20.0)
-#	var speed_percent = velocity.x - SPEED_MIN / SPEED_MAX - SPEED_MIN
-	translate(velocity / 2)
+	soar_progress += launch_speed
+	var target_pos = soar_arc.sample_baked(soar_progress)
+	translate(self.position.direction_to(target_pos) * launch_speed)
 
 
 func _on_area_2d_area_entered(area):

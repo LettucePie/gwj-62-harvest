@@ -13,7 +13,4 @@ func _process(delta):
 		update_labels()
 
 func update_labels():
-	$Panel/VBoxContainer/velocity_container/velocity.text = str(player.velocity)
-	$Panel/VBoxContainer/direction_container/direction.text = str(player.direction)
-	$Panel/VBoxContainer/speed_container/speed.text = str(player.speed)
 	$Panel/VBoxContainer/status_container/status.text = str(player.status)
