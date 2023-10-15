@@ -5,8 +5,14 @@ class_name Player
 signal launch_curve(curve)
 signal parent_launch(node)
 
-@export var PROGRESS_SPEED = 8.0
+## Speed stages are the gameplay goal. Player can press the speed up and slow -\
+## down buttons, this will change animation, and after filling a meter either -\
+## downshift or upshift in speed stage.
+@export var SPEED_STAGES : Array = [4.0, 8.0, 12.0, 16.0]
+@export var SOAR_STAGES : Array = [200.0, 400.0, 600.0, 800.0]
 
+## Remove and replace with speed stages
+@export var PROGRESS_SPEED = 8.0
 @export var BOOST_MULTIPLIER = 1.25
 @export var BRAKE_MULTIPLIER = 0.6
 
@@ -16,6 +22,7 @@ var current_ramp : RampPath = null
 var launched_ramps : Array = []
 var status = "soaring"
 var current_speed : float
+var speed_stage : int = 1
 var launch_speed : float = PROGRESS_SPEED
 
 
@@ -66,19 +73,32 @@ func riding(deltatime):
 
 
 func predict_soar():
-	var ramp_end = current_ramp.get_ramp_final_position() + current_ramp.position
-	var highest_point = ramp_end + (current_ramp.launch_vector * 100)
-#	var follow_point = highest_point + (current_ramp.launch_vector.rotated(deg_to_rad(30)) * (current_speed * 0.66))
-	var follow_point = highest_point + current_ramp.launch_vector.rotated(deg_to_rad(30)) * 60
-	var final_point = follow_point + current_ramp.launch_vector.rotated(deg_to_rad(60)) * 40
+	var soar = SOAR_STAGES[speed_stage]
+	var dir = current_ramp.launch_vector
+	var point_a = current_ramp.get_ramp_final_position() + current_ramp.position
+	var point_d = Vector2(point_a.x + soar, point_a.y)
+	
+	var point_b = point_a + (dir * (soar * 0.66))
+	var adjust_angle = dir.angle_to(
+		point_a.direction_to(
+			point_b.lerp(point_d, 0.5)
+			)
+		)
+	var point_c = point_b + (dir.rotated(adjust_angle) * (soar * 0.33))
 	var new_arc = Curve2D.new()
-	var coords = PackedVector2Array()
-	for i in 7:
-		coords.append(ramp_end.bezier_interpolate(highest_point, follow_point, final_point, float(i) / 7.0))
-	new_arc.add_point(coords[0], Vector2.ZERO, coords[0].direction_to(coords[1]))
-	new_arc.add_point(coords[2], coords[2].direction_to(coords[1]), coords[2].direction_to(coords[3]))
-	new_arc.add_point(coords[4], coords[4].direction_to(coords[3]), coords[4].direction_to(coords[5]))
-	new_arc.add_point(coords[6], coords[6].direction_to(coords[5]), Vector2.ZERO)
+#	var coords = PackedVector2Array()
+#	for i in 7:
+#		coords.append(point_a.bezier_interpolate(point_b, point_c, point_d, float(i) / 7.0))
+#	new_arc.add_point(coords[0], Vector2.ZERO, coords[0].direction_to(coords[1]))
+#	new_arc.add_point(coords[2], coords[2].direction_to(coords[1]), coords[2].direction_to(coords[3]))
+#	new_arc.add_point(coords[4], coords[4].direction_to(coords[3]), coords[4].direction_to(coords[5]))
+#	new_arc.add_point(coords[6], coords[6].direction_to(coords[5]), Vector2.ZERO)
+	for i in 10:
+		new_arc.add_point(
+			point_a.bezier_interpolate(point_b, point_c, point_d, float(i) / 9.0),
+			Vector2.ZERO,
+			Vector2.ZERO
+		)
 	emit_signal("launch_curve", new_arc)
 
 
