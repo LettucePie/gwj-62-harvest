@@ -66,7 +66,7 @@ func riding(deltatime):
 
 
 func predict_soar():
-	var ramp_end = current_ramp.get_ramp_final_position()
+	var ramp_end = current_ramp.get_ramp_final_position() + current_ramp.position
 	var highest_point = ramp_end + (current_ramp.launch_vector * 100)
 #	var follow_point = highest_point + (current_ramp.launch_vector.rotated(deg_to_rad(30)) * (current_speed * 0.66))
 	var follow_point = highest_point + current_ramp.launch_vector.rotated(deg_to_rad(30)) * 60
@@ -75,10 +75,10 @@ func predict_soar():
 	var coords = PackedVector2Array()
 	for i in 7:
 		coords.append(ramp_end.bezier_interpolate(highest_point, follow_point, final_point, float(i) / 7.0))
-	new_arc.add_point(coords[0], Vector2.ZERO, coords[1])
-	new_arc.add_point(coords[2], coords[1], coords[3])
-	new_arc.add_point(coords[4], coords[3], coords[5])
-	new_arc.add_point(coords[6], coords[5], Vector2.ZERO)
+	new_arc.add_point(coords[0], Vector2.ZERO, coords[0].direction_to(coords[1]))
+	new_arc.add_point(coords[2], coords[2].direction_to(coords[1]), coords[2].direction_to(coords[3]))
+	new_arc.add_point(coords[4], coords[4].direction_to(coords[3]), coords[4].direction_to(coords[5]))
+	new_arc.add_point(coords[6], coords[6].direction_to(coords[5]), Vector2.ZERO)
 	emit_signal("launch_curve", new_arc)
 
 
@@ -97,7 +97,7 @@ func launch():
 func soaring(deltatime):
 	if status != "soaring":
 		status = "soaring"
-	print("Soaring")
+#	print("Soaring")
 	progress += launch_speed
 
 
