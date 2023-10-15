@@ -1,5 +1,10 @@
 extends PathFollow2D
 
+class_name Player
+
+signal launch_curve(curve)
+signal parent_launch(node)
+
 @export var PROGRESS_SPEED = 8.0
 
 @export var BOOST_MULTIPLIER = 1.25
@@ -11,16 +16,19 @@ var current_ramp : RampPath = null
 var launched_ramps : Array = []
 var status = "soaring"
 var current_speed : float
-var soar_arc : Curve2D
-var soar_progress : float
 var launch_speed : float = PROGRESS_SPEED
 
 
 func _ready():
+	call_deferred("startup")
+
+
+func startup():
 	var new_arc = Curve2D.new()
 	new_arc.add_point(self.position)
 	new_arc.add_point(self.position + Vector2(0, 600))
-	soar_arc = new_arc
+	emit_signal("launch_curve", new_arc)
+	emit_signal("parent_launch", self)
 
 
 func _physics_process(delta):
@@ -35,7 +43,7 @@ func _physics_process(delta):
 			$Sprite2D.position = Vector2(0, -14.5)
 			print("RAMP: ", current_ramp)
 		riding(delta)
-	else:
+	elif get_parent() is Launch:
 		soaring(delta)
 
 
@@ -59,13 +67,10 @@ func riding(deltatime):
 
 func predict_soar():
 	var ramp_end = current_ramp.get_ramp_final_position()
-	var highest_point = ramp_end + (current_ramp.launch_vector * current_speed)
-	var follow_point = highest_point \
-		+ (current_ramp.launch_vector.rotated(deg_to_rad(30)) \
-		* (current_speed * 0.66))
-	var final_point = follow_point \
-		+ (current_ramp.launch_vector.rotated(deg_to_rad(60)) \
-		* (current_speed * 0.33))
+	var highest_point = ramp_end + (current_ramp.launch_vector * 100)
+#	var follow_point = highest_point + (current_ramp.launch_vector.rotated(deg_to_rad(30)) * (current_speed * 0.66))
+	var follow_point = highest_point + current_ramp.launch_vector.rotated(deg_to_rad(30)) * 60
+	var final_point = follow_point + current_ramp.launch_vector.rotated(deg_to_rad(60)) * 40
 	var new_arc = Curve2D.new()
 	var coords = PackedVector2Array()
 	for i in 7:
@@ -74,27 +79,26 @@ func predict_soar():
 	new_arc.add_point(coords[2], coords[1], coords[3])
 	new_arc.add_point(coords[4], coords[3], coords[5])
 	new_arc.add_point(coords[6], coords[5], Vector2.ZERO)
-	soar_arc = new_arc
-	current_ramp.draw_arc_prediction(new_arc.get_baked_points())
+	emit_signal("launch_curve", new_arc)
 
 
 func launch():
 	launched_ramps.append(current_ramp)
 	current_ramp = null
-	var stage_parent = get_parent().get_parent()
-	get_parent().remove_child(self)
-	stage_parent.add_child(self)
-	$Sprite2D.position = Vector2.ZERO
-	soar_progress = 0.0
+#	var stage_parent = get_parent().get_parent()
+#	get_parent().remove_child(self)
+#	stage_parent.add_child(self)
+#	$Sprite2D.position = Vector2.ZERO
 	launch_speed = current_speed
+	progress = 0.0
+	emit_signal("parent_launch", self)
 
 
 func soaring(deltatime):
 	if status != "soaring":
 		status = "soaring"
-	soar_progress += launch_speed
-	var target_pos = soar_arc.sample_baked(soar_progress)
-	translate(self.position.direction_to(target_pos) * launch_speed)
+	print("Soaring")
+	progress += launch_speed
 
 
 func _on_area_2d_area_entered(area):

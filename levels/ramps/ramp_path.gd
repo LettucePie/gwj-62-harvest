@@ -54,7 +54,7 @@ func find_launch_vector():
 
 
 func get_ramp_final_position():
-	return to_global(baked_points[baked_points.size() - 1])
+	return baked_points[baked_points.size() - 1]
 
 
 func close_enough(player : PathFollow2D):
@@ -66,7 +66,3 @@ func close_enough(player : PathFollow2D):
 		return self
 	else:
 		return null
-
-
-func draw_arc_prediction(arc : PackedVector2Array):
-	$Line2D.points = arc

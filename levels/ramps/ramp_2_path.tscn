@@ -21,6 +21,3 @@ script = ExtResource("1_2ofly")
 
 [node name="box" type="CollisionShape2D" parent="area"]
 shape = SubResource("RectangleShape2D_mqpnj")
-
-[node name="Line2D" type="Line2D" parent="."]
-default_color = Color(0.184314, 0.815686, 1, 1)
