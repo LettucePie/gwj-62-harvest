@@ -11,19 +11,12 @@ signal parent_launch(node)
 @export var SPEED_STAGES : Array = [4.0, 8.0, 12.0, 16.0]
 @export var SOAR_STAGES : Array = [200.0, 400.0, 600.0, 800.0]
 
-## Remove and replace with speed stages
-@export var PROGRESS_SPEED = 8.0
-@export var BOOST_MULTIPLIER = 1.25
-@export var BRAKE_MULTIPLIER = 0.6
-
 var ramp_area : Area2D = null
 var landing_progress : float = 0.0
 var current_ramp : RampPath = null
 var launched_ramps : Array = []
 var status = "soaring"
-var current_speed : float
 var speed_stage : int = 1
-var launch_speed : float = PROGRESS_SPEED
 
 
 func _ready():
@@ -60,13 +53,11 @@ func riding(deltatime):
 	var prev_progress = clamp(progress - 2, 0.0, progress + 20)
 	var prev_path_pos = current_ramp.curve.sample_baked(prev_progress)
 	var current_path_pos = current_ramp.curve.sample_baked(progress)
-	var boost = 1.0
-	if Input.is_action_pressed("ui_up"):
-		boost = BOOST_MULTIPLIER
-	if Input.is_action_pressed("ui_down"):
-		boost = BRAKE_MULTIPLIER
-	current_speed = PROGRESS_SPEED * boost
-	progress += current_speed
+	if Input.is_action_just_pressed("ui_up"):
+		speed_stage = clamp(speed_stage + 1, 0, 3)
+	if Input.is_action_just_pressed("ui_down"):
+		speed_stage = clamp(speed_stage - 1, 0, 3)
+	progress += SPEED_STAGES[speed_stage]
 	predict_soar()
 	if progress_ratio >= 0.98:
 		launch()
@@ -105,11 +96,6 @@ func predict_soar():
 func launch():
 	launched_ramps.append(current_ramp)
 	current_ramp = null
-#	var stage_parent = get_parent().get_parent()
-#	get_parent().remove_child(self)
-#	stage_parent.add_child(self)
-#	$Sprite2D.position = Vector2.ZERO
-	launch_speed = current_speed
 	progress = 0.0
 	emit_signal("parent_launch", self)
 
@@ -117,8 +103,7 @@ func launch():
 func soaring(deltatime):
 	if status != "soaring":
 		status = "soaring"
-#	print("Soaring")
-	progress += launch_speed
+	progress += SPEED_STAGES[speed_stage]
 
 
 func _on_area_2d_area_entered(area):
