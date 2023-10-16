@@ -40,7 +40,6 @@ func _physics_process(delta):
 			current_ramp.add_child(self)
 			print("Reassigned Parent")
 			progress = landing_progress
-			$Sprite2D.position = Vector2(0, -14.5)
 			print("RAMP: ", current_ramp)
 		riding(delta)
 	elif get_parent() is Launch:
@@ -114,3 +113,7 @@ func _on_area_2d_area_entered(area):
 func _on_area_2d_area_exited(area):
 	if area.is_in_group("ramp") and ramp_area == area:
 		ramp_area = null
+
+
+func get_vis_point():
+	return $vis_point

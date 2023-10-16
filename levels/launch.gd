@@ -9,6 +9,5 @@ func _on_player_follow_launch_curve(new_curve):
 
 
 func _on_player_follow_parent_launch(node):
-#	if node.get_parent() is RampPath:
 	node.get_parent().remove_child(node)
 	self.add_child(node)

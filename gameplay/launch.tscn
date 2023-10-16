@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://cgb8yhwq50oet"]
+
+[ext_resource type="Script" path="res://levels/launch.gd" id="1_dokuq"]
+
+[sub_resource type="Curve2D" id="Curve2D_wcuk1"]
+
+[node name="launch" type="Path2D"]
+curve = SubResource("Curve2D_wcuk1")
+script = ExtResource("1_dokuq")
+
+[node name="preview" type="Line2D" parent="."]

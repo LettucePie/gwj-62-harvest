@@ -1,11 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://b70d2vbt525p5"]
+[gd_scene load_steps=7 format=3 uid="uid://b70d2vbt525p5"]
 
 [ext_resource type="PackedScene" uid="uid://bqli0ogr3o2of" path="res://gameplay/player_follow.tscn" id="1_3fmwe"]
 [ext_resource type="PackedScene" uid="uid://crfi772r7qvdu" path="res://levels/ramps/ramp_2_path.tscn" id="2_1hcjy"]
 [ext_resource type="Script" path="res://gameplay/Camera2D.gd" id="3_h2qir"]
-[ext_resource type="Script" path="res://levels/launch.gd" id="4_0pdr7"]
-
-[sub_resource type="Curve2D" id="Curve2D_wcuk1"]
+[ext_resource type="PackedScene" uid="uid://cgb8yhwq50oet" path="res://gameplay/launch.tscn" id="4_lwpcm"]
+[ext_resource type="PackedScene" uid="uid://bqrdpqwrcgx5q" path="res://gameplay/player_visual.tscn" id="5_5a4uy"]
+[ext_resource type="Script" path="res://gameplay/player_visual.gd" id="6_jk2oq"]
 
 [node name="stage_path" type="Node2D"]
 
@@ -15,14 +15,14 @@ position = Vector2(132, 43)
 [node name="path" parent="." instance=ExtResource("2_1hcjy")]
 position = Vector2(40, 43)
 
+[node name="launch" parent="." instance=ExtResource("4_lwpcm")]
+
+[node name="player_visual" parent="." node_paths=PackedStringArray("player") instance=ExtResource("5_5a4uy")]
+script = ExtResource("6_jk2oq")
+player = NodePath("../player_follow")
+
 [node name="Camera2D" type="Camera2D" parent="."]
 script = ExtResource("3_h2qir")
-
-[node name="launch" type="Path2D" parent="."]
-curve = SubResource("Curve2D_wcuk1")
-script = ExtResource("4_0pdr7")
-
-[node name="preview" type="Line2D" parent="launch"]
 
 [connection signal="launch_curve" from="player_follow" to="launch" method="_on_player_follow_launch_curve"]
 [connection signal="parent_launch" from="player_follow" to="launch" method="_on_player_follow_parent_launch"]
