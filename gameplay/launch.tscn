@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://levels/launch.gd" id="1_dokuq"]
 
 [sub_resource type="Curve2D" id="Curve2D_wcuk1"]
+bake_interval = 10.0
 
 [node name="launch" type="Path2D"]
 curve = SubResource("Curve2D_wcuk1")

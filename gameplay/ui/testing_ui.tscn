@@ -37,3 +37,31 @@ custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 text = "0000"
 clip_text = true
+
+[node name="angle_container" type="HBoxContainer" parent="Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="angle_label" type="Label" parent="Panel/VBoxContainer/angle_container"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "Angle: "
+
+[node name="angle" type="Label" parent="Panel/VBoxContainer/angle_container"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "0000"
+clip_text = true
+
+[node name="vert_container" type="HBoxContainer" parent="Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="vert_label" type="Label" parent="Panel/VBoxContainer/vert_container"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "V_Intensity: "
+
+[node name="vert" type="Label" parent="Panel/VBoxContainer/vert_container"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "0000"
+clip_text = true

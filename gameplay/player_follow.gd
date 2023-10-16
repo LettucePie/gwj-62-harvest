@@ -16,7 +16,10 @@ var landing_progress : float = 0.0
 var current_ramp : RampPath = null
 var launched_ramps : Array = []
 var status = "soaring"
+var angle : float
+var vert_intensity : float
 var speed_stage : int = 1
+var soaring_arc : Curve2D
 
 
 func _ready():
@@ -27,6 +30,7 @@ func startup():
 	var new_arc = Curve2D.new()
 	new_arc.add_point(self.position)
 	new_arc.add_point(self.position + Vector2(0, 600))
+	soaring_arc = new_arc
 	emit_signal("launch_curve", new_arc)
 	emit_signal("parent_launch", self)
 
@@ -49,9 +53,7 @@ func _physics_process(delta):
 func riding(deltatime):
 	if status != "riding":
 		status = "riding"
-	var prev_progress = clamp(progress - 2, 0.0, progress + 20)
-	var prev_path_pos = current_ramp.curve.sample_baked(prev_progress)
-	var current_path_pos = current_ramp.curve.sample_baked(progress)
+	calculate_angle()
 	if Input.is_action_just_pressed("ui_up"):
 		speed_stage = clamp(speed_stage + 1, 0, 3)
 	if Input.is_action_just_pressed("ui_down"):
@@ -60,6 +62,18 @@ func riding(deltatime):
 	predict_soar()
 	if progress_ratio >= 0.98:
 		launch()
+
+
+func calculate_angle():
+	if get_parent() is Path2D:
+		var curve = get_parent().curve
+		var prev_progress = clamp(progress - 2, 0.0, progress + 20)
+		var prev_path_pos = curve.sample_baked(prev_progress)
+		var next_progress = clamp(progress + 2, progress, progress + 20)
+		var next_path_pos = curve.sample_baked(next_progress)
+		var direction = prev_path_pos.direction_to(next_path_pos)
+		angle = direction.angle()
+		vert_intensity = abs(angle) / abs(PI / 2.0)
 
 
 func predict_soar():
@@ -76,19 +90,13 @@ func predict_soar():
 		)
 	var point_c = point_b + (dir.rotated(adjust_angle) * (soar * 0.33))
 	var new_arc = Curve2D.new()
-#	var coords = PackedVector2Array()
-#	for i in 7:
-#		coords.append(point_a.bezier_interpolate(point_b, point_c, point_d, float(i) / 7.0))
-#	new_arc.add_point(coords[0], Vector2.ZERO, coords[0].direction_to(coords[1]))
-#	new_arc.add_point(coords[2], coords[2].direction_to(coords[1]), coords[2].direction_to(coords[3]))
-#	new_arc.add_point(coords[4], coords[4].direction_to(coords[3]), coords[4].direction_to(coords[5]))
-#	new_arc.add_point(coords[6], coords[6].direction_to(coords[5]), Vector2.ZERO)
 	for i in 10:
 		new_arc.add_point(
 			point_a.bezier_interpolate(point_b, point_c, point_d, float(i) / 9.0),
 			Vector2.ZERO,
 			Vector2.ZERO
 		)
+	soaring_arc = new_arc
 	emit_signal("launch_curve", new_arc)
 
 
@@ -102,7 +110,11 @@ func launch():
 func soaring(deltatime):
 	if status != "soaring":
 		status = "soaring"
-	progress += SPEED_STAGES[speed_stage]
+	calculate_angle()
+	var weighted_speed = SPEED_STAGES[speed_stage] * vert_intensity
+	if vert_intensity == 0:
+		weighted_speed = SPEED_STAGES[speed_stage]
+	progress += weighted_speed
 
 
 func _on_area_2d_area_entered(area):
