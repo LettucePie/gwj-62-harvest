@@ -13,6 +13,7 @@ func _ready():
 		player = get_tree().get_nodes_in_group("player")[0]
 	if player_vis == null:
 		player_vis = get_parent().get_node("player_visual")
+	player.connect("landed", player_landed)
 	get_viewport().connect("size_changed", framing)
 	framing()
 
@@ -27,7 +28,8 @@ func framing():
 
 func _physics_process(delta):
 	if player_vis != null:
-		var offset_pos = player.position
+		var player_pos = player.get_parent().to_global(player.position)
+		var offset_pos = player_pos
 		var offset_zoom = Vector2.ONE
 		if watching_gap:
 			var ramp_center = Vector2.ZERO
@@ -38,14 +40,9 @@ func _physics_process(delta):
 			offset_pos = offset_pos.lerp(ramp_center, 0.5)
 			## Scaling
 			var boundary_magnitude = (bottom_right * 2).length()
-			var dist = player.position.distance_to(ramp_center)
-			var max_zoom = 2.0
+			var dist = player_pos.distance_to(ramp_center)
 			if dist > boundary_magnitude:
-				max_zoom = 3.0
-				if dist > boundary_magnitude * 2.0:
-					max_zoom = 4.0
-			var percent = dist * (max_zoom - 1)  / boundary_magnitude * max_zoom
-			offset_zoom = Vector2.ONE * lerp(1.0 / max_zoom - 1, 1.0 / max_zoom, percent)
+				offset_zoom = Vector2.ONE * 0.5
 		else:
 			offset_pos.x += bottom_right.x * 0.5
 			var upper_y = offset_pos.y + (top_left.y * 0.5)
@@ -71,3 +68,9 @@ func _on_lookahead_area_exited(area):
 			watching_gap = false
 
 
+func player_landed(ramp):
+	if found_ramps.has(ramp):
+		found_ramps.erase(ramp)
+		if found_ramps.size() <= 0:
+			print("Watching Player")
+			watching_gap = false
