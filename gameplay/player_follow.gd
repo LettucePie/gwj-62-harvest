@@ -107,7 +107,6 @@ func predict_soar():
 	var dir = current_ramp.launch_vector
 	var point_a = current_ramp.get_ramp_final_position() + current_ramp.position
 	var point_d = Vector2(point_a.x + soar, point_a.y)
-	
 	var point_b = point_a + (dir * (soar * 0.66))
 	var adjust_angle = dir.angle_to(
 		point_a.direction_to(
@@ -115,13 +114,32 @@ func predict_soar():
 			)
 		)
 	var point_c = point_b + (dir.rotated(adjust_angle) * (soar * 0.33))
-	var new_arc = Curve2D.new()
-	for i in 10:
-		new_arc.add_point(
-			point_a.bezier_interpolate(point_b, point_c, point_d, float(i) / 9.0),
-			Vector2.ZERO,
-			Vector2.ZERO
+	var coords = PackedVector2Array()
+	for i in 11:
+		coords.append(
+			point_a.bezier_interpolate(point_b, point_c, point_d, float(i) / 10.0)
 		)
+	var new_arc = Curve2D.new()
+	var odd = true
+	for c in coords.size():
+		if odd:
+			var center = coords[c]
+			var in_dir = Vector2.ZERO
+			var out_dir = Vector2.ZERO
+			if c == 0 :
+				## Beginning
+				out_dir = center.lerp(coords[c + 1], 0.8) - center
+			elif c == coords.size() - 1:
+				## End
+				in_dir = center.lerp(coords[c - 1], 0.8) - center
+			else:
+				in_dir = center.lerp(coords[c - 1], 0.8) - center
+				out_dir = center.lerp(coords[c + 1], 0.8) - center
+			new_arc.add_point(center, in_dir, out_dir)
+			print(c, "] InDir: ", in_dir, " | OutDir: ", out_dir)
+			odd = false
+		else:
+			odd = true
 	soaring_arc = new_arc
 	emit_signal("launch_curve", new_arc)
 
