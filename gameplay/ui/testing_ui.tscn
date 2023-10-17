@@ -24,48 +24,6 @@ grow_horizontal = 0
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
 
-[node name="velocity_container" type="HBoxContainer" parent="Panel/VBoxContainer"]
-layout_mode = 2
-
-[node name="velocity_label" type="Label" parent="Panel/VBoxContainer/velocity_container"]
-custom_minimum_size = Vector2(200, 0)
-layout_mode = 2
-text = "Velocity: "
-
-[node name="velocity" type="Label" parent="Panel/VBoxContainer/velocity_container"]
-custom_minimum_size = Vector2(150, 0)
-layout_mode = 2
-text = "0000"
-clip_text = true
-
-[node name="direction_container" type="HBoxContainer" parent="Panel/VBoxContainer"]
-layout_mode = 2
-
-[node name="direction_label" type="Label" parent="Panel/VBoxContainer/direction_container"]
-custom_minimum_size = Vector2(200, 0)
-layout_mode = 2
-text = "Direction: "
-
-[node name="direction" type="Label" parent="Panel/VBoxContainer/direction_container"]
-custom_minimum_size = Vector2(150, 0)
-layout_mode = 2
-text = "0000"
-clip_text = true
-
-[node name="speed_container" type="HBoxContainer" parent="Panel/VBoxContainer"]
-layout_mode = 2
-
-[node name="speed_label" type="Label" parent="Panel/VBoxContainer/speed_container"]
-custom_minimum_size = Vector2(200, 0)
-layout_mode = 2
-text = "Speed: "
-
-[node name="speed" type="Label" parent="Panel/VBoxContainer/speed_container"]
-custom_minimum_size = Vector2(150, 0)
-layout_mode = 2
-text = "0000"
-clip_text = true
-
 [node name="status_container" type="HBoxContainer" parent="Panel/VBoxContainer"]
 layout_mode = 2
 
@@ -75,6 +33,62 @@ layout_mode = 2
 text = "Status: "
 
 [node name="status" type="Label" parent="Panel/VBoxContainer/status_container"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "0000"
+clip_text = true
+
+[node name="angle_container" type="HBoxContainer" parent="Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="angle_label" type="Label" parent="Panel/VBoxContainer/angle_container"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "Angle: "
+
+[node name="angle" type="Label" parent="Panel/VBoxContainer/angle_container"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "0000"
+clip_text = true
+
+[node name="vert_container" type="HBoxContainer" parent="Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="vert_label" type="Label" parent="Panel/VBoxContainer/vert_container"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "V_Intensity: "
+
+[node name="vert" type="Label" parent="Panel/VBoxContainer/vert_container"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "0000"
+clip_text = true
+
+[node name="speed_shift" type="HBoxContainer" parent="Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="speed_label" type="Label" parent="Panel/VBoxContainer/speed_shift"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "Speed_Shift:"
+
+[node name="speed" type="Label" parent="Panel/VBoxContainer/speed_shift"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "0000"
+clip_text = true
+
+[node name="speed_stage" type="HBoxContainer" parent="Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="stage_label" type="Label" parent="Panel/VBoxContainer/speed_stage"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "Speed_Stage: "
+
+[node name="stage" type="Label" parent="Panel/VBoxContainer/speed_stage"]
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 text = "0000"

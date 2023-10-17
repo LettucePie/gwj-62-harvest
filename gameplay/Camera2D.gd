@@ -1,15 +1,17 @@
 extends Camera2D
 
-var player
+@export var player_vis : Node2D = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	player = get_tree().get_nodes_in_group("player")[0]
+	if player_vis == null:
+		player_vis = get_parent().get_node("player_visual")
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
-	var offset_pos = player.get_position()
-	offset_pos += Vector2(100, -20)
-	self.position = offset_pos
+	if player_vis != null:
+		var offset_pos = player_vis.get_position()
+		offset_pos += Vector2(100, -20)
+		self.position = offset_pos
 #	self.position = self.position.lerp(offset_pos, delta)

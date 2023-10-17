@@ -4,11 +4,13 @@ class_name RampPath
 
 var baked_points : PackedVector2Array = []
 var baked_points_rounded : PackedVector2Array = []
+var launch_vector : Vector2 = Vector2.ZERO
 
 
 func _ready():
 	if self.curve != null:
 		build_vis_poly()
+		find_launch_vector()
 
 
 func build_vis_poly():
@@ -44,6 +46,11 @@ func build_vis_poly():
 	$area/box.shape = area_shape
 
 
+func adopt_player(player : Player):
+	player.get_parent().remove_child(player)
+	add_child(player)
+
+
 func close_enough(player : PathFollow2D):
 	var player_pos = to_local(player.position)
 	var closest_pos = curve.get_closest_point(player_pos)
@@ -53,3 +60,14 @@ func close_enough(player : PathFollow2D):
 		return self
 	else:
 		return null
+
+
+func find_launch_vector():
+	var cap = baked_points.size() - 1
+	var inner_point = baked_points[cap - 2]
+	var end_point = baked_points[cap]
+	launch_vector = inner_point.direction_to(end_point)
+
+
+func get_ramp_final_position():
+	return baked_points[baked_points.size() - 1]

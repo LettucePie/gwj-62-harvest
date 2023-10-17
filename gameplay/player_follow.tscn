@@ -1,14 +1,13 @@
-[gd_scene load_steps=6 format=3 uid="uid://bqli0ogr3o2of"]
+[gd_scene load_steps=5 format=3 uid="uid://bqli0ogr3o2of"]
 
 [ext_resource type="Script" path="res://gameplay/player_follow.gd" id="1_0i1hn"]
-[ext_resource type="Texture2D" uid="uid://bqb7yawwso2kk" path="res://art/sprites/test_circle.png" id="1_bfjty"]
 
-[sub_resource type="Curve" id="Curve_w7oli"]
-_data = [Vector2(0, 1), 0.0, -0.177016, 0, 0, Vector2(1, 0.454545), -1.11409, 0.0, 0, 0]
+[sub_resource type="Curve" id="Curve_wckgs"]
+_data = [Vector2(0, 0.536364), 0.0, 0.463636, 0, 1, Vector2(1, 1), 0.463636, 0.0, 1, 0]
 point_count = 2
 
-[sub_resource type="Curve" id="Curve_8v5kt"]
-_data = [Vector2(0, 0), 0.0, 0.117273, 0, 0, Vector2(1, 1), 0.187636, 0.0, 0, 0]
+[sub_resource type="Curve" id="Curve_u1omn"]
+_data = [Vector2(0, 0), 0.0, 0.603922, 0, 0, Vector2(1, 1), 0.182609, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1porx"]
@@ -18,11 +17,10 @@ radius = 23.0868
 rotates = false
 loop = false
 script = ExtResource("1_0i1hn")
-speed_damp = SubResource("Curve_w7oli")
-gravity_damp = SubResource("Curve_8v5kt")
+soaring_damp = SubResource("Curve_wckgs")
+ramp_accel = SubResource("Curve_u1omn")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_bfjty")
+[node name="vis_point" type="Marker2D" parent="."]
 
 [node name="Area2D" type="Area2D" parent="."]
 
