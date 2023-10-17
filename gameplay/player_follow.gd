@@ -119,6 +119,17 @@ func predict_soar():
 		coords.append(
 			point_a.bezier_interpolate(point_b, point_c, point_d, float(i) / 10.0)
 		)
+	## Add Plummet
+	var final_strafe = point_d - point_c
+	var point_e = point_d + final_strafe * 0.8
+	var point_f = point_e + (Vector2.DOWN * final_strafe.length()) * 1.5
+	for i in 11:
+		coords.append(
+			point_d.bezier_interpolate(point_e, point_e, point_f, float(i) / 10.0)
+		)
+	## Add Falling for a while
+	for i in range(1, 5):
+		coords.append(point_f + (Vector2.DOWN * 250 * i))
 	var new_arc = Curve2D.new()
 	var odd = true
 	for c in coords.size():
