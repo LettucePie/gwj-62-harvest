@@ -40,8 +40,11 @@ func startup():
 
 
 func _physics_process(delta):
-	if ramp_area != null and current_ramp == null:
+	if ramp_area != null and get_parent() != RampPath:
+		print("Asking Ramp: ", ramp_area.get_parent().name, " if close enough")
 		current_ramp = ramp_area.get_parent().close_enough(self)
+	else:
+		print("Ramp Area Null?: ", ramp_area == null, " Current Ramp Null?: ", current_ramp == null)
 	if current_ramp != null and !launched_ramps.has(current_ramp):
 		if current_ramp != get_parent():
 			landing()
@@ -51,6 +54,7 @@ func _physics_process(delta):
 
 
 func landing():
+	print("Landing")
 	current_ramp.adopt_player(self)
 	progress = landing_progress
 
@@ -128,7 +132,7 @@ func predict_soar():
 			point_d.bezier_interpolate(point_e, point_e, point_f, float(i) / 10.0)
 		)
 	## Add Falling for a while
-	for i in range(1, 5):
+	for i in range(1, 6):
 		coords.append(point_f + (Vector2.DOWN * 250 * i))
 	var new_arc = Curve2D.new()
 	var odd = true
@@ -155,11 +159,13 @@ func predict_soar():
 
 
 func launch():
+	print("Launching")
 	launched_ramps.append(current_ramp)
 	current_ramp = null
 	progress = 0.0
 	soar_velocity = 0.0
 	emit_signal("parent_launch", self)
+	current_ramp = null
 
 
 func soaring(deltatime):
@@ -180,13 +186,15 @@ func soaring(deltatime):
 
 
 func _on_area_2d_area_entered(area):
-	if area.is_in_group("ramp") and ramp_area != area:
+	if area.is_in_group("ramp") and ramp_area != area and status == "soaring":
 		ramp_area = area
+		print("Ramp: ", area.get_parent().name, " Entered")
 
 
 func _on_area_2d_area_exited(area):
-	if area.is_in_group("ramp") and ramp_area == area:
+	if area.is_in_group("ramp") and ramp_area == area and status == "soaring":
 		ramp_area = null
+		print("Ramp: ", area.get_parent().name, " Left")
 
 
 func get_vis_point():
