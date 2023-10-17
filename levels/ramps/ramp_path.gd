@@ -46,15 +46,9 @@ func build_vis_poly():
 	$area/box.shape = area_shape
 
 
-func find_launch_vector():
-	var cap = baked_points.size() - 1
-	var inner_point = baked_points[cap - 2]
-	var end_point = baked_points[cap]
-	launch_vector = inner_point.direction_to(end_point)
-
-
-func get_ramp_final_position():
-	return baked_points[baked_points.size() - 1]
+func adopt_player(player : Player):
+	player.get_parent().remove_child(player)
+	add_child(player)
 
 
 func close_enough(player : PathFollow2D):
@@ -66,3 +60,14 @@ func close_enough(player : PathFollow2D):
 		return self
 	else:
 		return null
+
+
+func find_launch_vector():
+	var cap = baked_points.size() - 1
+	var inner_point = baked_points[cap - 2]
+	var end_point = baked_points[cap]
+	launch_vector = inner_point.direction_to(end_point)
+
+
+func get_ramp_final_position():
+	return baked_points[baked_points.size() - 1]

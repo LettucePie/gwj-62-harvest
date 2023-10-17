@@ -11,6 +11,8 @@
 
 [node name="player_follow" parent="." instance=ExtResource("1_3fmwe")]
 position = Vector2(132, 43)
+SPEED_STAGES = null
+SOAR_STAGES = null
 
 [node name="path" parent="." instance=ExtResource("2_1hcjy")]
 position = Vector2(40, 43)

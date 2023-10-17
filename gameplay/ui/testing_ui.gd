@@ -16,3 +16,5 @@ func update_labels():
 	$Panel/VBoxContainer/status_container/status.text = str(player.status)
 	$Panel/VBoxContainer/angle_container/angle.text = str(rad_to_deg(player.angle))
 	$Panel/VBoxContainer/vert_container/vert.text = str(player.vert_intensity)
+	$Panel/VBoxContainer/speed_shift/speed.text = str(player.speed_shift)
+	$Panel/VBoxContainer/speed_stage/stage.text = str(player.speed_stage)

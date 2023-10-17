@@ -65,3 +65,31 @@ custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 text = "0000"
 clip_text = true
+
+[node name="speed_shift" type="HBoxContainer" parent="Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="speed_label" type="Label" parent="Panel/VBoxContainer/speed_shift"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "Speed_Shift:"
+
+[node name="speed" type="Label" parent="Panel/VBoxContainer/speed_shift"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "0000"
+clip_text = true
+
+[node name="speed_stage" type="HBoxContainer" parent="Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="stage_label" type="Label" parent="Panel/VBoxContainer/speed_stage"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "Speed_Stage: "
+
+[node name="stage" type="Label" parent="Panel/VBoxContainer/speed_stage"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "0000"
+clip_text = true

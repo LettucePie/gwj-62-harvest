@@ -8,8 +8,10 @@ signal parent_launch(node)
 ## Speed stages are the gameplay goal. Player can press the speed up and slow -\
 ## down buttons, this will change animation, and after filling a meter either -\
 ## downshift or upshift in speed stage.
-@export var SPEED_STAGES : Array = [4.0, 8.0, 12.0, 16.0]
-@export var SOAR_STAGES : Array = [200.0, 400.0, 600.0, 800.0]
+@export var SPEED_STAGES : Array = [4.0, 8.0, 12.0, 16.0, 20.0]
+@export var SOAR_STAGES : Array = [200.0, 400.0, 600.0, 800.0, 1000.0]
+@export var soaring_damp : Curve
+@export var ramp_accel : Curve
 
 var ramp_area : Area2D = null
 var landing_progress : float = 0.0
@@ -19,7 +21,9 @@ var status = "soaring"
 var angle : float
 var vert_intensity : float
 var speed_stage : int = 1
+var speed_shift : float = 0.0
 var soaring_arc : Curve2D
+var soar_velocity : float = 0.0
 
 
 func _ready():
@@ -40,24 +44,30 @@ func _physics_process(delta):
 		current_ramp = ramp_area.get_parent().close_enough(self)
 	if current_ramp != null and !launched_ramps.has(current_ramp):
 		if current_ramp != get_parent():
-			get_parent().remove_child(self)
-			current_ramp.add_child(self)
-			print("Reassigned Parent")
-			progress = landing_progress
-			print("RAMP: ", current_ramp)
+			landing()
 		riding(delta)
 	elif get_parent() is Launch:
 		soaring(delta)
+
+
+func landing():
+	current_ramp.adopt_player(self)
+	progress = landing_progress
 
 
 func riding(deltatime):
 	if status != "riding":
 		status = "riding"
 	calculate_angle()
+	var speed_modif = ramp_accel.sample(abs(vert_intensity))
+	var revving = true
 	if Input.is_action_just_pressed("ui_up"):
-		speed_stage = clamp(speed_stage + 1, 0, 3)
+		speed_modif *= 1.10
 	if Input.is_action_just_pressed("ui_down"):
-		speed_stage = clamp(speed_stage - 1, 0, 3)
+		speed_modif *= -0.5
+		revving = false
+	speed_shift += speed_modif
+	eval_speed(revving)
 	progress += SPEED_STAGES[speed_stage]
 	predict_soar()
 	if progress_ratio >= 0.98:
@@ -73,8 +83,20 @@ func calculate_angle():
 		var next_path_pos = curve.sample_baked(next_progress)
 		var direction = prev_path_pos.direction_to(next_path_pos)
 		angle = direction.angle()
-		vert_intensity = abs(angle) / abs(PI / 2.0)
+		vert_intensity = angle / abs(PI / 2.0)
 
+
+func eval_speed(revving_up : bool):
+	var applied_speed = SPEED_STAGES[speed_stage] + speed_shift
+	if revving_up and speed_stage < SPEED_STAGES.size() - 1:
+		if applied_speed >= SPEED_STAGES[speed_stage + 1]:
+			speed_stage += 1
+			speed_shift = 0.0
+	elif !revving_up and speed_stage > 1:
+		if applied_speed <= SPEED_STAGES[speed_stage - 1]:
+			speed_stage -=1
+			speed_shift = 0.0
+	
 
 func predict_soar():
 	var soar = SOAR_STAGES[speed_stage]
@@ -104,6 +126,7 @@ func launch():
 	launched_ramps.append(current_ramp)
 	current_ramp = null
 	progress = 0.0
+	soar_velocity = 0.0
 	emit_signal("parent_launch", self)
 
 
@@ -111,7 +134,14 @@ func soaring(deltatime):
 	if status != "soaring":
 		status = "soaring"
 	calculate_angle()
-	var weighted_speed = SPEED_STAGES[speed_stage] * vert_intensity
+	var soaring_accel = soaring_damp.sample(abs(vert_intensity))
+	var weighted_speed = SPEED_STAGES[speed_stage] * soaring_accel
+	if angle > 0.01:
+		## Add Gravity
+		if soar_velocity <= 0.0:
+			soar_velocity = weighted_speed
+		soar_velocity += (9.8 * soaring_accel) * deltatime
+		weighted_speed = clamp(soar_velocity, 0.0, 20.0)
 	if vert_intensity == 0:
 		weighted_speed = SPEED_STAGES[speed_stage]
 	progress += weighted_speed

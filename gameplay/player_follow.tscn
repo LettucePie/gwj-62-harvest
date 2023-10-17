@@ -1,6 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://bqli0ogr3o2of"]
+[gd_scene load_steps=5 format=3 uid="uid://bqli0ogr3o2of"]
 
 [ext_resource type="Script" path="res://gameplay/player_follow.gd" id="1_0i1hn"]
+
+[sub_resource type="Curve" id="Curve_wckgs"]
+_data = [Vector2(0, 0.536364), 0.0, 0.463636, 0, 1, Vector2(1, 1), 0.463636, 0.0, 1, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_u1omn"]
+_data = [Vector2(0, 0), 0.0, 1.98049, 0, 0, Vector2(1, 1), 0.173034, 0.0, 0, 0]
+point_count = 2
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1porx"]
 radius = 23.0868
@@ -9,6 +17,10 @@ radius = 23.0868
 rotates = false
 loop = false
 script = ExtResource("1_0i1hn")
+SPEED_STAGES = [4.0, 8.0, 12.0, 16.0, 20.0]
+SOAR_STAGES = [200.0, 400.0, 600.0, 800.0, 1000.0]
+soaring_damp = SubResource("Curve_wckgs")
+ramp_accel = SubResource("Curve_u1omn")
 
 [node name="vis_point" type="Marker2D" parent="."]
 
