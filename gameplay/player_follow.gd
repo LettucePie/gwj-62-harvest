@@ -59,11 +59,15 @@ func riding(deltatime):
 	if status != "riding":
 		status = "riding"
 	calculate_angle()
-	var speed_modif = ramp_accel.sample(abs(vert_intensity))
+	## Had to multiply by 0.1 otherwise it works too fast... looks good though
+	var speed_modif = ramp_accel.sample(abs(vert_intensity)) * 0.1
+	if angle < -0.01:
+		## Climbing
+		speed_modif *= 0.75
 	var revving = true
-	if Input.is_action_just_pressed("ui_up"):
-		speed_modif *= 1.10
-	if Input.is_action_just_pressed("ui_down"):
+	if Input.is_action_pressed("ui_up"):
+		speed_modif *= 2.0
+	if Input.is_action_pressed("ui_down"):
 		speed_modif *= -0.5
 		revving = false
 	speed_shift += speed_modif
