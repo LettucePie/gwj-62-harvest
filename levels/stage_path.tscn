@@ -15,7 +15,7 @@ position = Vector2(132, 43)
 position = Vector2(40, 43)
 
 [node name="path2" parent="." instance=ExtResource("2_1hcjy")]
-position = Vector2(1036, 467)
+position = Vector2(1639, 443)
 
 [node name="launch" parent="." instance=ExtResource("4_lwpcm")]
 

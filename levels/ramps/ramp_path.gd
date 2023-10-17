@@ -69,5 +69,9 @@ func find_launch_vector():
 	launch_vector = inner_point.direction_to(end_point)
 
 
+func get_ramp_start_position():
+	return baked_points[0]
+
+
 func get_ramp_final_position():
 	return baked_points[baked_points.size() - 1]

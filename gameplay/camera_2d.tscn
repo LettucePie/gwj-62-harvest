@@ -3,16 +3,18 @@
 [ext_resource type="Script" path="res://gameplay/Camera2D.gd" id="1_sa7x3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3jjvm"]
-size = Vector2(885, 2552)
+size = Vector2(1047, 2552)
 
 [node name="Camera2D" type="Camera2D"]
+editor_draw_drag_margin = true
 script = ExtResource("1_sa7x3")
 
 [node name="lookahead" type="Area2D" parent="."]
 position = Vector2(824, 4)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="lookahead"]
-position = Vector2(318.5, 7)
+position = Vector2(399.5, 7)
 shape = SubResource("RectangleShape2D_3jjvm")
 
 [connection signal="area_entered" from="lookahead" to="." method="_on_lookahead_area_entered"]
+[connection signal="area_exited" from="lookahead" to="." method="_on_lookahead_area_exited"]

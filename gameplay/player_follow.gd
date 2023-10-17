@@ -2,6 +2,7 @@ extends PathFollow2D
 
 class_name Player
 
+signal landed(ramp)
 signal launch_curve(curve)
 signal parent_launch(node)
 
@@ -58,6 +59,7 @@ func landing():
 	print("Landing")
 	current_ramp.adopt_player(self)
 	progress = landing_progress
+	emit_signal("landed", current_ramp)
 
 
 func riding(deltatime):
