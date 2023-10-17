@@ -17,9 +17,8 @@ position = Vector2(40, 43)
 
 [node name="launch" parent="." instance=ExtResource("4_lwpcm")]
 
-[node name="player_visual" parent="." node_paths=PackedStringArray("player") instance=ExtResource("5_5a4uy")]
+[node name="player_visual" parent="." instance=ExtResource("5_5a4uy")]
 script = ExtResource("6_jk2oq")
-player = NodePath("../player_follow")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 script = ExtResource("3_h2qir")

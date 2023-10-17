@@ -166,20 +166,6 @@ func launch():
 func soaring(deltatime):
 	if status != "soaring":
 		status = "soaring"
-<<<<<<< HEAD
-	direction = direction.slerp(Vector2.DOWN, deltatime)
-	speed = lerp(speed, GRAVITY, deltatime * 2)
-	var speed_percent = velocity.x - SPEED_MIN / SPEED_MAX - SPEED_MIN
-	velocity.x = clamp(
-		velocity.x - 5 * gravity_damp.sample(speed_percent), 
-		SPEED_MIN, 
-		SPEED_MAX)
-	if Input.is_action_pressed("ui_down"):
-		speed = lerp(speed, GRAVITY, deltatime * 4)
-		direction = direction.slerp(Vector2.DOWN, deltatime * 4)
-	velocity = (velocity + (direction * speed)).clamp(Vector2.ONE * -20.0, Vector2.ONE * 20.0)
-	translate(velocity / 2)
-=======
 	calculate_angle()
 	var soaring_accel = soaring_damp.sample(abs(vert_intensity))
 	var weighted_speed = SPEED_STAGES[speed_stage] * soaring_accel
@@ -192,7 +178,6 @@ func soaring(deltatime):
 	if vert_intensity == 0:
 		weighted_speed = SPEED_STAGES[speed_stage]
 	progress += weighted_speed
->>>>>>> path-arc
 
 
 func _on_area_2d_area_entered(area):

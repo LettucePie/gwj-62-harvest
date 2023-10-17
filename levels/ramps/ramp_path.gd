@@ -46,7 +46,7 @@ func build_vis_poly():
 	$area/box.shape = area_shape
 
 
-func adopt_player(player : Player):
+func adopt_player(player : PathFollow2D):
 	player.get_parent().remove_child(player)
 	add_child(player)
 
