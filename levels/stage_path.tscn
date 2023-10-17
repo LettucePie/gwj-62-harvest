@@ -2,9 +2,9 @@
 
 [ext_resource type="PackedScene" uid="uid://bqli0ogr3o2of" path="res://gameplay/player_follow.tscn" id="1_3fmwe"]
 [ext_resource type="PackedScene" uid="uid://crfi772r7qvdu" path="res://levels/ramps/ramp_2_path.tscn" id="2_1hcjy"]
-[ext_resource type="Script" path="res://gameplay/Camera2D.gd" id="3_h2qir"]
 [ext_resource type="PackedScene" uid="uid://cgb8yhwq50oet" path="res://gameplay/launch.tscn" id="4_lwpcm"]
 [ext_resource type="PackedScene" uid="uid://bqrdpqwrcgx5q" path="res://gameplay/player_visual.tscn" id="5_5a4uy"]
+[ext_resource type="PackedScene" uid="uid://dxbr26n21x5nr" path="res://gameplay/camera_2d.tscn" id="5_d0krt"]
 
 [node name="stage_path" type="Node2D"]
 
@@ -21,8 +21,7 @@ position = Vector2(1036, 467)
 
 [node name="player_visual" parent="." instance=ExtResource("5_5a4uy")]
 
-[node name="Camera2D" type="Camera2D" parent="."]
-script = ExtResource("3_h2qir")
+[node name="Camera2D" parent="." instance=ExtResource("5_d0krt")]
 
 [connection signal="launch_curve" from="player_follow" to="launch" method="_on_player_follow_launch_curve"]
 [connection signal="parent_launch" from="player_follow" to="launch" method="_on_player_follow_parent_launch"]

@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://dxbr26n21x5nr"]
+
+[ext_resource type="Script" path="res://gameplay/Camera2D.gd" id="1_sa7x3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3jjvm"]
+size = Vector2(885, 2552)
+
+[node name="Camera2D" type="Camera2D"]
+script = ExtResource("1_sa7x3")
+
+[node name="lookahead" type="Area2D" parent="."]
+position = Vector2(824, 4)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="lookahead"]
+position = Vector2(318.5, 7)
+shape = SubResource("RectangleShape2D_3jjvm")
+
+[connection signal="area_entered" from="lookahead" to="." method="_on_lookahead_area_entered"]

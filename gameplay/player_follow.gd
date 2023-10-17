@@ -41,10 +41,11 @@ func startup():
 
 func _physics_process(delta):
 	if ramp_area != null and get_parent() != RampPath:
-		print("Asking Ramp: ", ramp_area.get_parent().name, " if close enough")
+#		print("Asking Ramp: ", ramp_area.get_parent().name, " if close enough")
 		current_ramp = ramp_area.get_parent().close_enough(self)
 	else:
-		print("Ramp Area Null?: ", ramp_area == null, " Current Ramp Null?: ", current_ramp == null)
+#		print("Ramp Area Null?: ", ramp_area == null, " Current Ramp Null?: ", current_ramp == null)
+		pass
 	if current_ramp != null and !launched_ramps.has(current_ramp):
 		if current_ramp != get_parent():
 			landing()
