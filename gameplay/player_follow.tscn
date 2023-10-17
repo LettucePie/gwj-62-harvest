@@ -14,13 +14,13 @@ point_count = 2
 radius = 23.0868
 
 [node name="player_follow" type="PathFollow2D" groups=["player"]]
-rotates = false
 loop = false
 script = ExtResource("1_0i1hn")
 soaring_damp = SubResource("Curve_wckgs")
 ramp_accel = SubResource("Curve_u1omn")
 
 [node name="vis_point" type="Marker2D" parent="."]
+position = Vector2(0, -24)
 
 [node name="Area2D" type="Area2D" parent="."]
 

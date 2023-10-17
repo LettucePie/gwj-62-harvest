@@ -13,4 +13,5 @@ func _ready():
 func _physics_process(delta):
 	if player_vis_point != null:
 		var target = player.get_parent().to_global(player.position)
-		position = position.lerp(target, 0.3)
+		var rot_vis_point = player_vis_point.position.rotated(player.rotation)
+		position = position.lerp(target + rot_vis_point, 0.3)

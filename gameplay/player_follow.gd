@@ -147,7 +147,6 @@ func predict_soar():
 				in_dir = center.lerp(coords[c - 1], 0.8) - center
 				out_dir = center.lerp(coords[c + 1], 0.8) - center
 			new_arc.add_point(center, in_dir, out_dir)
-			print(c, "] InDir: ", in_dir, " | OutDir: ", out_dir)
 			odd = false
 		else:
 			odd = true
