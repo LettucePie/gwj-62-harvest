@@ -1,11 +1,31 @@
-[gd_scene load_steps=3 format=3 uid="uid://bqrdpqwrcgx5q"]
+[gd_scene load_steps=5 format=3 uid="uid://bqrdpqwrcgx5q"]
 
 [ext_resource type="Texture2D" uid="uid://bqb7yawwso2kk" path="res://art/sprites/test_circle.png" id="1_cslv3"]
 [ext_resource type="Script" path="res://gameplay/player_visual.gd" id="1_pqn52"]
+[ext_resource type="PackedScene" uid="uid://bo4cho2ys6t71" path="res://art/player_pumpkin.tscn" id="3_xbk7v"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_id0uk"]
+viewport_path = NodePath("SubViewport")
 
 [node name="player_visual" type="Node2D" groups=["player_visual"]]
 script = ExtResource("1_pqn52")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
 z_index = 2
 texture = ExtResource("1_cslv3")
+
+[node name="viewport_renderer" type="Sprite2D" parent="."]
+z_index = 2
+position = Vector2(0, 3)
+texture = SubResource("ViewportTexture_id0uk")
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="."]
+
+[node name="SubViewport" type="SubViewport" parent="."]
+transparent_bg = true
+snap_2d_transforms_to_pixel = true
+canvas_item_default_texture_filter = 0
+size = Vector2i(100, 100)
+
+[node name="pumpkin" parent="SubViewport" instance=ExtResource("3_xbk7v")]

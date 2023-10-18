@@ -5,6 +5,10 @@ class_name Player
 signal landed(ramp)
 signal launch_curve(curve)
 signal parent_launch(node)
+## Animation Signals
+signal speed_stage_shift(stage)
+signal slam()
+signal brakes_pressed()
 
 ## Speed stages are the gameplay goal. Player can press the speed up and slow -\
 ## down buttons, this will change animation, and after filling a meter either -\
