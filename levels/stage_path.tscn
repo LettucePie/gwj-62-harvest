@@ -35,5 +35,8 @@ position = Vector2(2067, 1194)
 [node name="ramp_4" parent="." instance=ExtResource("8_vsqfv")]
 position = Vector2(3586, 654)
 
+[connection signal="brakes" from="player_follow" to="player_visual" method="_on_player_follow_brakes"]
 [connection signal="launch_curve" from="player_follow" to="launch" method="_on_player_follow_launch_curve"]
 [connection signal="parent_launch" from="player_follow" to="launch" method="_on_player_follow_parent_launch"]
+[connection signal="slam" from="player_follow" to="player_visual" method="_on_player_follow_slam"]
+[connection signal="speed_stage_shift" from="player_follow" to="player_visual" method="_on_player_follow_speed_stage_shift"]

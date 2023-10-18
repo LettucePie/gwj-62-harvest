@@ -8,6 +8,9 @@ cull_mode = 2
 vertex_color_use_as_albedo = true
 albedo_texture = ExtResource("1_eq37m")
 roughness = 0.5
+emission = Color(0.239216, 0.239216, 0.239216, 1)
+emission_operator = 1
+grow_amount = 2.028
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_1eeea"]
 resource_name = "pumpkin_Sphere001"

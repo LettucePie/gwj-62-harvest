@@ -8,7 +8,7 @@ signal parent_launch(node)
 ## Animation Signals
 signal speed_stage_shift(stage)
 signal slam()
-signal brakes_pressed()
+signal brakes(tf)
 
 ## Speed stages are the gameplay goal. Player can press the speed up and slow -\
 ## down buttons, this will change animation, and after filling a meter either -\
@@ -25,6 +25,7 @@ var launched_ramps : Array = []
 var status = "soaring"
 var slammed : bool = false
 var slam_delay : int
+var braking : bool = false
 var angle : float
 var vert_intensity : float
 var speed_stage : int = 1
@@ -64,6 +65,7 @@ func _physics_process(delta):
 			print("Add build up and release pressure")
 			slammed = true
 			slam_delay = Time.get_ticks_msec() + 300
+			emit_signal("slam")
 			var slam_arc = Curve2D.new()
 			slam_arc.add_point(position)
 			slam_arc.add_point(Vector2(position.x, position.y + 2000))
@@ -77,7 +79,10 @@ func landing():
 	print("Landing")
 	current_ramp.adopt_player(self)
 	progress = landing_progress
+	braking = false
+	status = "riding"
 	emit_signal("landed", current_ramp)
+	emit_signal("speed_stage_shift", speed_stage)
 
 
 func riding(deltatime):
@@ -95,6 +100,12 @@ func riding(deltatime):
 	if Input.is_action_pressed("ui_down"):
 		speed_modif *= -0.5
 		revving = false
+		if !braking:
+			braking = true
+			emit_signal("brakes", braking)
+	elif Input.is_action_just_released("ui_down"):
+		braking = false
+		emit_signal("brakes", braking)
 	speed_shift += speed_modif
 	eval_speed(revving)
 	progress += SPEED_STAGES[speed_stage]
@@ -121,10 +132,12 @@ func eval_speed(revving_up : bool):
 		if applied_speed >= SPEED_STAGES[speed_stage + 1]:
 			speed_stage += 1
 			speed_shift = 0.0
+			emit_signal("speed_stage_shift", speed_stage)
 	elif !revving_up and speed_stage > 1:
 		if applied_speed <= SPEED_STAGES[speed_stage - 1]:
 			speed_stage -=1
 			speed_shift = 0.0
+			emit_signal("speed_stage_shift", speed_stage)
 	
 
 func predict_soar():
