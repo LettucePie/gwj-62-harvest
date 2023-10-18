@@ -19,10 +19,12 @@ var landing_progress : float = 0.0
 var current_ramp : RampPath = null
 var launched_ramps : Array = []
 var status = "soaring"
+var slammed : bool = false
 var angle : float
 var vert_intensity : float
 var speed_stage : int = 1
 var speed_shift : float = 0.0
+var soar_shift : float = 0.0
 var soaring_arc : Curve2D
 var soar_velocity : float = 0.0
 
@@ -52,6 +54,16 @@ func _physics_process(delta):
 			landing()
 		riding(delta)
 	elif get_parent() is Launch:
+		if Input.is_action_just_pressed("ui_down") and !slammed:
+			print("TODO Slam!")
+			print("Add build up and release pressure")
+			slammed = true
+			var slam_arc = Curve2D.new()
+			slam_arc.add_point(position)
+			slam_arc.add_point(Vector2(position.x, position.y + 2000))
+			progress = 0.0
+			emit_signal("launch_curve", slam_arc)
+			soaring_arc = slam_arc
 		soaring(delta)
 
 
@@ -166,6 +178,7 @@ func launch():
 	launched_ramps.append(current_ramp)
 	current_ramp = null
 	progress = 0.0
+	slammed = false
 	soar_velocity = 0.0
 	emit_signal("parent_launch", self)
 	current_ramp = null
