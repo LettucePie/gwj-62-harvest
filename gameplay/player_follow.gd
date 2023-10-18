@@ -6,6 +6,7 @@ signal landed(ramp)
 signal launch_curve(curve)
 signal parent_launch(node)
 signal collect(pickup)
+signal goal_reached()
 signal dead()
 ## Animation Signals
 signal speed_stage_shift(stage)
@@ -37,6 +38,7 @@ var soaring_arc : Curve2D
 var soar_velocity : float = 0.0
 var soar_death_set : bool
 var soar_death_timer : int
+var finished : bool = false
 
 
 #func _ready():
@@ -60,31 +62,23 @@ func startup(checkpoint_pos):
 	slammed = false
 	braking = false
 	soar_death_set = false
+	finished = false
 	emit_signal("launch_curve", new_arc)
 	emit_signal("parent_launch", self)
 
 
 func _physics_process(delta):
-	if ramp_area != null and get_parent() != RampPath:
-		current_ramp = ramp_area.get_parent().close_enough(self)
-	if current_ramp != null and !launched_ramps.has(current_ramp):
-		if current_ramp != get_parent():
-			landing()
-		riding(delta)
-	elif get_parent() is Launch:
-		if Input.is_action_just_pressed("ui_down") and !slammed:
-			print("TODO Slam!")
-			print("Add build up and release pressure")
-			slammed = true
-			slam_delay = Time.get_ticks_msec() + 300
-			emit_signal("slam")
-			var slam_arc = Curve2D.new()
-			slam_arc.add_point(position)
-			slam_arc.add_point(Vector2(position.x, position.y + 2000))
-			emit_signal("launch_curve", slam_arc)
-			progress = 1.0
-			soaring_arc = slam_arc
-		soaring(delta)
+	if !finished:
+		if ramp_area != null and get_parent() != RampPath:
+			current_ramp = ramp_area.get_parent().close_enough(self)
+		if current_ramp != null and !launched_ramps.has(current_ramp):
+			if current_ramp != get_parent():
+				landing()
+			riding(delta)
+		elif get_parent() is Launch:
+			if Input.is_action_just_pressed("ui_down") and !slammed:
+				slam_down()
+			soaring(delta)
 
 
 func landing():
@@ -129,9 +123,13 @@ func riding(deltatime):
 	speed_shift = clamp(speed_shift + speed_modif, 0, 4.0)
 	eval_speed(revving)
 	progress += SPEED_STAGES[speed_stage]
-	predict_soar()
+	if !current_ramp.finish:
+		predict_soar()
 	if progress_ratio >= 0.98:
-		launch()
+		if current_ramp.finish:
+			goal_finish()
+		else:
+			launch()
 
 
 func calculate_angle(curve : Curve2D):
@@ -250,6 +248,25 @@ func soaring(deltatime):
 			soar_death_timer = time + 100
 		elif soar_death_set and time >= soar_death_timer:
 			emit_signal("dead")
+
+
+func slam_down():
+	print("TODO Slam!")
+	print("Add build up and release pressure")
+	slammed = true
+	slam_delay = Time.get_ticks_msec() + 300
+	emit_signal("slam")
+	var slam_arc = Curve2D.new()
+	slam_arc.add_point(position)
+	slam_arc.add_point(Vector2(position.x, position.y + 2000))
+	emit_signal("launch_curve", slam_arc)
+	progress = 1.0
+	soaring_arc = slam_arc
+
+
+func goal_finish():
+	emit_signal("goal_reached")
+	finished = true
 
 
 func _on_area_2d_area_entered(area):

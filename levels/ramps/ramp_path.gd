@@ -2,6 +2,8 @@ extends Path2D
 
 class_name RampPath
 
+@export var finish : bool = false
+
 var baked_points : PackedVector2Array = []
 var baked_points_rounded : PackedVector2Array = []
 var launch_vector : Vector2 = Vector2.ZERO
@@ -9,11 +11,11 @@ var launch_vector : Vector2 = Vector2.ZERO
 
 func _ready():
 	if self.curve != null:
-		build_vis_poly()
+		build_area_poly()
 		find_launch_vector()
 
 
-func build_vis_poly():
+func build_area_poly():
 	var size = curve.get_point_count()
 	baked_points = curve.get_baked_points()
 	var min_clamp = Vector2.ZERO

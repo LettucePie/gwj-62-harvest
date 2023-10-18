@@ -14,6 +14,14 @@ func _ready():
 		self.queue_free()
 	player_vis_point = player.get_vis_point()
 	position = player.get_parent().to_global(player.position)
+	if !player.is_connected("brakes", _on_player_follow_brakes):
+		player.connect("brakes", _on_player_follow_brakes)
+	if !player.is_connected("slam", _on_player_follow_slam):
+		player.connect("slam", _on_player_follow_slam)
+	if !player.is_connected("speed_stage_shift", _on_player_follow_speed_stage_shift):
+		player.connect("speed_stage_shift", _on_player_follow_speed_stage_shift)
+	if !player.is_connected("goal_reached", _on_player_follow_goal_reached):
+		player.connect("goal_reached", _on_player_follow_goal_reached)
 
 
 func _physics_process(delta):
@@ -21,8 +29,6 @@ func _physics_process(delta):
 		var target = player.get_parent().to_global(player.position)
 		var rot_vis_point = player_vis_point.position.rotated(player.rotation)
 		position = position.lerp(target + rot_vis_point, 0.3).round()
-
-
 
 
 func _on_player_follow_brakes(tf):
@@ -38,3 +44,9 @@ func _on_player_follow_slam():
 func _on_player_follow_speed_stage_shift(stage):
 	if player.status == "riding":
 		anim.play(speed_stage_anims[stage])
+
+
+func _on_player_follow_goal_reached():
+	print("Goal Reached, Playing Slam")
+	anim.play("slam")
+	

@@ -1,0 +1,37 @@
+[gd_resource type="SpriteFrames" load_steps=5 format=3 uid="uid://xfacd7nwe4vi"]
+
+[ext_resource type="Texture2D" uid="uid://bkc1nh725taqa" path="res://art/sprites/truck_bed_fg.png" id="1_se5jl"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xcw4w"]
+atlas = ExtResource("1_se5jl")
+region = Rect2(64, 32, 64, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oy0cr"]
+atlas = ExtResource("1_se5jl")
+region = Rect2(0, 0, 64, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tjwlr"]
+atlas = ExtResource("1_se5jl")
+region = Rect2(64, 0, 64, 32)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xcw4w")
+}],
+"loop": false,
+"name": &"close",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oy0cr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tjwlr")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
