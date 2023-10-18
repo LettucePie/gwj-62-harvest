@@ -1,12 +1,24 @@
-[gd_scene load_steps=3 format=3 uid="uid://cgb8yhwq50oet"]
+[gd_scene load_steps=5 format=3 uid="uid://cgb8yhwq50oet"]
 
 [ext_resource type="Script" path="res://levels/launch.gd" id="1_dokuq"]
 
 [sub_resource type="Curve2D" id="Curve2D_wcuk1"]
 bake_interval = 10.0
 
+[sub_resource type="Curve" id="Curve_k56gc"]
+_data = [Vector2(0, 1), 0.0, -0.291667, 0, 0, Vector2(0.37013, 0), -5.41333, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_dgq6y"]
+offsets = PackedFloat32Array(0, 0.14717, 0.426415)
+colors = PackedColorArray(0.942075, 0.420518, 0, 1, 0.929412, 0.929412, 0, 0.568627, 0.929412, 0.929412, 0, 0)
+
 [node name="launch" type="Path2D"]
 curve = SubResource("Curve2D_wcuk1")
 script = ExtResource("1_dokuq")
 
 [node name="preview" type="Line2D" parent="."]
+z_index = 1
+width = 8.0
+width_curve = SubResource("Curve_k56gc")
+gradient = SubResource("Gradient_dgq6y")
