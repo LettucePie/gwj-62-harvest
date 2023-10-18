@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://gameplay/player_follow.gd" id="1_0i1hn"]
 
 [sub_resource type="Curve" id="Curve_wckgs"]
-_data = [Vector2(0, 0.536364), 0.0, 0.463636, 0, 1, Vector2(1, 1), 0.463636, 0.0, 1, 0]
+_data = [Vector2(0, 0.809091), 0.0, 0.190909, 0, 1, Vector2(1, 1), 0.190909, 0.0, 1, 0]
 point_count = 2
 
 [sub_resource type="Curve" id="Curve_u1omn"]

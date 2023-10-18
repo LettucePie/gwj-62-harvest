@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://b70d2vbt525p5"]
+[gd_scene load_steps=9 format=3 uid="uid://b70d2vbt525p5"]
 
 [ext_resource type="PackedScene" uid="uid://bqli0ogr3o2of" path="res://gameplay/player_follow.tscn" id="1_3fmwe"]
 [ext_resource type="PackedScene" uid="uid://cgb8yhwq50oet" path="res://gameplay/launch.tscn" id="4_lwpcm"]
@@ -6,6 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://dxbr26n21x5nr" path="res://gameplay/camera_2d.tscn" id="5_d0krt"]
 [ext_resource type="PackedScene" uid="uid://dtnu5mriwwpo3" path="res://levels/ramps/ramp_1.tscn" id="5_iean6"]
 [ext_resource type="PackedScene" uid="uid://cqui13q2cjxlx" path="res://levels/ramps/flat_1.tscn" id="6_0brsp"]
+[ext_resource type="PackedScene" uid="uid://dcim2sfn5qt4w" path="res://levels/ramps/ramp_2.tscn" id="7_qqw4k"]
+[ext_resource type="PackedScene" uid="uid://df2ugyhmubts7" path="res://levels/ramps/ramp_3.tscn" id="8_vsqfv"]
 
 [node name="stage_path" type="Node2D"]
 
@@ -26,6 +28,12 @@ position = Vector2(1111, 598)
 
 [node name="flat_1" parent="." instance=ExtResource("6_0brsp")]
 position = Vector2(2298, 851)
+
+[node name="ramp_3" parent="." instance=ExtResource("7_qqw4k")]
+position = Vector2(2067, 1194)
+
+[node name="ramp_4" parent="." instance=ExtResource("8_vsqfv")]
+position = Vector2(3586, 654)
 
 [connection signal="launch_curve" from="player_follow" to="launch" method="_on_player_follow_launch_curve"]
 [connection signal="parent_launch" from="player_follow" to="launch" method="_on_player_follow_parent_launch"]
