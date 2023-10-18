@@ -2,19 +2,11 @@
 
 [ext_resource type="Script" path="res://gameplay/Camera2D.gd" id="1_sa7x3"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_3jjvm"]
-size = Vector2(235, 2552)
+[sub_resource type="Curve" id="Curve_o8jdp"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.246753, 0), 0.260465, 0.260465, 0, 0, Vector2(1, 1), 2.51282, 0.0, 0, 0]
+point_count = 3
 
 [node name="Camera2D" type="Camera2D"]
 editor_draw_drag_margin = true
 script = ExtResource("1_sa7x3")
-
-[node name="lookahead" type="Area2D" parent="."]
-position = Vector2(824, 4)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="lookahead"]
-position = Vector2(78.5, 7)
-shape = SubResource("RectangleShape2D_3jjvm")
-
-[connection signal="area_entered" from="lookahead" to="." method="_on_lookahead_area_entered"]
-[connection signal="area_exited" from="lookahead" to="." method="_on_lookahead_area_exited"]
+zoom_curve = SubResource("Curve_o8jdp")
