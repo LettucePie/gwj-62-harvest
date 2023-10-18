@@ -20,6 +20,7 @@ var current_ramp : RampPath = null
 var launched_ramps : Array = []
 var status = "soaring"
 var slammed : bool = false
+var slam_delay : int
 var angle : float
 var vert_intensity : float
 var speed_stage : int = 1
@@ -58,11 +59,12 @@ func _physics_process(delta):
 			print("TODO Slam!")
 			print("Add build up and release pressure")
 			slammed = true
+			slam_delay = Time.get_ticks_msec() + 300
 			var slam_arc = Curve2D.new()
 			slam_arc.add_point(position)
 			slam_arc.add_point(Vector2(position.x, position.y + 2000))
-			progress = 0.0
 			emit_signal("launch_curve", slam_arc)
+			progress = 1.0
 			soaring_arc = slam_arc
 		soaring(delta)
 
@@ -198,7 +200,8 @@ func soaring(deltatime):
 		weighted_speed = clamp(soar_velocity, 0.0, 20.0)
 	if vert_intensity == 0:
 		weighted_speed = SPEED_STAGES[speed_stage]
-	progress += weighted_speed
+	if !slammed or (slammed and Time.get_ticks_msec() > slam_delay):
+		progress += weighted_speed
 
 
 func _on_area_2d_area_entered(area):
