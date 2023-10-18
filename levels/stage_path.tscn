@@ -1,30 +1,27 @@
 [gd_scene load_steps=6 format=3 uid="uid://b70d2vbt525p5"]
 
 [ext_resource type="PackedScene" uid="uid://bqli0ogr3o2of" path="res://gameplay/player_follow.tscn" id="1_3fmwe"]
-[ext_resource type="PackedScene" uid="uid://crfi772r7qvdu" path="res://levels/ramps/ramp_2_path.tscn" id="2_1hcjy"]
 [ext_resource type="PackedScene" uid="uid://cgb8yhwq50oet" path="res://gameplay/launch.tscn" id="4_lwpcm"]
 [ext_resource type="PackedScene" uid="uid://bqrdpqwrcgx5q" path="res://gameplay/player_visual.tscn" id="5_5a4uy"]
 [ext_resource type="PackedScene" uid="uid://dxbr26n21x5nr" path="res://gameplay/camera_2d.tscn" id="5_d0krt"]
+[ext_resource type="PackedScene" uid="uid://dtnu5mriwwpo3" path="res://levels/ramps/ramp_1.tscn" id="5_iean6"]
 
 [node name="stage_path" type="Node2D"]
 
 [node name="player_follow" parent="." instance=ExtResource("1_3fmwe")]
 position = Vector2(132, 43)
 
-[node name="path" parent="." instance=ExtResource("2_1hcjy")]
-position = Vector2(40, 43)
-
-[node name="path2" parent="." instance=ExtResource("2_1hcjy")]
-position = Vector2(1275, 435)
-
-[node name="path3" parent="." instance=ExtResource("2_1hcjy")]
-position = Vector2(2732, 935)
-
 [node name="launch" parent="." instance=ExtResource("4_lwpcm")]
 
 [node name="player_visual" parent="." instance=ExtResource("5_5a4uy")]
 
 [node name="Camera2D" parent="." instance=ExtResource("5_d0krt")]
+
+[node name="ramp_1" parent="." instance=ExtResource("5_iean6")]
+position = Vector2(-48, 78)
+
+[node name="ramp_2" parent="." instance=ExtResource("5_iean6")]
+position = Vector2(1111, 598)
 
 [connection signal="launch_curve" from="player_follow" to="launch" method="_on_player_follow_launch_curve"]
 [connection signal="parent_launch" from="player_follow" to="launch" method="_on_player_follow_parent_launch"]

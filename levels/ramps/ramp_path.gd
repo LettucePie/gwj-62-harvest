@@ -29,13 +29,8 @@ func build_vis_poly():
 		if point_pos.y > max_clamp.y:
 			max_clamp.y = point_pos.y + 50
 	baked_points_rounded.clear()
-	var shape : PackedVector2Array = []
-	shape.append(Vector2(min_clamp.x, max_clamp.y))
 	for b in baked_points:
-		shape.append(b)
 		baked_points_rounded.append(b.round())
-	shape.append(max_clamp)
-	$vis.polygon = shape
 	var area_shape_points = PackedVector2Array()
 	area_shape_points.append(min_clamp)
 	area_shape_points.append(Vector2(max_clamp.x, min_clamp.y))
