@@ -1,0 +1,80 @@
+[gd_scene load_steps=2 format=3 uid="uid://cg2uer2c3ev7"]
+
+[ext_resource type="Texture2D" uid="uid://4bj73p05vt7y" path="res://art/sprites/truck.png" id="1_fvvr5"]
+
+[node name="help_menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.232
+anchor_top = 0.15
+anchor_right = 0.768
+anchor_bottom = 0.85
+offset_left = -0.264008
+offset_top = -0.200005
+offset_right = 0.263977
+offset_bottom = 0.200012
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="quit" type="Button" parent="Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.95
+anchor_right = 1.0
+anchor_bottom = 0.068
+offset_left = -0.100037
+offset_bottom = 0.127998
+grow_horizontal = 0
+text = "X"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="page_title" type="Label" parent="Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 7
+size_flags_stretch_ratio = 0.6
+text = "How To Bop it and Twist it"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="image" type="TextureRect" parent="Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 7
+texture = ExtResource("1_fvvr5")
+
+[node name="info" type="Label" parent="Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 7
+text = "hiwoanwerogjvierojisjr ioepjsi lidroj goeifjopdwkklam sjeiofjpi eajr.g vj eo;m,. fjiospejirgmlk rjeios;jkd "
+horizontal_alignment = 1
+autowrap_mode = 2
+clip_text = true
+
+[node name="controls" type="HBoxContainer" parent="Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 7
+size_flags_stretch_ratio = 0.58
+
+[node name="left" type="Button" parent="Panel/VBoxContainer/controls"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "<- Left"
+
+[node name="right" type="Button" parent="Panel/VBoxContainer/controls"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Right ->"

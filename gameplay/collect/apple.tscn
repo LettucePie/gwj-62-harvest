@@ -16,3 +16,4 @@ shape = SubResource("CircleShape2D_34jkk")
 scale = Vector2(3.5, 3.5)
 sprite_frames = ExtResource("1_5o2rv")
 animation = &"glitter"
+flip_h = true
