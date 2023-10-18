@@ -5,6 +5,7 @@ class_name Player
 signal landed(ramp)
 signal launch_curve(curve)
 signal parent_launch(node)
+signal collect(pickup)
 signal dead()
 ## Animation Signals
 signal speed_stage_shift(stage)
@@ -258,6 +259,8 @@ func _on_area_2d_area_entered(area):
 	if area.is_in_group("dead") and status == "soaring":
 		print("Player touched deadzone")
 		emit_signal("dead")
+	if area.is_in_group("collect"):
+		emit_signal("collect", area)
 
 
 func _on_area_2d_area_exited(area):

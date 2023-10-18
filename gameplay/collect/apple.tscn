@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://cx7vvgjr2k2u1"]
+
+[ext_resource type="Texture2D" uid="uid://bp2phpjms3hk2" path="res://icon.svg" id="1_ubc2q"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_34jkk"]
+radius = 28.0713
+
+[node name="apple" type="Area2D" groups=["collect"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_34jkk")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+visible = false
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.367188, 0.367188)
+texture = ExtResource("1_ubc2q")

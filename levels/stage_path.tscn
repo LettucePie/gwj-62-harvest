@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://b70d2vbt525p5"]
+[gd_scene load_steps=12 format=3 uid="uid://b70d2vbt525p5"]
 
 [ext_resource type="PackedScene" uid="uid://bqli0ogr3o2of" path="res://gameplay/player_follow.tscn" id="1_3fmwe"]
 [ext_resource type="Script" path="res://levels/stage.gd" id="1_8rdgn"]
@@ -10,8 +10,9 @@
 [ext_resource type="PackedScene" uid="uid://dcim2sfn5qt4w" path="res://levels/ramps/ramp_2.tscn" id="7_qqw4k"]
 [ext_resource type="PackedScene" uid="uid://df2ugyhmubts7" path="res://levels/ramps/ramp_3.tscn" id="8_vsqfv"]
 [ext_resource type="PackedScene" uid="uid://cspil7nr50ka3" path="res://gameplay/deadzone.tscn" id="9_2131p"]
+[ext_resource type="PackedScene" uid="uid://cx7vvgjr2k2u1" path="res://gameplay/collect/apple.tscn" id="11_fxcqy"]
 
-[node name="stage_path" type="Node2D" node_paths=PackedStringArray("checkpoint")]
+[node name="stage_path" type="Node2D" node_paths=PackedStringArray("checkpoint") groups=["stage"]]
 script = ExtResource("1_8rdgn")
 checkpoint = NodePath("checkpoint")
 player_scene = ExtResource("1_3fmwe")
@@ -46,6 +47,9 @@ position = Vector2(3586, 654)
 
 [node name="deadzone" parent="." instance=ExtResource("9_2131p")]
 position = Vector2(907, 1106)
+
+[node name="apple" parent="." instance=ExtResource("11_fxcqy")]
+position = Vector2(682, 559)
 
 [connection signal="brakes" from="player_follow" to="player_visual" method="_on_player_follow_brakes"]
 [connection signal="launch_curve" from="player_follow" to="launch" method="_on_player_follow_launch_curve"]

@@ -93,3 +93,31 @@ custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 text = "0000"
 clip_text = true
+
+[node name="travel_dist" type="HBoxContainer" parent="Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="travel_label" type="Label" parent="Panel/VBoxContainer/travel_dist"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "Travel: "
+
+[node name="travel" type="Label" parent="Panel/VBoxContainer/travel_dist"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "0000"
+clip_text = true
+
+[node name="score_total" type="HBoxContainer" parent="Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="score_label" type="Label" parent="Panel/VBoxContainer/score_total"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "Score: "
+
+[node name="score" type="Label" parent="Panel/VBoxContainer/score_total"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "0000"
+clip_text = true
