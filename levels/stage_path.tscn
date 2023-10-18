@@ -1,6 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://b70d2vbt525p5"]
+[gd_scene load_steps=11 format=3 uid="uid://b70d2vbt525p5"]
 
 [ext_resource type="PackedScene" uid="uid://bqli0ogr3o2of" path="res://gameplay/player_follow.tscn" id="1_3fmwe"]
+[ext_resource type="Script" path="res://levels/stage.gd" id="1_8rdgn"]
 [ext_resource type="PackedScene" uid="uid://cgb8yhwq50oet" path="res://gameplay/launch.tscn" id="4_lwpcm"]
 [ext_resource type="PackedScene" uid="uid://bqrdpqwrcgx5q" path="res://gameplay/player_visual.tscn" id="5_5a4uy"]
 [ext_resource type="PackedScene" uid="uid://dxbr26n21x5nr" path="res://gameplay/camera_2d.tscn" id="5_d0krt"]
@@ -8,8 +9,14 @@
 [ext_resource type="PackedScene" uid="uid://cqui13q2cjxlx" path="res://levels/ramps/flat_1.tscn" id="6_0brsp"]
 [ext_resource type="PackedScene" uid="uid://dcim2sfn5qt4w" path="res://levels/ramps/ramp_2.tscn" id="7_qqw4k"]
 [ext_resource type="PackedScene" uid="uid://df2ugyhmubts7" path="res://levels/ramps/ramp_3.tscn" id="8_vsqfv"]
+[ext_resource type="PackedScene" uid="uid://cspil7nr50ka3" path="res://gameplay/deadzone.tscn" id="9_2131p"]
 
-[node name="stage_path" type="Node2D"]
+[node name="stage_path" type="Node2D" node_paths=PackedStringArray("checkpoint")]
+script = ExtResource("1_8rdgn")
+checkpoint = NodePath("checkpoint")
+player_scene = ExtResource("1_3fmwe")
+player_vis_scene = ExtResource("5_5a4uy")
+launch_scene = ExtResource("4_lwpcm")
 
 [node name="player_follow" parent="." instance=ExtResource("1_3fmwe")]
 position = Vector2(132, 43)
@@ -34,6 +41,11 @@ position = Vector2(2067, 1194)
 
 [node name="ramp_4" parent="." instance=ExtResource("8_vsqfv")]
 position = Vector2(3586, 654)
+
+[node name="checkpoint" type="Marker2D" parent="."]
+
+[node name="deadzone" parent="." instance=ExtResource("9_2131p")]
+position = Vector2(907, 1106)
 
 [connection signal="brakes" from="player_follow" to="player_visual" method="_on_player_follow_brakes"]
 [connection signal="launch_curve" from="player_follow" to="launch" method="_on_player_follow_launch_curve"]

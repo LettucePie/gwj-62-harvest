@@ -5,6 +5,7 @@ class_name Player
 signal landed(ramp)
 signal launch_curve(curve)
 signal parent_launch(node)
+signal dead()
 ## Animation Signals
 signal speed_stage_shift(stage)
 signal slam()
@@ -33,17 +34,31 @@ var speed_shift : float = 0.0
 var soar_shift : float = 0.0
 var soaring_arc : Curve2D
 var soar_velocity : float = 0.0
+var soar_death_set : bool
+var soar_death_timer : int
 
 
-func _ready():
-	call_deferred("startup")
+#func _ready():
+#	call_deferred("startup")
 
 
-func startup():
+func startup(checkpoint_pos):
+	if get_parent() is Ramp or get_parent() is Launch:
+		var stage_root = get_parent().get_parent()
+		get_parent().remove_child(self)
+		stage_root.add_child(self)
 	var new_arc = Curve2D.new()
-	new_arc.add_point(self.position)
-	new_arc.add_point(self.position + Vector2(0, 600))
+	new_arc.add_point(checkpoint_pos)
+	new_arc.add_point(checkpoint_pos + Vector2(0, 600))
 	soaring_arc = new_arc
+	progress = 0.0
+	launched_ramps.clear()
+	speed_stage = 1
+	speed_shift = 0
+	soar_shift = 0
+	slammed = false
+	braking = false
+	soar_death_set = false
 	emit_signal("launch_curve", new_arc)
 	emit_signal("parent_launch", self)
 
@@ -198,6 +213,10 @@ func launch():
 	current_ramp = null
 	progress = 0.0
 	slammed = false
+	soar_death_set = false
+	if braking:
+		braking = false
+		emit_signal("speed_stage_shift", speed_stage)
 	soar_velocity = 0.0
 	emit_signal("parent_launch", self)
 	current_ramp = null
@@ -219,12 +238,22 @@ func soaring(deltatime):
 		weighted_speed = SPEED_STAGES[speed_stage]
 	if !slammed or (slammed and Time.get_ticks_msec() > slam_delay):
 		progress += weighted_speed
+	if progress_ratio >= 1.0:
+		var time = Time.get_ticks_msec()
+		if !soar_death_set:
+			soar_death_set = true
+			soar_death_timer = time + 100
+		elif soar_death_set and time >= soar_death_timer:
+			emit_signal("dead")
 
 
 func _on_area_2d_area_entered(area):
 	if area.is_in_group("ramp") and ramp_area != area and status == "soaring":
 		ramp_area = area
 		print("Ramp: ", area.get_parent().name, " Entered")
+	if area.is_in_group("dead") and status == "soaring":
+		print("Player touched deadzone")
+		emit_signal("dead")
 
 
 func _on_area_2d_area_exited(area):
