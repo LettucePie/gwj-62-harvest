@@ -31,7 +31,7 @@ var angle : float
 var vert_intensity : float
 var speed_stage : int = 1
 var speed_shift : float = 0.0
-var soar_shift : float = 0.0
+#var soar_shift : float = 0.0
 var soaring_arc : Curve2D
 var soar_velocity : float = 0.0
 var soar_death_set : bool
@@ -55,7 +55,7 @@ func startup(checkpoint_pos):
 	launched_ramps.clear()
 	speed_stage = 1
 	speed_shift = 0
-	soar_shift = 0
+#	soar_shift = 0
 	slammed = false
 	braking = false
 	soar_death_set = false
@@ -65,11 +65,7 @@ func startup(checkpoint_pos):
 
 func _physics_process(delta):
 	if ramp_area != null and get_parent() != RampPath:
-#		print("Asking Ramp: ", ramp_area.get_parent().name, " if close enough")
 		current_ramp = ramp_area.get_parent().close_enough(self)
-	else:
-#		print("Ramp Area Null?: ", ramp_area == null, " Current Ramp Null?: ", current_ramp == null)
-		pass
 	if current_ramp != null and !launched_ramps.has(current_ramp):
 		if current_ramp != get_parent():
 			landing()
@@ -94,6 +90,11 @@ func landing():
 	print("Landing")
 	current_ramp.adopt_player(self)
 	progress = landing_progress
+	if slammed:
+		calculate_angle(current_ramp.curve)
+		speed_shift = clamp(speed_shift + (3.5 * vert_intensity), 0.0, 4.0)
+		print("Slam Bonus Speed of: ", speed_shift)
+		slammed = false
 	braking = false
 	status = "riding"
 	emit_signal("landed", current_ramp)
@@ -103,14 +104,17 @@ func landing():
 func riding(deltatime):
 	if status != "riding":
 		status = "riding"
-	calculate_angle()
+	calculate_angle(current_ramp.curve)
 	## Had to multiply by 0.1 otherwise it works too fast... looks good though
-	var speed_modif = ramp_accel.sample(abs(vert_intensity)) * 0.1
+	var speed_modif = ramp_accel.sample(abs(vert_intensity)) * 0.065
 	if angle < -0.01:
 		## Climbing
 		speed_modif *= 0.75
 	var revving = true
 	if Input.is_action_pressed("ui_up"):
+		if braking:
+			braking = false
+			emit_signal("speed_stage_shift", speed_stage)
 		speed_modif *= 2.0
 	if Input.is_action_pressed("ui_down"):
 		speed_modif *= -0.5
@@ -121,7 +125,7 @@ func riding(deltatime):
 	elif Input.is_action_just_released("ui_down"):
 		braking = false
 		emit_signal("brakes", braking)
-	speed_shift += speed_modif
+	speed_shift = clamp(speed_shift + speed_modif, 0, 4.0)
 	eval_speed(revving)
 	progress += SPEED_STAGES[speed_stage]
 	predict_soar()
@@ -129,16 +133,14 @@ func riding(deltatime):
 		launch()
 
 
-func calculate_angle():
-	if get_parent() is Path2D:
-		var curve = get_parent().curve
-		var prev_progress = clamp(progress - 2, 0.0, progress + 20)
-		var prev_path_pos = curve.sample_baked(prev_progress)
-		var next_progress = clamp(progress + 2, progress, progress + 20)
-		var next_path_pos = curve.sample_baked(next_progress)
-		var direction = prev_path_pos.direction_to(next_path_pos)
-		angle = direction.angle()
-		vert_intensity = angle / abs(PI / 2.0)
+func calculate_angle(curve : Curve2D):
+	var prev_progress = clamp(progress - 2, 0.0, progress + 20)
+	var prev_path_pos = curve.sample_baked(prev_progress)
+	var next_progress = clamp(progress + 2, progress, progress + 20)
+	var next_path_pos = curve.sample_baked(next_progress)
+	var direction = prev_path_pos.direction_to(next_path_pos)
+	angle = direction.angle()
+	vert_intensity = angle / abs(PI / 2.0)
 
 
 func eval_speed(revving_up : bool):
@@ -225,7 +227,7 @@ func launch():
 func soaring(deltatime):
 	if status != "soaring":
 		status = "soaring"
-	calculate_angle()
+	calculate_angle(get_parent().curve)
 	var soaring_accel = soaring_damp.sample(abs(vert_intensity))
 	var weighted_speed = SPEED_STAGES[speed_stage] * soaring_accel
 	if angle > 0.01:
@@ -234,6 +236,8 @@ func soaring(deltatime):
 			soar_velocity = weighted_speed
 		soar_velocity += (9.8 * soaring_accel) * deltatime
 		weighted_speed = clamp(soar_velocity, 0.0, 20.0)
+	elif angle < -0.05:
+		speed_shift = clamp(speed_shift - abs(vert_intensity) / 4, 0, 4.0)
 	if vert_intensity == 0:
 		weighted_speed = SPEED_STAGES[speed_stage]
 	if !slammed or (slammed and Time.get_ticks_msec() > slam_delay):
