@@ -8,6 +8,7 @@ func _ready():
 		play_manager = get_parent()
 	if OS.has_feature("web"):
 		$VBoxContainer/quit.hide()
+	$help_menu.hide()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -20,7 +21,9 @@ func _on_play_pressed():
 
 
 func _on_help_pressed():
-	pass # Replace with function body.
+	$help_menu.show()
+	$help_menu.current_page = 0
+	$help_menu.load_page(0)
 
 
 func _on_website_pressed():
@@ -33,3 +36,7 @@ func _on_credits_pressed():
 
 func _on_quit_pressed():
 	get_tree().quit()
+
+
+func _on_help_menu_close_help():
+	$help_menu.hide()

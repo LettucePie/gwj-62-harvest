@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://chkianxdawnj0"]
+[gd_scene load_steps=3 format=3 uid="uid://chkianxdawnj0"]
 
 [ext_resource type="Script" path="res://menus/main_menu.gd" id="1_0v7hf"]
+[ext_resource type="PackedScene" uid="uid://cg2uer2c3ev7" path="res://menus/help_menu.tscn" id="2_erruw"]
 
 [node name="main_menu" type="Control"]
 layout_mode = 3
@@ -67,8 +68,12 @@ layout_mode = 2
 size_flags_vertical = 3
 text = "Quit"
 
+[node name="help_menu" parent="." instance=ExtResource("2_erruw")]
+layout_mode = 1
+
 [connection signal="pressed" from="VBoxContainer/play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="VBoxContainer/help" to="." method="_on_help_pressed"]
 [connection signal="pressed" from="VBoxContainer/website" to="." method="_on_website_pressed"]
 [connection signal="pressed" from="VBoxContainer/credits" to="." method="_on_credits_pressed"]
 [connection signal="pressed" from="VBoxContainer/quit" to="." method="_on_quit_pressed"]
+[connection signal="close_help" from="help_menu" to="." method="_on_help_menu_close_help"]

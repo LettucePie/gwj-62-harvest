@@ -1,0 +1,7 @@
+Roll through hills and launch off of ramps to cross the gaps. Gather apples and take the fastest route to increase your score. The level finishes once you've landed in the truck.
+
+Movement is automatic, the pumpkin will always roll to the right. Going downhill will accumulate momentum, eventually reaching the next Speed Level. You press "ACCELERATE" or "BRAKE" to help increase or decrease momentum.
+
+There are 5 levels of speed ranging from slow to fast. These speed levels are used to determine how far off a ramp your pumpkin will fly. This way you can become familiar with the trajectories and not have to fuss over the math.
+
+When soaring through the air, you can press "BRAKE" at any time to slam downwards. This can be helpful for reaching lower routes, as well as increasing speed! When slamming down onto a downhill slope, some momentum transfers over which might increase your Speed Level.

@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://cg2uer2c3ev7"]
+[gd_scene load_steps=3 format=3 uid="uid://cg2uer2c3ev7"]
 
 [ext_resource type="Texture2D" uid="uid://4bj73p05vt7y" path="res://art/sprites/truck.png" id="1_fvvr5"]
+[ext_resource type="Script" path="res://menus/help_menu.gd" id="1_qnx55"]
 
 [node name="help_menu" type="Control"]
 layout_mode = 3
@@ -9,6 +10,18 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_qnx55")
+page_titles = PackedStringArray("Goal", "How to Play", "Speed Levels", "Slamming", "All Set!")
+page_infos = PackedStringArray("Roll through hills and launch off of ramps to cross the gaps. Gather apples and take the fastest route to increase your score. The level finishes once you\'ve landed in the truck.", "Movement is automatic, the pumpkin will always roll to the right. Going downhill will accumulate momentum, eventually reaching the next Speed Level. You press \"ACCELERATE\" or \"BRAKE\" to help increase or decrease momentum.", "There are 5 levels of speed ranging from slow to fast. These speed levels are used to determine how far off a ramp your pumpkin will fly. This way you can become familiar with the trajectories and not have to fuss over the math.", "When soaring through the air, you can press \"BRAKE\" at any time to slam downwards. This can be helpful for reaching lower routes, as well as increasing speed! When slamming down onto a downhill slope, some momentum transfers over which might increase your Speed Level.", "Hope you have fun!")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.117647, 0.168627, 0.207843, 1)
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 1
@@ -42,6 +55,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="page_title" type="Label" parent="Panel/VBoxContainer"]
 layout_mode = 2
@@ -52,6 +66,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="image" type="TextureRect" parent="Panel/VBoxContainer"]
+visible = false
 layout_mode = 2
 size_flags_vertical = 7
 texture = ExtResource("1_fvvr5")
@@ -72,9 +87,19 @@ size_flags_stretch_ratio = 0.58
 [node name="left" type="Button" parent="Panel/VBoxContainer/controls"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "<- Left"
+text = "<- Previous"
 
 [node name="right" type="Button" parent="Panel/VBoxContainer/controls"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Right ->"
+text = "Next ->"
+
+[node name="done" type="Button" parent="Panel/VBoxContainer/controls"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Finished"
+
+[connection signal="pressed" from="Panel/quit" to="." method="_on_done_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/controls/left" to="." method="_on_left_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/controls/right" to="." method="_on_right_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/controls/done" to="." method="_on_done_pressed"]
