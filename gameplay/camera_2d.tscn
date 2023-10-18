@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://dxbr26n21x5nr"]
+[gd_scene load_steps=5 format=3 uid="uid://dxbr26n21x5nr"]
 
 [ext_resource type="Script" path="res://gameplay/Camera2D.gd" id="1_sa7x3"]
 
@@ -6,7 +6,26 @@
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.246753, 0), 0.260465, 0.260465, 0, 0, Vector2(1, 1), 2.51282, 0.0, 0, 0]
 point_count = 3
 
+[sub_resource type="Gradient" id="Gradient_x2aup"]
+offsets = PackedFloat32Array(0, 0.457249, 1)
+colors = PackedColorArray(0, 0.128028, 0.271237, 1, 0.148251, 0.111089, 0.308962, 1, 0.0110876, 0.0110876, 0.0110876, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_fhug7"]
+gradient = SubResource("Gradient_x2aup")
+width = 256
+height = 256
+fill = 1
+fill_from = Vector2(0.183761, 0.867521)
+
 [node name="Camera2D" type="Camera2D"]
 editor_draw_drag_margin = true
 script = ExtResource("1_sa7x3")
 zoom_curve = SubResource("Curve_o8jdp")
+
+[node name="ParallaxBackground" type="CanvasLayer" parent="."]
+layer = -5
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground"]
+position = Vector2(23.0002, 37.5)
+scale = Vector2(18.1719, 10.7539)
+texture = SubResource("GradientTexture2D_fhug7")

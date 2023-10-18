@@ -1,6 +1,7 @@
 [gd_scene load_steps=14 format=3 uid="uid://bo4cho2ys6t71"]
 
 [ext_resource type="Texture2D" uid="uid://hv1wb1ejnjfs" path="res://art/models/pumpkin_pumpkin_tex.png" id="1_eq37m"]
+[ext_resource type="Environment" uid="uid://c3c5pt3i3v4w2" path="res://art/models/player_pumpkin_enviro1.tres" id="2_53e07"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ncaxq"]
 resource_name = "Material"
@@ -232,10 +233,6 @@ _data = {
 "speed_4": SubResource("Animation_klabk")
 }
 
-[sub_resource type="Environment" id="Environment_j835f"]
-ambient_light_source = 2
-ambient_light_color = Color(0.337255, 0.337255, 0.337255, 1)
-
 [node name="pumpkin" type="Node3D"]
 
 [node name="Armature" type="Node3D" parent="."]
@@ -275,4 +272,4 @@ transform = Transform3D(0.965926, -0.0669873, 0.25, -0.258819, -0.25, 0.933013, 
 shadow_enabled = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_j835f")
+environment = ExtResource("2_53e07")
