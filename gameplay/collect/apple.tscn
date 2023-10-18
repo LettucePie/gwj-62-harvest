@@ -1,18 +1,18 @@
-[gd_scene load_steps=3 format=3 uid="uid://cx7vvgjr2k2u1"]
+[gd_scene load_steps=4 format=3 uid="uid://cx7vvgjr2k2u1"]
 
-[ext_resource type="Texture2D" uid="uid://bp2phpjms3hk2" path="res://icon.svg" id="1_ubc2q"]
+[ext_resource type="SpriteFrames" uid="uid://b2w63fyatkdno" path="res://art/sprites/apple_frames.tres" id="1_5o2rv"]
+[ext_resource type="Script" path="res://gameplay/collect/apple.gd" id="1_ahjrq"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_34jkk"]
 radius = 28.0713
 
 [node name="apple" type="Area2D" groups=["collect"]]
+script = ExtResource("1_ahjrq")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_34jkk")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-visible = false
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.367188, 0.367188)
-texture = ExtResource("1_ubc2q")
+scale = Vector2(3.5, 3.5)
+sprite_frames = ExtResource("1_5o2rv")
+animation = &"glitter"

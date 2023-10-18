@@ -1,0 +1,46 @@
+[gd_resource type="SpriteFrames" load_steps=7 format=3 uid="uid://b2w63fyatkdno"]
+
+[ext_resource type="Texture2D" uid="uid://gfhok0ykixbl" path="res://art/sprites/apple_sprites.png" id="1_petd4"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3p167"]
+atlas = ExtResource("1_petd4")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fdn1p"]
+atlas = ExtResource("1_petd4")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8sywp"]
+atlas = ExtResource("1_petd4")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xjlul"]
+atlas = ExtResource("1_petd4")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uyax4"]
+atlas = ExtResource("1_petd4")
+region = Rect2(64, 0, 16, 16)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3p167")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fdn1p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8sywp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xjlul")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uyax4")
+}],
+"loop": true,
+"name": &"glitter",
+"speed": 5.0
+}]
