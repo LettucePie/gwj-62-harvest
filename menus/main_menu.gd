@@ -8,12 +8,13 @@ func _ready():
 		play_manager = get_parent()
 	if OS.has_feature("web"):
 		$VBoxContainer/quit.hide()
+	hide_all()
+	print("ADD WEBSITE")
+
+
+func hide_all():
 	$help_menu.hide()
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
+	$credit.hide()
 
 
 func _on_play_pressed():
@@ -27,11 +28,11 @@ func _on_help_pressed():
 
 
 func _on_website_pressed():
-	pass # Replace with function body.
+	print("ADD WEBSITE")
 
 
 func _on_credits_pressed():
-	pass # Replace with function body.
+	$credit.show()
 
 
 func _on_quit_pressed():
@@ -40,3 +41,7 @@ func _on_quit_pressed():
 
 func _on_help_menu_close_help():
 	$help_menu.hide()
+
+
+func _on_close_credit_pressed():
+	$credit.hide()

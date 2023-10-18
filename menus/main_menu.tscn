@@ -1,7 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://chkianxdawnj0"]
+[gd_scene load_steps=5 format=3 uid="uid://chkianxdawnj0"]
 
 [ext_resource type="Script" path="res://menus/main_menu.gd" id="1_0v7hf"]
 [ext_resource type="PackedScene" uid="uid://cg2uer2c3ev7" path="res://menus/help_menu.tscn" id="2_erruw"]
+[ext_resource type="Texture2D" uid="uid://5db6ysg5pooi" path="res://jam-banner.png" id="3_1q2qc"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_c1fpu"]
+font_size = 28
 
 [node name="main_menu" type="Control"]
 layout_mode = 3
@@ -27,6 +31,18 @@ anchor_right = 1.0
 anchor_bottom = 0.412
 offset_bottom = 0.0239868
 grow_horizontal = 2
+
+[node name="title_text" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.412
+offset_bottom = 0.0239868
+grow_horizontal = 2
+text = "Gourd Rush"
+label_settings = SubResource("LabelSettings_c1fpu")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -69,7 +85,74 @@ size_flags_vertical = 3
 text = "Quit"
 
 [node name="help_menu" parent="." instance=ExtResource("2_erruw")]
+visible = false
 layout_mode = 1
+
+[node name="credit" type="ColorRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.2, 0.0823529, 0.188235, 1)
+
+[node name="banner" type="TextureRect" parent="credit"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.643
+anchor_top = 0.776
+anchor_right = 0.984
+anchor_bottom = 0.958
+offset_left = 0.263977
+offset_top = 0.151978
+offset_right = -0.567993
+offset_bottom = 0.215942
+grow_horizontal = 0
+grow_vertical = 0
+texture = ExtResource("3_1q2qc")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="credit"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.306
+anchor_top = 0.125
+anchor_right = 0.694
+anchor_bottom = 0.713
+offset_left = -0.512024
+offset_right = 0.511963
+offset_bottom = -0.0240479
+grow_horizontal = 2
+grow_vertical = 2
+text = "Made by LettucePie
+I used to put my twitter handle here...
+@LettucePie@mastodon.xyz
+
+Made using Godot 4.0.3, Aseprite, blender
+
+Thanks for checking out my submission to the Godot Wild Jam #62 - Harvest"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+clip_text = true
+
+[node name="close_credit" type="Button" parent="credit"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.409
+anchor_top = 0.75
+anchor_right = 0.591
+anchor_bottom = 0.866
+offset_left = -0.167999
+offset_top = -3.05176e-05
+offset_right = 0.167969
+offset_bottom = -0.16803
+grow_horizontal = 2
+grow_vertical = 0
+text = "Close"
 
 [connection signal="pressed" from="VBoxContainer/play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="VBoxContainer/help" to="." method="_on_help_pressed"]
@@ -77,3 +160,4 @@ layout_mode = 1
 [connection signal="pressed" from="VBoxContainer/credits" to="." method="_on_credits_pressed"]
 [connection signal="pressed" from="VBoxContainer/quit" to="." method="_on_quit_pressed"]
 [connection signal="close_help" from="help_menu" to="." method="_on_help_menu_close_help"]
+[connection signal="pressed" from="credit/close_credit" to="." method="_on_close_credit_pressed"]
