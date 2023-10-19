@@ -10,7 +10,6 @@ func _ready():
 		$VBoxContainer/website.hide()
 		$VBoxContainer/quit.hide()
 	hide_all()
-	print("ADD WEBSITE")
 	$VBoxContainer/play.grab_focus()
 
 
@@ -30,7 +29,7 @@ func _on_help_pressed():
 
 
 func _on_website_pressed():
-	print("ADD WEBSITE")
+	OS.shell_open("https://lettucepie.itch.io/gourd-rush")
 
 
 func _on_credits_pressed():
