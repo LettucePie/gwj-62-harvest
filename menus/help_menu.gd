@@ -9,6 +9,7 @@ var current_page : int = 0
 
 
 func _ready():
+	page_infos[1] = "ACCELERATE : UP or W Key; UP on the D-Pad or Joystick; A on Xbox, and B on Nintendo\n\nBRAKE: DOWN or S Key; DOWN on the Dpad or Joystick; B on Xbox, and A on Nintendo."
 	button_validation()
 
 

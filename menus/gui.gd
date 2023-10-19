@@ -63,6 +63,7 @@ func pause_mode():
 	$results_panel.hide()
 	$ready_panel.hide()
 	playing = false
+	$pause_panel/VBoxContainer/resume_pause.grab_focus()
 
 
 func _process(delta):

@@ -150,7 +150,7 @@ position = Vector2(4864, 1216)
 position = Vector2(4928, 1280)
 
 [node name="apple29" parent="collectables" instance=ExtResource("11_g2ooa")]
-position = Vector2(4992, 1344)
+position = Vector2(4992, 1357)
 
 [node name="apple40" parent="collectables" instance=ExtResource("11_g2ooa")]
 position = Vector2(5888, 1280)

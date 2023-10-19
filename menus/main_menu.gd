@@ -7,6 +7,7 @@ func _ready():
 	if get_parent() is Play:
 		play_manager = get_parent()
 	if OS.has_feature("web"):
+		$VBoxContainer/website.hide()
 		$VBoxContainer/quit.hide()
 	hide_all()
 	print("ADD WEBSITE")
