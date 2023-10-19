@@ -105,8 +105,10 @@ func riding(deltatime):
 	if angle < -0.01:
 		## Climbing
 		speed_modif *= 0.75
-	var revving = true
+	var revving = false
+	var braking = false
 	if Input.is_action_pressed("ui_up"):
+		revving = true
 		if braking:
 			braking = false
 			emit_signal("speed_stage_shift", speed_stage)
@@ -119,9 +121,13 @@ func riding(deltatime):
 			emit_signal("brakes", braking)
 	elif Input.is_action_just_released("ui_down"):
 		braking = false
-		emit_signal("brakes", braking)
-	speed_shift = clamp(speed_shift + speed_modif, 0, 4.0)
-	eval_speed(revving)
+		emit_signal("speed_stage_shift", speed_stage)
+	if braking:
+		speed_modif = clamp(speed_modif - 0.15, -2.0, -0.15)
+	elif revving:
+		speed_modif = clamp(speed_modif + 0.05, 0.05, 2.0)
+	speed_shift = clamp(speed_shift + speed_modif, -4.1, 4.1)
+	eval_speed()
 	progress += SPEED_STAGES[speed_stage]
 	if !current_ramp.finish:
 		predict_soar()
@@ -142,18 +148,20 @@ func calculate_angle(curve : Curve2D):
 	vert_intensity = angle / abs(PI / 2.0)
 
 
-func eval_speed(revving_up : bool):
+func eval_speed():
 	var applied_speed = SPEED_STAGES[speed_stage] + speed_shift
-	if revving_up and speed_stage < SPEED_STAGES.size() - 1:
+	if speed_stage < SPEED_STAGES.size() - 1:
 		if applied_speed >= SPEED_STAGES[speed_stage + 1]:
 			speed_stage += 1
 			speed_shift = 0.0
 			emit_signal("speed_stage_shift", speed_stage)
-	elif !revving_up and speed_stage > 1:
+			print("Speed Shift Up ", speed_stage)
+	if speed_stage > 0:
 		if applied_speed <= SPEED_STAGES[speed_stage - 1]:
-			speed_stage -=1
+			speed_stage -= 1
 			speed_shift = 0.0
 			emit_signal("speed_stage_shift", speed_stage)
+			print("Speed Shift Down ", speed_stage)
 	
 
 func predict_soar():
@@ -215,9 +223,8 @@ func launch():
 	progress = 0.0
 	slammed = false
 	soar_death_set = false
-	if braking:
-		braking = false
-		emit_signal("speed_stage_shift", speed_stage)
+	braking = false
+	emit_signal("speed_stage_shift", speed_stage)
 	soar_velocity = 0.0
 	emit_signal("parent_launch", self)
 	current_ramp = null
