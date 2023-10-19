@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://gameplay/collect/apple.gd" id="1_ahjrq"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_34jkk"]
-radius = 28.0713
+radius = 42.0
 
 [node name="apple" type="Area2D" groups=["collect"]]
 script = ExtResource("1_ahjrq")

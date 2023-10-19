@@ -76,13 +76,147 @@ position = Vector2(5596, 1512)
 position = Vector2(6452, 1980)
 
 [node name="flat_5" parent="." instance=ExtResource("16_0271g")]
-position = Vector2(7060, 1940)
+position = Vector2(7104, 1888)
 
 [node name="flat_3" parent="." instance=ExtResource("7_qkqwt")]
-position = Vector2(6388, 2044)
+position = Vector2(6400, 2080)
 
 [node name="ramp_8" parent="." instance=ExtResource("13_16a3l")]
-position = Vector2(7380, 1900)
+position = Vector2(7392, 1920)
+
+[node name="collectables" type="Node2D" parent="."]
+
+[node name="apple" parent="collectables" instance=ExtResource("11_g2ooa")]
+position = Vector2(512, 64)
+
+[node name="apple2" parent="collectables" instance=ExtResource("11_g2ooa")]
+position = Vector2(608, 64)
+
+[node name="apple3" parent="collectables" instance=ExtResource("11_g2ooa")]
+position = Vector2(704, 64)
+
+[node name="apple4" parent="collectables" instance=ExtResource("11_g2ooa")]
+position = Vector2(1280, 288)
+
+[node name="apple38" parent="collectables" instance=ExtResource("11_g2ooa")]
+position = Vector2(1280, 192)
+
+[node name="apple39" parent="collectables" instance=ExtResource("11_g2ooa")]
+position = Vector2(1280, 96)
+
+[node name="apple5" parent="collectables" instance=ExtResource("11_g2ooa")]
+position = Vector2(1280, 384)
+
+[node name="apple6" parent="collectables" instance=ExtResource("11_g2ooa")]
+position = Vector2(1280, 480)
+
+[node name="apple7" parent="collectables" instance=ExtResource("11_g2ooa")]
+position = Vector2(2240, 96)
+
+[node name="apple17" parent="collectables" instance=ExtResource("11_g2ooa")]
+position = Vector2(1888, 960)
+
+[node name="apple18" parent="collectables" instance=ExtResource("11_g2ooa")]
+position = Vector2(1984, 928)
+
+[node name="apple19" parent="collectables" instance=ExtResource("11_g2ooa")]
+position = Vector2(2080, 928)
+
+[node name="apple20" parent="collectables" instance=ExtResource("11_g2ooa")]
+position = Vector2(3008, 1216)
+
+[node name="apple21" parent="collectables" instance=ExtResource("11_g2ooa")]
+position = Vector2(3104, 1216)
+
+[node name="apple22" parent="collectables" instance=ExtResource("11_g2ooa")]
+position = Vector2(3200, 1216)
+
+[node name="apple23" parent="collectables" instance=ExtResource("11_g2ooa")]
+position = Vector2(4192, 928)
+
+[node name="apple24" parent="collectables" instance=ExtResource("11_g2ooa")]
+position = Vector2(4288, 896)
+
+[node name="apple25" parent="collectables" instance=ExtResource("11_g2ooa")]
+position = Vector2(4384, 864)
+
+[node name="apple26" parent="collectables" instance=ExtResource("11_g2ooa")]
+position = Vector2(4512, 1056)
+
+[node name="apple27" parent="collectables" instance=ExtResource("11_g2ooa")]
+position = Vector2(4864, 1216)
+
+[node name="apple28" parent="collectables" instance=ExtResource("11_g2ooa")]
+position = Vector2(4928, 1280)
+
+[node name="apple29" parent="collectables" instance=ExtResource("11_g2ooa")]
+position = Vector2(4992, 1344)
+
+[node name="apple40" parent="collectables" instance=ExtResource("11_g2ooa")]
+position = Vector2(5888, 1280)
+
+[node name="apple41" parent="collectables" instance=ExtResource("11_g2ooa")]
+position = Vector2(5984, 1280)
+
+[node name="apple42" parent="collectables" instance=ExtResource("11_g2ooa")]
+position = Vector2(6080, 1312)
+
+[node name="apple43" parent="collectables" instance=ExtResource("11_g2ooa")]
+position = Vector2(6176, 1376)
+
+[node name="apple44" parent="collectables" instance=ExtResource("11_g2ooa")]
+position = Vector2(6272, 1472)
+
+[node name="apple30" parent="collectables" instance=ExtResource("11_g2ooa")]
+position = Vector2(6720, 1920)
+
+[node name="apple31" parent="collectables" instance=ExtResource("11_g2ooa")]
+position = Vector2(6816, 1920)
+
+[node name="apple32" parent="collectables" instance=ExtResource("11_g2ooa")]
+position = Vector2(7232, 1824)
+
+[node name="apple33" parent="collectables" instance=ExtResource("11_g2ooa")]
+position = Vector2(7328, 1824)
+
+[node name="apple34" parent="collectables" instance=ExtResource("11_g2ooa")]
+position = Vector2(7424, 1824)
+
+[node name="apple35" parent="collectables" instance=ExtResource("11_g2ooa")]
+position = Vector2(7744, 1856)
+
+[node name="apple36" parent="collectables" instance=ExtResource("11_g2ooa")]
+position = Vector2(7840, 1824)
+
+[node name="apple37" parent="collectables" instance=ExtResource("11_g2ooa")]
+position = Vector2(7936, 1856)
+
+[node name="apple8" parent="collectables" instance=ExtResource("11_g2ooa")]
+position = Vector2(2336, 96)
+
+[node name="apple9" parent="collectables" instance=ExtResource("11_g2ooa")]
+position = Vector2(2432, 96)
+
+[node name="apple10" parent="collectables" instance=ExtResource("11_g2ooa")]
+position = Vector2(3108, 843)
+
+[node name="apple11" parent="collectables" instance=ExtResource("11_g2ooa")]
+position = Vector2(3168, 903)
+
+[node name="apple12" parent="collectables" instance=ExtResource("11_g2ooa")]
+position = Vector2(3239, 945)
+
+[node name="apple13" parent="collectables" instance=ExtResource("11_g2ooa")]
+position = Vector2(3328, 960)
+
+[node name="apple14" parent="collectables" instance=ExtResource("11_g2ooa")]
+position = Vector2(3424, 960)
+
+[node name="apple15" parent="collectables" instance=ExtResource("11_g2ooa")]
+position = Vector2(3520, 960)
+
+[node name="apple16" parent="collectables" instance=ExtResource("11_g2ooa")]
+position = Vector2(3616, 960)
 
 [connection signal="brakes" from="player_follow" to="player_visual" method="_on_player_follow_brakes"]
 [connection signal="goal_reached" from="player_follow" to="player_visual" method="_on_player_follow_goal_reached"]
