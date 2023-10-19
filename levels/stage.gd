@@ -76,6 +76,10 @@ func player_dead():
 		player.get_parent().remove_child(player)
 		add_child(player)
 	player.position = checkpoint.position
+	player.finished = true
+	player.progress = 0
+	player.soaring_arc = null
+	player.current_ramp = null
 	score = 0
 	if collected_items.size() > 0:
 		for item in collected_items:

@@ -18,4 +18,8 @@ gui = NodePath("CanvasLayer/gui")
 [connection signal="finish_stage" from="stage_1" to="." method="finish_play"]
 [connection signal="reset_stage" from="stage_1" to="." method="ready_play"]
 [connection signal="level_done" from="CanvasLayer/gui" to="." method="_on_gui_level_done"]
+[connection signal="player_pause" from="CanvasLayer/gui" to="." method="_on_gui_player_pause"]
+[connection signal="player_resume" from="CanvasLayer/gui" to="." method="_on_gui_player_resume"]
+[connection signal="player_retry" from="CanvasLayer/gui" to="." method="_on_gui_player_retry"]
+[connection signal="player_return" from="CanvasLayer/gui" to="." method="_on_gui_player_return"]
 [connection signal="player_start" from="CanvasLayer/gui" to="." method="start_play"]

@@ -31,3 +31,25 @@ func finish_play():
 func _on_gui_level_done():
 	print("LEVEL DONE, emitting signal to PLAY")
 	emit_signal("load_main")
+
+
+func _on_gui_player_pause():
+	print("Level Pausing the game")
+	stage.process_mode = Node.PROCESS_MODE_DISABLED
+	gui.pause_mode()
+
+
+func _on_gui_player_resume():
+	print("LEVEL: resuming game")
+	stage.process_mode = Node.PROCESS_MODE_ALWAYS
+	gui.play_mode()
+
+
+func _on_gui_player_retry():
+	stage.process_mode = Node.PROCESS_MODE_ALWAYS
+	stage.player_dead()
+#	gui.ready_mode()
+
+
+func _on_gui_player_return():
+	emit_signal("load_main")

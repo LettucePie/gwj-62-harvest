@@ -17,6 +17,14 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_n7c1k")
 
+[node name="pause_button" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.0520833
+anchor_bottom = 0.0925926
+text = "Pause"
+metadata/_edit_use_anchors_ = true
+
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 1
 anchors_preset = -1
@@ -262,5 +270,60 @@ grow_horizontal = 2
 grow_vertical = 0
 text = "GO!"
 
+[node name="pause_panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.05
+anchor_top = 0.05
+anchor_right = 0.95
+anchor_bottom = 0.95
+offset_left = 0.208
+offset_top = -0.167999
+offset_right = -0.39209
+offset_bottom = 0.159973
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="pause_panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.3
+anchor_top = 0.05
+anchor_right = 0.7
+anchor_bottom = 0.95
+
+[node name="Label" type="Label" parent="pause_panel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 7
+size_flags_stretch_ratio = 2.2
+text = "Paused"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="resume_pause" type="Button" parent="pause_panel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 7
+text = "Resume"
+
+[node name="retry_pause" type="Button" parent="pause_panel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 7
+text = "Retry Level"
+
+[node name="return_pause" type="Button" parent="pause_panel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 7
+text = "Return to Menu"
+
+[node name="quit_pause" type="Button" parent="pause_panel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 7
+text = "Close Game"
+
+[connection signal="pressed" from="pause_button" to="." method="_on_pause_button_pressed"]
 [connection signal="pressed" from="results_panel/VBoxContainer/results_finish" to="." method="_on_results_finish_pressed"]
 [connection signal="pressed" from="ready_panel/start_button" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="pause_panel/VBoxContainer/resume_pause" to="." method="_on_resume_pause_pressed"]
+[connection signal="pressed" from="pause_panel/VBoxContainer/retry_pause" to="." method="_on_retry_pause_pressed"]
+[connection signal="pressed" from="pause_panel/VBoxContainer/return_pause" to="." method="_on_return_pause_pressed"]
+[connection signal="pressed" from="pause_panel/VBoxContainer/quit_pause" to="." method="_on_quit_pause_pressed"]
