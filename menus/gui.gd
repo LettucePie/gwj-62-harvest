@@ -67,6 +67,8 @@ func pause_mode():
 func _process(delta):
 	if player != null and stage != null:
 		update_labels()
+	if playing and Input.is_action_just_pressed("pause"):
+		emit_signal("player_pause")
 
 
 func update_labels():

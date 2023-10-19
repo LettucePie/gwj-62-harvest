@@ -76,7 +76,7 @@ func _physics_process(delta):
 				landing()
 			riding(delta)
 		elif get_parent() is Launch:
-			if Input.is_action_just_pressed("ui_down") and !slammed:
+			if Input.is_action_just_pressed("slam") and !slammed:
 				slam_down()
 			soaring(delta)
 
@@ -107,19 +107,19 @@ func riding(deltatime):
 		speed_modif *= 0.75
 	var revving = false
 	var braking = false
-	if Input.is_action_pressed("ui_up"):
+	if Input.is_action_pressed("accelerate"):
 		revving = true
 		if braking:
 			braking = false
 			emit_signal("speed_stage_shift", speed_stage)
 		speed_modif *= 2.0
-	if Input.is_action_pressed("ui_down"):
+	if Input.is_action_pressed("brake"):
 		speed_modif *= -0.5
 		revving = false
 		if !braking:
 			braking = true
 			emit_signal("brakes", braking)
-	elif Input.is_action_just_released("ui_down"):
+	elif Input.is_action_just_released("brake"):
 		braking = false
 		emit_signal("speed_stage_shift", speed_stage)
 	if braking:
