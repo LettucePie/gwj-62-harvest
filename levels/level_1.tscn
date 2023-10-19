@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://dqfqc1g82b7hh"]
+
+[ext_resource type="PackedScene" uid="uid://camrsd16j3ihy" path="res://levels/stage_1.tscn" id="1_nejat"]
+[ext_resource type="PackedScene" uid="uid://cw6hjpk8bxtcm" path="res://gameplay/ui/testing_ui.tscn" id="2_d2hw8"]
+
+[node name="level_1" type="Node"]
+
+[node name="stage_1" parent="." instance=ExtResource("1_nejat")]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="testing_ui" parent="CanvasLayer" instance=ExtResource("2_d2hw8")]

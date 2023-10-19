@@ -1,0 +1,92 @@
+[gd_scene load_steps=17 format=3 uid="uid://camrsd16j3ihy"]
+
+[ext_resource type="Script" path="res://levels/stage.gd" id="1_27heg"]
+[ext_resource type="PackedScene" uid="uid://bqli0ogr3o2of" path="res://gameplay/player_follow.tscn" id="2_esmv4"]
+[ext_resource type="PackedScene" uid="uid://bqrdpqwrcgx5q" path="res://gameplay/player_visual.tscn" id="3_t2xnj"]
+[ext_resource type="PackedScene" uid="uid://cgb8yhwq50oet" path="res://gameplay/launch.tscn" id="4_35x64"]
+[ext_resource type="PackedScene" uid="uid://dxbr26n21x5nr" path="res://gameplay/camera_2d.tscn" id="5_vb407"]
+[ext_resource type="PackedScene" uid="uid://dtnu5mriwwpo3" path="res://levels/ramps/ramp_1.tscn" id="6_3c0e6"]
+[ext_resource type="PackedScene" uid="uid://cqui13q2cjxlx" path="res://levels/ramps/flat_1.tscn" id="7_qkqwt"]
+[ext_resource type="PackedScene" uid="uid://dcim2sfn5qt4w" path="res://levels/ramps/ramp_2.tscn" id="8_r74vh"]
+[ext_resource type="PackedScene" uid="uid://df2ugyhmubts7" path="res://levels/ramps/ramp_3.tscn" id="9_04tvv"]
+[ext_resource type="PackedScene" uid="uid://ee3l2gsbnghk" path="res://levels/ramps/ramp_4.tscn" id="9_s0bjv"]
+[ext_resource type="PackedScene" uid="uid://cspil7nr50ka3" path="res://gameplay/deadzone.tscn" id="10_pi2ib"]
+[ext_resource type="PackedScene" uid="uid://cx7vvgjr2k2u1" path="res://gameplay/collect/apple.tscn" id="11_g2ooa"]
+[ext_resource type="PackedScene" uid="uid://cnvi17kjtnabo" path="res://levels/ramps/finish_line.tscn" id="12_ca3pd"]
+[ext_resource type="PackedScene" uid="uid://c7jd1krymyw5b" path="res://levels/ramps/ramp_5.tscn" id="13_16a3l"]
+[ext_resource type="PackedScene" uid="uid://cymkk57dj8ee4" path="res://levels/ramps/flat_2.tscn" id="14_iyj0o"]
+[ext_resource type="PackedScene" uid="uid://f3as01d0426q" path="res://levels/ramps/flat_3.tscn" id="16_0271g"]
+
+[node name="stage_1" type="Node2D" node_paths=PackedStringArray("checkpoint") groups=["stage"]]
+script = ExtResource("1_27heg")
+stage_name = "You can't just hold the gas!"
+checkpoint = NodePath("checkpoint")
+player_scene = ExtResource("2_esmv4")
+player_vis_scene = ExtResource("3_t2xnj")
+launch_scene = ExtResource("4_35x64")
+
+[node name="player_follow" parent="." instance=ExtResource("2_esmv4")]
+position = Vector2(132, 43)
+
+[node name="launch" parent="." instance=ExtResource("4_35x64")]
+
+[node name="player_visual" parent="." instance=ExtResource("3_t2xnj")]
+
+[node name="Camera2D" parent="." instance=ExtResource("5_vb407")]
+
+[node name="checkpoint" type="Marker2D" parent="."]
+
+[node name="deadzone" parent="." instance=ExtResource("10_pi2ib")]
+position = Vector2(907, 1106)
+
+[node name="apple" parent="." instance=ExtResource("11_g2ooa")]
+position = Vector2(682, 559)
+
+[node name="finish_line" parent="." instance=ExtResource("12_ca3pd")]
+position = Vector2(8004, 2033)
+
+[node name="ramp_4" parent="." instance=ExtResource("9_s0bjv")]
+position = Vector2(-54, 65)
+
+[node name="ramp_2" parent="." instance=ExtResource("8_r74vh")]
+position = Vector2(1222, 475)
+
+[node name="flat_1" parent="." instance=ExtResource("7_qkqwt")]
+position = Vector2(1421, 176)
+
+[node name="ramp_3" parent="." instance=ExtResource("9_04tvv")]
+position = Vector2(2499, -128)
+
+[node name="ramp_5" parent="." instance=ExtResource("13_16a3l")]
+position = Vector2(2098, 1271)
+
+[node name="flat_2" parent="." instance=ExtResource("14_iyj0o")]
+position = Vector2(2602, 1243)
+
+[node name="ramp_6" parent="." instance=ExtResource("13_16a3l")]
+position = Vector2(4096, 1163)
+
+[node name="ramp_1" parent="." instance=ExtResource("6_3c0e6")]
+position = Vector2(4604, 1157)
+
+[node name="ramp_7" parent="." instance=ExtResource("8_r74vh")]
+position = Vector2(5596, 1512)
+
+[node name="flat_4" parent="." instance=ExtResource("16_0271g")]
+position = Vector2(6452, 1980)
+
+[node name="flat_5" parent="." instance=ExtResource("16_0271g")]
+position = Vector2(7060, 1940)
+
+[node name="flat_3" parent="." instance=ExtResource("7_qkqwt")]
+position = Vector2(6388, 2044)
+
+[node name="ramp_8" parent="." instance=ExtResource("13_16a3l")]
+position = Vector2(7380, 1900)
+
+[connection signal="brakes" from="player_follow" to="player_visual" method="_on_player_follow_brakes"]
+[connection signal="goal_reached" from="player_follow" to="player_visual" method="_on_player_follow_goal_reached"]
+[connection signal="launch_curve" from="player_follow" to="launch" method="_on_player_follow_launch_curve"]
+[connection signal="parent_launch" from="player_follow" to="launch" method="_on_player_follow_parent_launch"]
+[connection signal="slam" from="player_follow" to="player_visual" method="_on_player_follow_slam"]
+[connection signal="speed_stage_shift" from="player_follow" to="player_visual" method="_on_player_follow_speed_stage_shift"]

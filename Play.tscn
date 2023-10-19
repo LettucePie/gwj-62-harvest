@@ -1,13 +1,13 @@
 [gd_scene load_steps=5 format=3 uid="uid://dddgqx330m10v"]
 
 [ext_resource type="Script" path="res://Play.gd" id="1_x6o1f"]
+[ext_resource type="PackedScene" uid="uid://dqfqc1g82b7hh" path="res://levels/level_1.tscn" id="2_27nde"]
 [ext_resource type="PackedScene" uid="uid://chkianxdawnj0" path="res://menus/main_menu.tscn" id="2_cwoyh"]
-[ext_resource type="PackedScene" uid="uid://b70d2vbt525p5" path="res://levels/stage_path.tscn" id="2_pwsyg"]
 [ext_resource type="AudioBusLayout" uid="uid://d30edpct4iovl" path="res://default_bus_layout.tres" id="3_75oec"]
 
 [node name="Play" type="Node" groups=["persist"]]
 script = ExtResource("1_x6o1f")
-stage_scene = ExtResource("2_pwsyg")
+stage_scene = ExtResource("2_27nde")
 android_audio = ExtResource("3_75oec")
 
 [node name="main_menu" parent="." instance=ExtResource("2_cwoyh")]

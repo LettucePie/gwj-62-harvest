@@ -2,6 +2,7 @@ extends Node2D
 
 class_name Stage
 
+@export var stage_name : String = "Level"
 @export var endless_mode : bool = false
 @export var checkpoint : Node2D
 @export var goal : Node2D

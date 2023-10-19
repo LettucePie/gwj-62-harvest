@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://cymkk57dj8ee4"]
+
+[ext_resource type="Script" path="res://levels/ramps/ramp_path.gd" id="1_2mhuo"]
+[ext_resource type="TileSet" uid="uid://c5ca7io8la6el" path="res://art/sprites/terrain_tileset.tres" id="2_ahv84"]
+
+[sub_resource type="Curve2D" id="Curve2D_2brnb"]
+bake_interval = 10.0
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 32, 0, 0, 0, 0, 32, 0, 0, 0, 0, 0, 288, 0, 0, 0, 0, 0, 320, 32, 0, 0, 0, 0, 1024, 32, 0, 0, 0, 0, 1088, 64, 0, 0, 0, 0, 1264, 64, 0, 0, 0, 0, 1280, 56)
+}
+point_count = 8
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mqpnj"]
+
+[node name="flat_2" type="Path2D"]
+curve = SubResource("Curve2D_2brnb")
+script = ExtResource("1_2mhuo")
+
+[node name="area" type="Area2D" parent="." groups=["ramp"]]
+
+[node name="box" type="CollisionShape2D" parent="area"]
+shape = SubResource("RectangleShape2D_mqpnj")
+
+[node name="TileMap" type="TileMap" parent="."]
+scale = Vector2(4, 4)
+tile_set = ExtResource("2_ahv84")
+format = 2
+layer_0/tile_data = PackedInt32Array(0, 327680, 5, 1, 0, 0, 2, 0, 0, 3, 0, 0, 4, 65536, 5, 5, 196608, 0, 6, 196608, 0, 7, 196608, 0, 8, 196608, 0, 9, 196608, 0, 10, 196608, 0, 11, 196608, 0, 65536, 196608, 6, 65537, 262144, 6, 65538, 65536, 1, 65539, 0, 1, 65540, 0, 1, 65541, 262144, 6, 65542, 0, 1, 65543, 0, 1, 65544, 65536, 1, 65545, 0, 1, 65546, 0, 1, 65547, 0, 1, 12, 196608, 0, 13, 196608, 0, 14, 196608, 0, 15, 196608, 0, 16, 131072, 2, 65553, 0, 0, 65554, 0, 0, 65555, 65536, 0, 196627, 131072, 6, 131078, 196608, 6, 196621, 196608, 6, 196622, 262144, 6, 196623, 262144, 6, 196624, 262144, 6, 196625, 262144, 6, 196626, 262144, 6, 131079, 262144, 6, 131080, 262144, 6, 131081, 262144, 6, 131082, 262144, 6, 131083, 262144, 6, 131084, 262144, 6, 131091, 0, 6, 65552, 0, 1, 65551, 0, 1, 65550, 0, 1, 65549, 0, 1, 65548, 0, 1, 131085, 0, 1, 131086, 0, 1, 131087, 0, 1, 131088, 0, 1, 131089, 0, 1, 131090, 65536, 1, 131074, 65536, 6, 196610, 196608, 6, 196612, 131072, 6, 131076, 0, 6, 196611, 262144, 6, 131075, 0, 1)

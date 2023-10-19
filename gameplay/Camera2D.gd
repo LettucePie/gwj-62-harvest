@@ -29,7 +29,7 @@ func _physics_process(delta):
 	if player_vis != null:
 		var player_pos = player.get_parent().to_global(player.position)
 		var offset_pos = player_pos
-		var offset_zoom = Vector2.ONE
+		var offset_zoom = Vector2.ONE * 0.9
 		if !player.finished:
 			offset_pos.x += bottom_right.x * 0.5
 			var upper_y = offset_pos.y + (top_left.y * 0.5)
@@ -37,7 +37,7 @@ func _physics_process(delta):
 			offset_pos.y = lerp(upper_y, lower_y, (player.vert_intensity + 1.0 / 2.0))
 		## Scaling
 		if player.status == "riding" and !player.finished:
-			offset_zoom = Vector2.ONE * lerp(1.0, 0.5, zoom_curve.sample(player.progress_ratio))
+			offset_zoom = Vector2.ONE * lerp(0.9, 0.5, zoom_curve.sample(player.progress_ratio))
 		self.position = self.position.lerp(offset_pos, delta * 5)
 		zoom = zoom.lerp(offset_zoom, delta * 3)
 #		print(player.position, " | ", offset_pos)
