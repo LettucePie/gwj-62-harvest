@@ -255,6 +255,8 @@ func soaring(deltatime):
 			soar_death_timer = time + 100
 		elif soar_death_set and time >= soar_death_timer:
 			emit_signal("dead")
+			progress = 0.0
+			finished = true
 
 
 func slam_down():

@@ -1,12 +1,19 @@
-[gd_scene load_steps=3 format=3 uid="uid://dqfqc1g82b7hh"]
+[gd_scene load_steps=4 format=3 uid="uid://dqfqc1g82b7hh"]
 
+[ext_resource type="Script" path="res://levels/level_manager.gd" id="1_j08pn"]
 [ext_resource type="PackedScene" uid="uid://camrsd16j3ihy" path="res://levels/stage_1.tscn" id="1_nejat"]
 [ext_resource type="PackedScene" uid="uid://bvdj1sdrxhikw" path="res://menus/gui.tscn" id="3_k315o"]
 
-[node name="level_1" type="Node"]
+[node name="level_1" type="Node" node_paths=PackedStringArray("stage", "gui")]
+script = ExtResource("1_j08pn")
+stage = NodePath("stage_1")
+gui = NodePath("CanvasLayer/gui")
 
 [node name="stage_1" parent="." instance=ExtResource("1_nejat")]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="gui" parent="CanvasLayer" instance=ExtResource("3_k315o")]
+
+[connection signal="reset_stage" from="stage_1" to="." method="ready_play"]
+[connection signal="player_start" from="CanvasLayer/gui" to="." method="start_play"]

@@ -1,10 +1,13 @@
 extends Control
 
+class_name GUI
+
+signal player_start()
 
 var stage : Stage
 var player : Player
 
-var playing : bool = true
+var playing : bool = false
 var speedometer : Array = [10, 25, 45, 75, 100]
 
 func _ready():
@@ -12,6 +15,30 @@ func _ready():
 	$ready_panel.hide()
 	stage = get_tree().get_nodes_in_group("stage")[0]
 	player = get_tree().get_nodes_in_group("player")[0]
+
+
+func ready_mode():
+	$Panel.hide()
+	$TextureRect.hide()
+	$results_panel.hide()
+	$ready_panel.show()
+	playing = false
+
+
+func play_mode():
+	$Panel.show()
+	$TextureRect.show()
+	$results_panel.hide()
+	$ready_panel.hide()
+	playing = true
+
+
+func result_mode():
+	$Panel.hide()
+	$TextureRect.hide()
+	$results_panel.show()
+	$ready_panel.hide()
+	playing = false
 
 
 func _process(delta):
@@ -32,3 +59,9 @@ func update_labels():
 #	$Panel/VBoxContainer/speed_stage/stage.text = str(player.speed_stage)
 #	$Panel/VBoxContainer/travel_dist/travel.text = str(stage.travel)
 #	$Panel/VBoxContainer/score_total/score.text = str(stage.score)
+
+
+func _on_start_button_pressed():
+	print("Start Button")
+	emit_signal("player_start")
+#	play_mode()

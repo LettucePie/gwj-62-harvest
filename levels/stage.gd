@@ -2,6 +2,8 @@ extends Node2D
 
 class_name Stage
 
+signal reset_stage()
+
 @export var stage_name : String = "Level"
 @export var endless_mode : bool = false
 @export var checkpoint : Node2D
@@ -59,20 +61,28 @@ func _ready():
 	player.connect("dead", player_dead)
 	player.connect("collect", player_collect)
 	player.connect("goal_reached", player_finish)
+
+
+func start_stage():
 	start_time = Time.get_ticks_msec()
 	player.startup(checkpoint.position)
 
 
 func player_dead():
 	print("Player Dead, resetting at checkpoint")
+	if player.get_parent() != self:
+		player.get_parent().remove_child(player)
+		add_child(player)
 	player.position = checkpoint.position
 	score = 0
 	if collected_items.size() > 0:
 		for item in collected_items:
 			item.visible = true
 	collected_items.clear()
-	start_time = Time.get_ticks_msec()
-	player.call_deferred("startup", checkpoint.position)
+	player_vis._on_player_follow_slam()
+	emit_signal("reset_stage")
+#	start_time = Time.get_ticks_msec()
+#	player.call_deferred("startup", checkpoint.position)
 
 
 func player_collect(item):
