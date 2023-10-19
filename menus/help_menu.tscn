@@ -1,5 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://cg2uer2c3ev7"]
+[gd_scene load_steps=4 format=3 uid="uid://cg2uer2c3ev7"]
 
+[ext_resource type="Theme" uid="uid://vi4vba5f6fdc" path="res://menus/pumpkin_style.tres" id="1_8dj0a"]
 [ext_resource type="Texture2D" uid="uid://4bj73p05vt7y" path="res://art/sprites/truck.png" id="1_fvvr5"]
 [ext_resource type="Script" path="res://menus/help_menu.gd" id="1_qnx55"]
 
@@ -10,6 +11,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_8dj0a")
 script = ExtResource("1_qnx55")
 page_titles = PackedStringArray("Goal", "How to Play", "Speed Levels", "Slamming", "All Set!")
 page_infos = PackedStringArray("Roll through hills and launch off of ramps to cross the gaps. Gather apples and take the fastest route to increase your score. The level finishes once you\'ve landed in the truck.", "Movement is automatic, the pumpkin will always roll to the right. Going downhill will accumulate momentum, eventually reaching the next Speed Level. You press \"ACCELERATE\" or \"BRAKE\" to help increase or decrease momentum.", "There are 5 levels of speed ranging from slow to fast. These speed levels are used to determine how far off a ramp your pumpkin will fly. This way you can become familiar with the trajectories and not have to fuss over the math.", "When soaring through the air, you can press \"BRAKE\" at any time to slam downwards. This can be helpful for reaching lower routes, as well as increasing speed! When slamming down onto a downhill slope, some momentum transfers over which might increase your Speed Level.", "Hope you have fun!")

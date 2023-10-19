@@ -1,5 +1,6 @@
-[gd_scene load_steps=8 format=3 uid="uid://bvdj1sdrxhikw"]
+[gd_scene load_steps=9 format=3 uid="uid://bvdj1sdrxhikw"]
 
+[ext_resource type="Theme" uid="uid://vi4vba5f6fdc" path="res://menus/pumpkin_style.tres" id="1_bp7u0"]
 [ext_resource type="Texture2D" uid="uid://co5a8mgebg377" path="res://art/ui/speedometer_white.png" id="1_jte6h"]
 [ext_resource type="Script" path="res://menus/gui.gd" id="1_n7c1k"]
 [ext_resource type="Texture2D" uid="uid://bongun263mo2t" path="res://art/ui/pumpkins_1_trim.png" id="1_pt17n"]
@@ -15,6 +16,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_bp7u0")
 script = ExtResource("1_n7c1k")
 
 [node name="pause_button" type="Button" parent="."]
