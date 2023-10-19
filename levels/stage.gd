@@ -3,6 +3,7 @@ extends Node2D
 class_name Stage
 
 signal reset_stage()
+signal finish_stage()
 
 @export var stage_name : String = "Level"
 @export var endless_mode : bool = false
@@ -99,6 +100,7 @@ func player_finish():
 	var final_time = Time.get_ticks_msec()
 	finish = true
 	goal.get_node("goal_truck").close_bed()
+	emit_signal("finish_stage")
 #	player.process_mode = Node.PROCESS_MODE_DISABLED
 	print("Final Time: ", final_time - start_time, " Final Score: ", score, " Distance Traveled: ", travel)
 

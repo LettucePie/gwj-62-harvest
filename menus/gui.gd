@@ -3,6 +3,7 @@ extends Control
 class_name GUI
 
 signal player_start()
+signal level_done()
 
 var stage : Stage
 var player : Player
@@ -65,3 +66,8 @@ func _on_start_button_pressed():
 	print("Start Button")
 	emit_signal("player_start")
 #	play_mode()
+
+
+func _on_results_finish_pressed():
+	print("Finish Button")
+	emit_signal("level_done")

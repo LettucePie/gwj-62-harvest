@@ -15,5 +15,7 @@ gui = NodePath("CanvasLayer/gui")
 
 [node name="gui" parent="CanvasLayer" instance=ExtResource("3_k315o")]
 
+[connection signal="finish_stage" from="stage_1" to="." method="finish_play"]
 [connection signal="reset_stage" from="stage_1" to="." method="ready_play"]
+[connection signal="level_done" from="CanvasLayer/gui" to="." method="_on_gui_level_done"]
 [connection signal="player_start" from="CanvasLayer/gui" to="." method="start_play"]

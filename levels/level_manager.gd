@@ -2,6 +2,9 @@ extends Node
 
 class_name Level
 
+signal load_main()
+signal load_next()
+
 @export var stage : Stage
 @export var gui : GUI
 
@@ -14,7 +17,6 @@ func _ready():
 
 func ready_play():
 	gui.ready_mode()
-#	stage.player_dead()
 
 
 func start_play():
@@ -22,6 +24,10 @@ func start_play():
 	stage.start_stage()
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
+func finish_play():
+	gui.result_mode()
+
+
+func _on_gui_level_done():
+	print("LEVEL DONE, emitting signal to PLAY")
+	emit_signal("load_main")

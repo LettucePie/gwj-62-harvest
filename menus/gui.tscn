@@ -262,4 +262,5 @@ grow_horizontal = 2
 grow_vertical = 0
 text = "GO!"
 
+[connection signal="pressed" from="results_panel/VBoxContainer/results_finish" to="." method="_on_results_finish_pressed"]
 [connection signal="pressed" from="ready_panel/start_button" to="." method="_on_start_button_pressed"]
