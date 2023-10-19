@@ -30,6 +30,8 @@ func button_validation():
 	$Panel/VBoxContainer/controls/left.visible = left_visible
 	$Panel/VBoxContainer/controls/right.visible = right_visible
 	$Panel/VBoxContainer/controls/done.visible = done_visible
+	if done_visible:
+		$Panel/VBoxContainer/controls/done.grab_focus()
 
 
 func _on_left_pressed():
@@ -46,3 +48,8 @@ func _on_right_pressed():
 
 func _on_done_pressed():
 	emit_signal("close_help")
+
+
+func _on_visibility_changed():
+	if visible:
+		$Panel/VBoxContainer/controls/right.grab_focus

@@ -10,6 +10,7 @@ func _ready():
 		$VBoxContainer/quit.hide()
 	hide_all()
 	print("ADD WEBSITE")
+	$VBoxContainer/play.grab_focus()
 
 
 func hide_all():

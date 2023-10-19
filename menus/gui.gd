@@ -31,6 +31,7 @@ func ready_mode():
 	$results_panel.hide()
 	$ready_panel.show()
 	playing = false
+	$ready_panel/start_button.grab_focus()
 
 
 func play_mode():

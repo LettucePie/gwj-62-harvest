@@ -110,6 +110,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 text = "Finished"
 
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
 [connection signal="pressed" from="Panel/quit" to="." method="_on_done_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/controls/left" to="." method="_on_left_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/controls/right" to="." method="_on_right_pressed"]
