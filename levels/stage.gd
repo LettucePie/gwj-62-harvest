@@ -21,6 +21,7 @@ var travel : float
 var travel_percent : float
 var score : int
 var finish : bool = false
+var final_time : int
 
 var collected_items : Array
 var goal_post_pos : Vector2
@@ -97,7 +98,7 @@ func player_collect(item):
 
 func player_finish():
 	print("Player Reached goal!")
-	var final_time = Time.get_ticks_msec()
+	final_time = Time.get_ticks_msec() - start_time
 	finish = true
 	goal.get_node("goal_truck").close_bed()
 	emit_signal("finish_stage")
