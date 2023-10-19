@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://chkianxdawnj0"]
+[gd_scene load_steps=7 format=3 uid="uid://chkianxdawnj0"]
 
 [ext_resource type="Script" path="res://menus/main_menu.gd" id="1_0v7hf"]
 [ext_resource type="Theme" uid="uid://vi4vba5f6fdc" path="res://menus/pumpkin_style.tres" id="1_tlia2"]
 [ext_resource type="PackedScene" uid="uid://cg2uer2c3ev7" path="res://menus/help_menu.tscn" id="2_erruw"]
 [ext_resource type="Texture2D" uid="uid://5db6ysg5pooi" path="res://jam-banner.png" id="3_1q2qc"]
+[ext_resource type="Texture2D" uid="uid://du72v8s2bnv56" path="res://art/ui/cover_no_bg.png" id="3_6g6rs"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_c1fpu"]
 font_size = 28
@@ -27,14 +28,19 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="title" type="TextureRect" parent="."]
+texture_filter = 2
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
 anchor_bottom = 0.412
 offset_bottom = 0.0239868
 grow_horizontal = 2
+texture = ExtResource("3_6g6rs")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="title_text" type="Label" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
