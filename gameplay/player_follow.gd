@@ -18,6 +18,8 @@ signal brakes(tf)
 ## downshift or upshift in speed stage.
 @export var SPEED_STAGES : Array = [4.0, 8.0, 12.0, 16.0, 20.0]
 @export var SOAR_STAGES : Array = [200.0, 400.0, 600.0, 800.0, 1000.0]
+@export var slam_sfx : AudioStreamWAV
+@export var soar_sfx : AudioStreamWAV
 @export var soaring_damp : Curve
 @export var ramp_accel : Curve
 
@@ -82,6 +84,7 @@ func _physics_process(delta):
 
 
 func landing():
+	$sfx.stop()
 	print("Landing")
 	current_ramp.adopt_player(self)
 	progress = landing_progress
@@ -90,6 +93,9 @@ func landing():
 		speed_shift = clamp(speed_shift + (3.5 * vert_intensity), 0.0, 4.0)
 		print("Slam Bonus Speed of: ", speed_shift)
 		slammed = false
+		$sfx.stream = slam_sfx
+		$sfx.volume_db = linear_to_db(0.5)
+		$sfx.play()
 	braking = false
 	status = "riding"
 	emit_signal("landed", current_ramp)
@@ -228,6 +234,11 @@ func launch():
 	soar_velocity = 0.0
 	emit_signal("parent_launch", self)
 	current_ramp = null
+	if !slammed:
+		$sfx.stream = soar_sfx
+		$sfx.volume_db = linear_to_db(0.2)
+		$sfx.pitch_scale = 1.1
+		$sfx.play()
 
 
 func soaring(deltatime):
@@ -248,6 +259,8 @@ func soaring(deltatime):
 		weighted_speed = SPEED_STAGES[speed_stage]
 	if !slammed or (slammed and Time.get_ticks_msec() > slam_delay):
 		progress += weighted_speed
+	$sfx.pitch_scale = lerp(1.1, 0.5, progress_ratio)
+	$sfx.volume_db = linear_to_db(lerp(0.05, 0.0, progress_ratio + 0.5))
 	if progress_ratio >= 1.0:
 		var time = Time.get_ticks_msec()
 		if !soar_death_set:
@@ -271,6 +284,7 @@ func slam_down():
 	emit_signal("launch_curve", slam_arc)
 	progress = 1.0
 	soaring_arc = slam_arc
+	$sfx.stop()
 
 
 func goal_finish():
@@ -287,6 +301,7 @@ func _on_area_2d_area_entered(area):
 		emit_signal("dead")
 	if area.is_in_group("collect"):
 		emit_signal("collect", area)
+		$apple.play()
 
 
 func _on_area_2d_area_exited(area):

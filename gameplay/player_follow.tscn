@@ -1,6 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://bqli0ogr3o2of"]
+[gd_scene load_steps=9 format=3 uid="uid://bqli0ogr3o2of"]
 
 [ext_resource type="Script" path="res://gameplay/player_follow.gd" id="1_0i1hn"]
+[ext_resource type="AudioStream" uid="uid://bwk6lu33tc1v1" path="res://sounds/slam_1.wav" id="2_ihyvt"]
+[ext_resource type="AudioStream" uid="uid://dqflwnn1xm4wf" path="res://sounds/whistle_1.wav" id="3_aqm80"]
+[ext_resource type="AudioStream" uid="uid://ccr62amcfrnhv" path="res://sounds/slam_2.wav" id="4_mr5e1"]
+[ext_resource type="AudioStream" uid="uid://uf3yd2nswvjb" path="res://sounds/pickup_1.wav" id="5_nxxby"]
 
 [sub_resource type="Curve" id="Curve_wckgs"]
 _data = [Vector2(0, 0.809091), 0.0, 0.190909, 0, 1, Vector2(1, 1), 0.190909, 0.0, 1, 0]
@@ -16,6 +20,8 @@ radius = 23.0868
 [node name="player_follow" type="PathFollow2D" groups=["player"]]
 loop = false
 script = ExtResource("1_0i1hn")
+slam_sfx = ExtResource("2_ihyvt")
+soar_sfx = ExtResource("3_aqm80")
 soaring_damp = SubResource("Curve_wckgs")
 ramp_accel = SubResource("Curve_u1omn")
 
@@ -26,6 +32,15 @@ position = Vector2(0, -24)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CircleShape2D_1porx")
+
+[node name="sfx" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_mr5e1")
+bus = &"SFX"
+
+[node name="apple" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_nxxby")
+volume_db = -19.531
+bus = &"SFX"
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
 [connection signal="area_exited" from="Area2D" to="." method="_on_area_2d_area_exited"]
