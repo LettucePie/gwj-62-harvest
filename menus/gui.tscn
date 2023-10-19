@@ -1,22 +1,12 @@
 [gd_scene load_steps=8 format=3 uid="uid://bvdj1sdrxhikw"]
 
 [ext_resource type="Texture2D" uid="uid://co5a8mgebg377" path="res://art/ui/speedometer_white.png" id="1_jte6h"]
+[ext_resource type="Script" path="res://menus/gui.gd" id="1_n7c1k"]
+[ext_resource type="Texture2D" uid="uid://bongun263mo2t" path="res://art/ui/pumpkins_1_trim.png" id="1_pt17n"]
 [ext_resource type="Texture2D" uid="uid://bl0lawk161hxv" path="res://art/ui/momentum_back.png" id="1_ttyen"]
 [ext_resource type="Texture2D" uid="uid://b7h8u24fqy2ny" path="res://art/ui/momentum_fill.png" id="2_sh3do"]
 [ext_resource type="Texture2D" uid="uid://dx6bgirlxq67j" path="res://art/ui/speedometer_color.png" id="2_wyucv"]
 [ext_resource type="Texture2D" uid="uid://hmgxfcyhhckg" path="res://art/ui/momentum_trim.png" id="3_ke33s"]
-
-[sub_resource type="Gradient" id="Gradient_qhc14"]
-offsets = PackedFloat32Array(0, 0.583643, 1)
-colors = PackedColorArray(0, 0, 0, 0.772549, 0, 0, 0, 0, 0, 0, 0, 0.0941176)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_ms03t"]
-gradient = SubResource("Gradient_qhc14")
-width = 256
-height = 256
-fill = 1
-fill_from = Vector2(0, 1)
-fill_to = Vector2(0.423077, 0.504274)
 
 [node name="gui" type="Control"]
 layout_mode = 3
@@ -25,6 +15,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_n7c1k")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 1
@@ -35,7 +26,9 @@ offset_top = -247.0
 offset_right = 300.0
 offset_bottom = 53.0
 grow_vertical = 0
-texture = SubResource("GradientTexture2D_ms03t")
+texture = ExtResource("1_pt17n")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="momentum" type="TextureProgressBar" parent="TextureRect"]
 layout_mode = 1
@@ -44,7 +37,9 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-value = 50.0
+max_value = 4.0
+step = 0.05
+value = 4.0
 fill_mode = 3
 nine_patch_stretch = true
 texture_under = ExtResource("1_ttyen")
@@ -67,10 +62,161 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-value = 100.0
+value = 75.0
 fill_mode = 4
 nine_patch_stretch = true
 texture_under = ExtResource("1_jte6h")
 texture_progress = ExtResource("2_wyucv")
 radial_initial_angle = 235.4
 radial_fill_degrees = 221.6
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.689
+anchor_right = 1.0
+anchor_bottom = 0.196
+offset_left = 0.271973
+offset_bottom = -0.00800323
+grow_horizontal = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 6.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="time_container" type="HBoxContainer" parent="Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="time_label" type="Label" parent="Panel/VBoxContainer/time_container"]
+layout_mode = 2
+text = "TIME : "
+vertical_alignment = 1
+
+[node name="time" type="Label" parent="Panel/VBoxContainer/time_container"]
+layout_mode = 2
+size_flags_horizontal = 7
+text = "00:00:00"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="score_container" type="HBoxContainer" parent="Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="score_label" type="Label" parent="Panel/VBoxContainer/score_container"]
+layout_mode = 2
+text = "SCORE : "
+vertical_alignment = 1
+
+[node name="score" type="Label" parent="Panel/VBoxContainer/score_container"]
+layout_mode = 2
+size_flags_horizontal = 7
+text = "000"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="results_panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.169
+anchor_top = 0.111
+anchor_right = 0.831
+anchor_bottom = 0.566
+offset_left = 0.311981
+offset_top = 0.071991
+offset_right = -0.312012
+offset_bottom = 0.231964
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="results_panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 7.0
+offset_top = 4.0
+offset_right = -7.0
+offset_bottom = -7.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="results_panel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 7
+size_flags_stretch_ratio = 1.53
+text = "RESULTS"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="time_container" type="HBoxContainer" parent="results_panel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 7
+
+[node name="Label" type="Label" parent="results_panel/VBoxContainer/time_container"]
+layout_mode = 2
+size_flags_horizontal = 7
+text = "TIME"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="time_result" type="Label" parent="results_panel/VBoxContainer/time_container"]
+layout_mode = 2
+size_flags_horizontal = 7
+text = "TIME"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="score_container" type="HBoxContainer" parent="results_panel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 7
+
+[node name="Label" type="Label" parent="results_panel/VBoxContainer/score_container"]
+layout_mode = 2
+size_flags_horizontal = 7
+text = "SCORE"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="score_result" type="Label" parent="results_panel/VBoxContainer/score_container"]
+layout_mode = 2
+size_flags_horizontal = 7
+text = "TIME"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="travel_container" type="HBoxContainer" parent="results_panel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 7
+
+[node name="Label" type="Label" parent="results_panel/VBoxContainer/travel_container"]
+layout_mode = 2
+size_flags_horizontal = 7
+text = "TRAVEL"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="travel_result" type="Label" parent="results_panel/VBoxContainer/travel_container"]
+layout_mode = 2
+size_flags_horizontal = 7
+text = "TIME"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="results_finish" type="Button" parent="results_panel/VBoxContainer"]
+layout_mode = 2
+text = "Cool!"
+
+[node name="ready_panel" type="Panel" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
