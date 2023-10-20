@@ -1,12 +1,16 @@
-[gd_scene load_steps=17 format=3 uid="uid://camrsd16j3ihy"]
+[gd_scene load_steps=21 format=3 uid="uid://camrsd16j3ihy"]
 
 [ext_resource type="Script" path="res://levels/stage.gd" id="1_27heg"]
 [ext_resource type="PackedScene" uid="uid://bqli0ogr3o2of" path="res://gameplay/player_follow.tscn" id="2_esmv4"]
 [ext_resource type="PackedScene" uid="uid://bqrdpqwrcgx5q" path="res://gameplay/player_visual.tscn" id="3_t2xnj"]
 [ext_resource type="PackedScene" uid="uid://cgb8yhwq50oet" path="res://gameplay/launch.tscn" id="4_35x64"]
+[ext_resource type="Texture2D" uid="uid://br7w5kh2f3dgf" path="res://art/sprites/pumpkin_patch.png" id="5_n64w6"]
 [ext_resource type="PackedScene" uid="uid://dxbr26n21x5nr" path="res://gameplay/camera_2d.tscn" id="5_vb407"]
 [ext_resource type="PackedScene" uid="uid://dtnu5mriwwpo3" path="res://levels/ramps/ramp_1.tscn" id="6_3c0e6"]
+[ext_resource type="Texture2D" uid="uid://cikcu1oh738ja" path="res://art/sprites/downed_fence.png" id="6_255r6"]
 [ext_resource type="PackedScene" uid="uid://cqui13q2cjxlx" path="res://levels/ramps/flat_1.tscn" id="7_qkqwt"]
+[ext_resource type="Texture2D" uid="uid://bcj1l5bhg4pno" path="res://art/sprites/tree_dead.png" id="7_wrmwv"]
+[ext_resource type="Texture2D" uid="uid://cgvfbq8v4vnqe" path="res://art/sprites/scare-crow.png" id="8_4cnnv"]
 [ext_resource type="PackedScene" uid="uid://dcim2sfn5qt4w" path="res://levels/ramps/ramp_2.tscn" id="8_r74vh"]
 [ext_resource type="PackedScene" uid="uid://df2ugyhmubts7" path="res://levels/ramps/ramp_3.tscn" id="9_04tvv"]
 [ext_resource type="PackedScene" uid="uid://ee3l2gsbnghk" path="res://levels/ramps/ramp_4.tscn" id="9_s0bjv"]
@@ -24,6 +28,67 @@ checkpoint = NodePath("checkpoint")
 player_scene = ExtResource("2_esmv4")
 player_vis_scene = ExtResource("3_t2xnj")
 launch_scene = ExtResource("4_35x64")
+
+[node name="clutter" type="Node2D" parent="."]
+
+[node name="pumpkin_patch" type="Sprite2D" parent="clutter"]
+position = Vector2(13, 2)
+scale = Vector2(2, 2)
+texture = ExtResource("5_n64w6")
+
+[node name="fence" type="Sprite2D" parent="clutter"]
+position = Vector2(1552, 96)
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("6_255r6")
+
+[node name="fence2" type="Sprite2D" parent="clutter"]
+position = Vector2(6542, 1901)
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("6_255r6")
+
+[node name="tree" type="Sprite2D" parent="clutter"]
+position = Vector2(3151, -345)
+scale = Vector2(3, 3)
+texture = ExtResource("7_wrmwv")
+
+[node name="tree4" type="Sprite2D" parent="clutter"]
+z_index = 1
+position = Vector2(2829, 1149)
+scale = Vector2(3, 3)
+texture = ExtResource("7_wrmwv")
+
+[node name="tree2" type="Sprite2D" parent="clutter"]
+position = Vector2(3265, -381)
+scale = Vector2(3, 3)
+texture = ExtResource("7_wrmwv")
+
+[node name="tree5" type="Sprite2D" parent="clutter"]
+position = Vector2(8955, 1937)
+scale = Vector2(3, 3)
+texture = ExtResource("7_wrmwv")
+
+[node name="tree6" type="Sprite2D" parent="clutter"]
+position = Vector2(9067, 1928)
+scale = Vector2(3.5, 3.5)
+texture = ExtResource("7_wrmwv")
+flip_h = true
+
+[node name="tree3" type="Sprite2D" parent="clutter"]
+position = Vector2(3393, -475)
+scale = Vector2(3, 3)
+texture = ExtResource("7_wrmwv")
+flip_h = true
+
+[node name="scarecrow" type="Sprite2D" parent="clutter"]
+position = Vector2(3935, 962)
+scale = Vector2(2, 2)
+texture = ExtResource("8_4cnnv")
+
+[node name="scarecrow2" type="Sprite2D" parent="clutter"]
+position = Vector2(7667, 1879)
+rotation = -0.242601
+scale = Vector2(2, 2)
+texture = ExtResource("8_4cnnv")
 
 [node name="player_follow" parent="." instance=ExtResource("2_esmv4")]
 position = Vector2(132, 43)
