@@ -3,7 +3,7 @@ extends Path2D
 class_name RampPath
 
 @export var finish : bool = false
-@export var layer_paths : PackedInt32Array
+@export var layer_paths : PackedInt32Array = [1]
 
 var baked_points : PackedVector2Array = []
 var baked_points_rounded : PackedVector2Array = []
@@ -44,6 +44,15 @@ func build_area_poly():
 	var area_shape = ConvexPolygonShape2D.new()
 	area_shape.points = area_shape_points
 	$area/box.shape = area_shape
+
+
+func has_paths(paths):
+	var valid = false
+	for p in paths:
+		for lp in layer_paths:
+			if p == lp:
+				valid = true
+	return valid
 
 
 func adopt_player(player : PathFollow2D):

@@ -16,6 +16,7 @@ signal finish_stage()
 var player : Player
 var player_vis : Node2D
 var launch : Launch
+var ramps : Array
 var start_time : int
 var travel : float
 var travel_percent : float
@@ -60,14 +61,29 @@ func _ready():
 	goal_post_pos = goal.get_parent().to_global(goal.position)
 	goal_post_pos += goal.curve.get_point_position(goal.curve.get_point_count() - 1)
 	## Connection
+	player.connect("landed", player_landed)
 	player.connect("dead", player_dead)
 	player.connect("collect", player_collect)
 	player.connect("goal_reached", player_finish)
+	## Gather
+	ramps = get_tree().get_nodes_in_group("ramp_path")
 
 
 func start_stage():
 	start_time = Time.get_ticks_msec()
 	player.startup(checkpoint.position)
+	ramps = get_tree().get_nodes_in_group("ramp_path")
+
+
+func player_landed(ramp):
+	print("Player Landed on Ramp: ", ramp)
+	if ramps != null:
+		for r in ramps:
+			if r.has_paths(player.current_paths):
+				r.modulate = Color.WHITE
+			else:
+				r.modulate = Color.DARK_GRAY
+				
 
 
 func player_dead():

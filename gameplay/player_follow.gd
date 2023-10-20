@@ -26,6 +26,7 @@ signal brakes(tf)
 var ramp_area : Area2D = null
 var landing_progress : float = 0.0
 var current_ramp : RampPath = null
+var current_paths : PackedInt32Array = [1]
 var launched_ramps : Array = []
 var status = "soaring"
 var slammed : bool = false
@@ -60,6 +61,8 @@ func startup(checkpoint_pos):
 	launched_ramps.clear()
 	speed_stage = 1
 	speed_shift = 0
+	current_paths.clear()
+	current_paths.append(1)
 #	soar_shift = 0
 	slammed = false
 	braking = false
@@ -98,6 +101,7 @@ func landing():
 		$sfx.play()
 	braking = false
 	status = "riding"
+	current_paths = current_ramp.layer_paths
 	emit_signal("landed", current_ramp)
 	emit_signal("speed_stage_shift", speed_stage)
 
@@ -294,8 +298,9 @@ func goal_finish():
 
 func _on_area_2d_area_entered(area):
 	if area.is_in_group("ramp") and ramp_area != area and status == "soaring":
-		ramp_area = area
-		print("Ramp: ", area.get_parent().name, " Entered")
+		if area.get_parent().has_paths(current_paths):
+			ramp_area = area
+			print("Ramp: ", area.get_parent().name, " Entered")
 	if area.is_in_group("dead") and status == "soaring":
 		print("Player touched deadzone")
 		emit_signal("dead")

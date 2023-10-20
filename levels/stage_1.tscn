@@ -109,12 +109,15 @@ position = Vector2(682, 559)
 
 [node name="finish_line" parent="." instance=ExtResource("12_ca3pd")]
 position = Vector2(8004, 2033)
+layer_paths = [1, 2]
 
 [node name="ramp_4" parent="." instance=ExtResource("9_s0bjv")]
 position = Vector2(-54, 65)
+layer_paths = [1, 2]
 
 [node name="ramp_2" parent="." instance=ExtResource("8_r74vh")]
 position = Vector2(1222, 475)
+layer_paths = [2]
 
 [node name="flat_1" parent="." instance=ExtResource("7_qkqwt")]
 position = Vector2(1421, 176)
@@ -124,18 +127,23 @@ position = Vector2(2499, -128)
 
 [node name="ramp_5" parent="." instance=ExtResource("13_16a3l")]
 position = Vector2(2098, 1271)
+layer_paths = [2]
 
 [node name="flat_2" parent="." instance=ExtResource("14_iyj0o")]
 position = Vector2(2602, 1243)
+layer_paths = [2]
 
 [node name="ramp_6" parent="." instance=ExtResource("13_16a3l")]
 position = Vector2(4096, 1163)
+layer_paths = [1, 2]
 
 [node name="ramp_1" parent="." instance=ExtResource("6_3c0e6")]
 position = Vector2(4604, 1157)
+layer_paths = [1, 2]
 
 [node name="ramp_7" parent="." instance=ExtResource("8_r74vh")]
 position = Vector2(5596, 1512)
+layer_paths = [1, 2]
 
 [node name="flat_4" parent="." instance=ExtResource("16_0271g")]
 position = Vector2(6452, 1980)
@@ -145,9 +153,11 @@ position = Vector2(7104, 1888)
 
 [node name="flat_3" parent="." instance=ExtResource("7_qkqwt")]
 position = Vector2(6400, 2080)
+layer_paths = [2]
 
 [node name="ramp_8" parent="." instance=ExtResource("13_16a3l")]
 position = Vector2(7392, 1920)
+layer_paths = [2]
 
 [node name="collectables" type="Node2D" parent="."]
 
