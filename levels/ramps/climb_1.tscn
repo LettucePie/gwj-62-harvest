@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://46qj644u0ufn"]
+
+[ext_resource type="Script" path="res://levels/ramps/ramp_path.gd" id="1_lrfpf"]
+[ext_resource type="TileSet" uid="uid://c5ca7io8la6el" path="res://art/sprites/terrain_tileset.tres" id="2_yrtdw"]
+
+[sub_resource type="Curve2D" id="Curve2D_jv7eo"]
+bake_interval = 10.0
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 8, 32, 0, 0, 0, 0, 576, -256, 0, 0, 0, 0, 640, -256, 0, 0, 0, 0, 704, -224, 0, 0, 0, 0, 768, -224, 0, 0, 0, 0, 832, -256, 0, 0, 0, 0, 880, -256, 0, 0, 0, 0, 896, -264)
+}
+point_count = 8
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mqpnj"]
+
+[node name="climb_1" type="Path2D"]
+curve = SubResource("Curve2D_jv7eo")
+script = ExtResource("1_lrfpf")
+
+[node name="area" type="Area2D" parent="." groups=["ramp"]]
+
+[node name="box" type="CollisionShape2D" parent="area"]
+shape = SubResource("RectangleShape2D_mqpnj")
+
+[node name="TileMap" type="TileMap" parent="."]
+scale = Vector2(4, 4)
+tile_set = ExtResource("2_yrtdw")
+format = 2
+layer_0/tile_data = PackedInt32Array(0, 0, 2, -65534, 327680, 1, -131068, 327680, 1, -196602, 327680, 1, -262136, 327680, 1, -65535, 262144, 2, -131069, 262144, 2, -196603, 262144, 2, -262137, 262144, 2, -262135, 0, 0, -262134, 131072, 1, -262133, 196608, 0, -262132, 327680, 1, -262131, 65536, 0, 196608, 196608, 6, 196615, 131072, 6, 9, 131072, 6, -65523, 131072, 6, -65524, 262144, 6, -65525, 262144, 6, -65526, 262144, 6, 8, 262144, 6, 196614, 262144, 6, 196613, 262144, 6, 196612, 262144, 6, 196611, 262144, 6, 196610, 262144, 6, 196609, 262144, 6, 65536, 65536, 6, 131072, 65536, 6, 65543, 0, 6, 131079, 0, 6, -196595, 0, 6, -131059, 0, 6, 5, 0, 1, -65531, 0, 1, -131067, 0, 1, -131066, 65536, 1, -65530, 0, 1, 6, 0, 1, 65542, 0, 1, 65541, 0, 1, 65540, 0, 1, 4, 65536, 1, -65532, 0, 1, -65533, 0, 1, 3, 0, 1, 2, 0, 1, 1, 0, 1, 65537, 65536, 1, 131073, 0, 1, 131074, 0, 1, 65538, 0, 1, 65539, 0, 1, 131075, 0, 1, 131076, 65536, 1, 131077, 0, 1, 131078, 0, 1, 7, 0, 1, -65529, 0, 1, -131065, 0, 1, -196601, 0, 1, -196600, 0, 1, -131064, 0, 1, -65528, 0, 1, -65527, 0, 1, -131063, 0, 1, -196599, 65536, 1, -196598, 0, 1, -131062, 0, 1, -131061, 0, 1, -196597, 0, 1, -196596, 0, 1, -131060, 65536, 1)

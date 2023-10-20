@@ -1,0 +1,139 @@
+[gd_scene load_steps=19 format=3 uid="uid://chmhp48rw3t57"]
+
+[ext_resource type="Script" path="res://levels/stage.gd" id="1_q4vi3"]
+[ext_resource type="PackedScene" uid="uid://bqli0ogr3o2of" path="res://gameplay/player_follow.tscn" id="2_bp7fp"]
+[ext_resource type="PackedScene" uid="uid://bqrdpqwrcgx5q" path="res://gameplay/player_visual.tscn" id="3_c3uys"]
+[ext_resource type="PackedScene" uid="uid://cgb8yhwq50oet" path="res://gameplay/launch.tscn" id="4_mij3t"]
+[ext_resource type="Texture2D" uid="uid://br7w5kh2f3dgf" path="res://art/sprites/pumpkin_patch.png" id="5_eorot"]
+[ext_resource type="Texture2D" uid="uid://cikcu1oh738ja" path="res://art/sprites/downed_fence.png" id="6_a04i8"]
+[ext_resource type="Texture2D" uid="uid://bcj1l5bhg4pno" path="res://art/sprites/tree_dead.png" id="7_vjrvh"]
+[ext_resource type="Texture2D" uid="uid://cgvfbq8v4vnqe" path="res://art/sprites/scare-crow.png" id="8_6o4yy"]
+[ext_resource type="PackedScene" uid="uid://dxbr26n21x5nr" path="res://gameplay/camera_2d.tscn" id="9_xsfky"]
+[ext_resource type="PackedScene" uid="uid://cspil7nr50ka3" path="res://gameplay/deadzone.tscn" id="10_wonv1"]
+[ext_resource type="PackedScene" uid="uid://cnvi17kjtnabo" path="res://levels/ramps/finish_line.tscn" id="12_dv0h4"]
+[ext_resource type="PackedScene" uid="uid://46qj644u0ufn" path="res://levels/ramps/climb_1.tscn" id="13_uncjw"]
+[ext_resource type="PackedScene" uid="uid://dcim2sfn5qt4w" path="res://levels/ramps/ramp_2.tscn" id="14_ua5ar"]
+[ext_resource type="PackedScene" uid="uid://cqui13q2cjxlx" path="res://levels/ramps/flat_1.tscn" id="15_5ewil"]
+[ext_resource type="PackedScene" uid="uid://cs0adpupyucx1" path="res://levels/ramps/ramp_6.tscn" id="17_cjtjc"]
+[ext_resource type="PackedScene" uid="uid://c7jd1krymyw5b" path="res://levels/ramps/ramp_5.tscn" id="17_ejfxc"]
+[ext_resource type="PackedScene" uid="uid://f3as01d0426q" path="res://levels/ramps/flat_3.tscn" id="18_34jex"]
+[ext_resource type="PackedScene" uid="uid://db7ww3nesr1qn" path="res://levels/ramps/hop_1.tscn" id="20_wqrdw"]
+
+[node name="stage_2" type="Node2D" node_paths=PackedStringArray("checkpoint") groups=["stage"]]
+script = ExtResource("1_q4vi3")
+stage_name = "You can't just hold the gas!"
+checkpoint = NodePath("checkpoint")
+player_scene = ExtResource("2_bp7fp")
+player_vis_scene = ExtResource("3_c3uys")
+launch_scene = ExtResource("4_mij3t")
+
+[node name="clutter" type="Node2D" parent="."]
+
+[node name="pumpkin_patch" type="Sprite2D" parent="clutter"]
+position = Vector2(13, 2)
+scale = Vector2(2, 2)
+texture = ExtResource("5_eorot")
+
+[node name="fence" type="Sprite2D" parent="clutter"]
+position = Vector2(1552, 96)
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("6_a04i8")
+
+[node name="fence2" type="Sprite2D" parent="clutter"]
+position = Vector2(6542, 1901)
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("6_a04i8")
+
+[node name="tree" type="Sprite2D" parent="clutter"]
+position = Vector2(3151, -345)
+scale = Vector2(3, 3)
+texture = ExtResource("7_vjrvh")
+
+[node name="tree4" type="Sprite2D" parent="clutter"]
+z_index = 1
+position = Vector2(2829, 1149)
+scale = Vector2(3, 3)
+texture = ExtResource("7_vjrvh")
+
+[node name="tree2" type="Sprite2D" parent="clutter"]
+position = Vector2(3265, -381)
+scale = Vector2(3, 3)
+texture = ExtResource("7_vjrvh")
+
+[node name="tree5" type="Sprite2D" parent="clutter"]
+position = Vector2(8955, 1937)
+scale = Vector2(3, 3)
+texture = ExtResource("7_vjrvh")
+
+[node name="tree6" type="Sprite2D" parent="clutter"]
+position = Vector2(9067, 1928)
+scale = Vector2(3.5, 3.5)
+texture = ExtResource("7_vjrvh")
+flip_h = true
+
+[node name="tree3" type="Sprite2D" parent="clutter"]
+position = Vector2(3393, -475)
+scale = Vector2(3, 3)
+texture = ExtResource("7_vjrvh")
+flip_h = true
+
+[node name="scarecrow" type="Sprite2D" parent="clutter"]
+position = Vector2(3935, 962)
+scale = Vector2(2, 2)
+texture = ExtResource("8_6o4yy")
+
+[node name="scarecrow2" type="Sprite2D" parent="clutter"]
+position = Vector2(7667, 1879)
+rotation = -0.242601
+scale = Vector2(2, 2)
+texture = ExtResource("8_6o4yy")
+
+[node name="player_follow" parent="." instance=ExtResource("2_bp7fp")]
+position = Vector2(132, 43)
+
+[node name="launch" parent="." instance=ExtResource("4_mij3t")]
+
+[node name="player_visual" parent="." instance=ExtResource("3_c3uys")]
+
+[node name="Camera2D" parent="." instance=ExtResource("9_xsfky")]
+
+[node name="checkpoint" type="Marker2D" parent="."]
+
+[node name="deadzone" parent="." instance=ExtResource("10_wonv1")]
+position = Vector2(907, 1106)
+
+[node name="finish_line" parent="." instance=ExtResource("12_dv0h4")]
+position = Vector2(11571, 474)
+
+[node name="collectables" type="Node2D" parent="."]
+
+[node name="flat_1" parent="." instance=ExtResource("15_5ewil")]
+position = Vector2(-72, 65)
+
+[node name="climb_1" parent="." instance=ExtResource("13_uncjw")]
+position = Vector2(854, 41)
+
+[node name="hop_1" parent="." instance=ExtResource("20_wqrdw")]
+position = Vector2(733, 576)
+
+[node name="hop_2" parent="." instance=ExtResource("20_wqrdw")]
+position = Vector2(1172, 584)
+
+[node name="ramp_2" parent="." instance=ExtResource("14_ua5ar")]
+position = Vector2(1919, -385)
+
+[node name="ramp_5" parent="." instance=ExtResource("17_ejfxc")]
+position = Vector2(1619, 332)
+
+[node name="ramp_6" parent="." instance=ExtResource("17_cjtjc")]
+position = Vector2(2190, 195)
+
+[node name="flat_3" parent="." instance=ExtResource("18_34jex")]
+position = Vector2(3168, 75)
+
+[connection signal="brakes" from="player_follow" to="player_visual" method="_on_player_follow_brakes"]
+[connection signal="goal_reached" from="player_follow" to="player_visual" method="_on_player_follow_goal_reached"]
+[connection signal="launch_curve" from="player_follow" to="launch" method="_on_player_follow_launch_curve"]
+[connection signal="parent_launch" from="player_follow" to="launch" method="_on_player_follow_parent_launch"]
+[connection signal="slam" from="player_follow" to="player_visual" method="_on_player_follow_slam"]
+[connection signal="speed_stage_shift" from="player_follow" to="player_visual" method="_on_player_follow_speed_stage_shift"]

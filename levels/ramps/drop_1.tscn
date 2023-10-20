@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://bafetl5phslmv"]
+
+[ext_resource type="Script" path="res://levels/ramps/ramp_path.gd" id="1_3oujc"]
+[ext_resource type="TileSet" uid="uid://c5ca7io8la6el" path="res://art/sprites/terrain_tileset.tres" id="2_03erh"]
+
+[sub_resource type="Curve2D" id="Curve2D_rcwsj"]
+bake_interval = 10.0
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 64, 0, 0, 0, 0, 0, 448, 192)
+}
+point_count = 3
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mqpnj"]
+
+[node name="drop_1" type="Path2D"]
+curve = SubResource("Curve2D_rcwsj")
+script = ExtResource("1_3oujc")
+
+[node name="area" type="Area2D" parent="." groups=["ramp"]]
+
+[node name="box" type="CollisionShape2D" parent="area"]
+shape = SubResource("RectangleShape2D_mqpnj")
+
+[node name="TileMap" type="TileMap" parent="."]
+scale = Vector2(4, 4)
+tile_set = ExtResource("2_03erh")
+format = 2
+layer_0/tile_data = PackedInt32Array(0, 131072, 0, 1, 131072, 1, 65539, 131072, 1, 131077, 131072, 1, 131078, 131072, 2, 65540, 131072, 2, 2, 131072, 2, 196614, 131072, 6, 65536, 65536, 6, 131072, 65536, 6, 196608, 65536, 6, 262149, 131072, 6, 327684, 0, 6, 393220, 0, 6, 458756, 0, 6, 524292, 131072, 6, 524291, 262144, 6, 524290, 262144, 6, 524289, 196608, 6, 393216, 196608, 6, 458753, 65536, 6, 327680, 65536, 6, 262144, 65536, 6, 196610, 0, 1, 131074, 0, 1, 65538, 0, 1, 65537, 0, 1, 131073, 65536, 1, 196609, 0, 1, 262145, 0, 1, 327681, 0, 1, 393217, 0, 1, 393218, 65536, 1, 327682, 0, 1, 262146, 0, 1, 262147, 0, 1, 196611, 0, 1, 131075, 0, 1, 131076, 0, 1, 196612, 0, 1, 262148, 65536, 1, 196613, 0, 1, 327683, 0, 1, 393219, 0, 1, 458755, 0, 1, 458754, 0, 1)

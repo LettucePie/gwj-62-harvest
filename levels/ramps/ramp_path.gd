@@ -3,6 +3,7 @@ extends Path2D
 class_name RampPath
 
 @export var finish : bool = false
+@export var layer_paths : PackedInt32Array
 
 var baked_points : PackedVector2Array = []
 var baked_points_rounded : PackedVector2Array = []
@@ -13,6 +14,8 @@ func _ready():
 	if self.curve != null:
 		build_area_poly()
 		find_launch_vector()
+	if !is_in_group("ramp_path"):
+		add_to_group("ramp_path")
 
 
 func build_area_poly():
