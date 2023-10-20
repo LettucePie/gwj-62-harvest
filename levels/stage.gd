@@ -12,6 +12,7 @@ signal finish_stage()
 @export var player_scene : PackedScene
 @export var player_vis_scene : PackedScene
 @export var launch_scene : PackedScene
+@export var disabled_color : Color = Color(0.5, 0.5, 0.5, 0.8)
 
 var player : Player
 var player_vis : Node2D
@@ -67,6 +68,9 @@ func _ready():
 	player.connect("goal_reached", player_finish)
 	## Gather
 	ramps = get_tree().get_nodes_in_group("ramp_path")
+	## Testing Start
+	if get_window() == get_parent():
+		start_stage()
 
 
 func start_stage():
@@ -82,7 +86,7 @@ func player_landed(ramp):
 			if r.has_paths(player.current_paths):
 				r.modulate = Color.WHITE
 			else:
-				r.modulate = Color.DARK_GRAY
+				r.modulate = disabled_color
 				
 
 

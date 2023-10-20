@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://chmhp48rw3t57"]
+[gd_scene load_steps=23 format=3 uid="uid://chmhp48rw3t57"]
 
 [ext_resource type="Script" path="res://levels/stage.gd" id="1_q4vi3"]
 [ext_resource type="PackedScene" uid="uid://bqli0ogr3o2of" path="res://gameplay/player_follow.tscn" id="2_bp7fp"]
@@ -16,8 +16,12 @@
 [ext_resource type="PackedScene" uid="uid://cqui13q2cjxlx" path="res://levels/ramps/flat_1.tscn" id="15_5ewil"]
 [ext_resource type="PackedScene" uid="uid://cs0adpupyucx1" path="res://levels/ramps/ramp_6.tscn" id="17_cjtjc"]
 [ext_resource type="PackedScene" uid="uid://c7jd1krymyw5b" path="res://levels/ramps/ramp_5.tscn" id="17_ejfxc"]
+[ext_resource type="PackedScene" uid="uid://cymkk57dj8ee4" path="res://levels/ramps/flat_2.tscn" id="18_3drlc"]
 [ext_resource type="PackedScene" uid="uid://f3as01d0426q" path="res://levels/ramps/flat_3.tscn" id="18_34jex"]
+[ext_resource type="PackedScene" uid="uid://df2ugyhmubts7" path="res://levels/ramps/ramp_3.tscn" id="20_icqic"]
 [ext_resource type="PackedScene" uid="uid://db7ww3nesr1qn" path="res://levels/ramps/hop_1.tscn" id="20_wqrdw"]
+[ext_resource type="PackedScene" uid="uid://bafetl5phslmv" path="res://levels/ramps/drop_1.tscn" id="21_qsugj"]
+[ext_resource type="PackedScene" uid="uid://dtnu5mriwwpo3" path="res://levels/ramps/ramp_1.tscn" id="22_udmhy"]
 
 [node name="stage_2" type="Node2D" node_paths=PackedStringArray("checkpoint") groups=["stage"]]
 script = ExtResource("1_q4vi3")
@@ -102,34 +106,85 @@ position = Vector2(132, 43)
 [node name="deadzone" parent="." instance=ExtResource("10_wonv1")]
 position = Vector2(907, 1106)
 
-[node name="finish_line" parent="." instance=ExtResource("12_dv0h4")]
-position = Vector2(11571, 474)
-
 [node name="collectables" type="Node2D" parent="."]
 
 [node name="flat_1" parent="." instance=ExtResource("15_5ewil")]
 position = Vector2(-72, 65)
+layer_paths = [1, 2]
 
 [node name="climb_1" parent="." instance=ExtResource("13_uncjw")]
 position = Vector2(854, 41)
 
 [node name="hop_1" parent="." instance=ExtResource("20_wqrdw")]
 position = Vector2(733, 576)
+layer_paths = [2]
 
 [node name="hop_2" parent="." instance=ExtResource("20_wqrdw")]
 position = Vector2(1172, 584)
+layer_paths = [2]
 
 [node name="ramp_2" parent="." instance=ExtResource("14_ua5ar")]
-position = Vector2(1919, -385)
+position = Vector2(1953, -349)
 
 [node name="ramp_5" parent="." instance=ExtResource("17_ejfxc")]
 position = Vector2(1619, 332)
+layer_paths = [2]
 
 [node name="ramp_6" parent="." instance=ExtResource("17_cjtjc")]
-position = Vector2(2190, 195)
+position = Vector2(2135, 168)
+layer_paths = [2]
 
 [node name="flat_3" parent="." instance=ExtResource("18_34jex")]
 position = Vector2(3168, 75)
+layer_paths = [1, 2]
+
+[node name="ramp_7" parent="." instance=ExtResource("17_ejfxc")]
+position = Vector2(3937, -114)
+layer_paths = [1, 2]
+
+[node name="climb_2" parent="." instance=ExtResource("13_uncjw")]
+position = Vector2(4573, -161)
+
+[node name="ramp_3" parent="." instance=ExtResource("14_ua5ar")]
+position = Vector2(5703, -543)
+layer_paths = [1, 2, 3]
+
+[node name="flat_2" parent="." instance=ExtResource("18_3drlc")]
+position = Vector2(6529, 160)
+
+[node name="climb_3" parent="." instance=ExtResource("13_uncjw")]
+position = Vector2(7175, -233)
+layer_paths = [3]
+
+[node name="flat_4" parent="." instance=ExtResource("18_34jex")]
+position = Vector2(6773, -33)
+layer_paths = [2]
+
+[node name="hop_3" parent="." instance=ExtResource("20_wqrdw")]
+position = Vector2(6706, -199)
+layer_paths = [3]
+
+[node name="flat_5" parent="." instance=ExtResource("15_5ewil")]
+position = Vector2(7461, -69)
+layer_paths = [2]
+
+[node name="ramp_4" parent="." instance=ExtResource("20_icqic")]
+position = Vector2(8548, -395)
+layer_paths = [3, 2]
+
+[node name="drop_1" parent="." instance=ExtResource("21_qsugj")]
+position = Vector2(8080, 231)
+layer_paths = [1, 2, 3]
+
+[node name="ramp_1" parent="." instance=ExtResource("22_udmhy")]
+position = Vector2(8680, 556)
+
+[node name="climb_4" parent="." instance=ExtResource("13_uncjw")]
+position = Vector2(9988, 1034)
+
+[node name="finish_line" parent="." instance=ExtResource("12_dv0h4")]
+position = Vector2(11125, 834)
+layer_paths = [1, 2]
 
 [connection signal="brakes" from="player_follow" to="player_visual" method="_on_player_follow_brakes"]
 [connection signal="goal_reached" from="player_follow" to="player_visual" method="_on_player_follow_goal_reached"]

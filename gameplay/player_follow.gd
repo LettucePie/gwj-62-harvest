@@ -179,6 +179,9 @@ func predict_soar():
 	var dir = current_ramp.launch_vector
 	var point_a = current_ramp.get_ramp_final_position() + current_ramp.position
 	var point_d = Vector2(point_a.x + soar, point_a.y)
+	if dir.angle() > 0.01:
+		## Drop off Ramp
+		point_d = point_a + (dir * soar)
 	var point_b = point_a + (dir * (soar * 0.66))
 	var adjust_angle = dir.angle_to(
 		point_a.direction_to(
