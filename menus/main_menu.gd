@@ -23,7 +23,8 @@ func _on_play_pressed():
 
 
 func _on_help_pressed():
-	$help_menu.show()
+#	$help_menu.show()
+	$anim.play("show_help")
 	$help_menu.current_page = 0
 	$help_menu.load_page(0)
 
@@ -41,7 +42,8 @@ func _on_quit_pressed():
 
 
 func _on_help_menu_close_help():
-	$help_menu.hide()
+#	$help_menu.hide()
+	$anim.play_backwards("show_help")
 
 
 func _on_close_credit_pressed():
