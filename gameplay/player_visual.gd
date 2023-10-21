@@ -4,6 +4,7 @@ extends Node2D
 @export var speed_stage_anims : Array = ["speed_1", "speed_2", "speed_2", "speed_3", "speed_4"]
 var player_vis_point = null
 var anim : AnimationPlayer
+var emission_stages = [4, 10, 20, 40, 60]
 
 func _ready():
 	anim = get_node("SubViewport/pumpkin/AnimationPlayer")
@@ -22,6 +23,10 @@ func _ready():
 		player.connect("speed_stage_shift", _on_player_follow_speed_stage_shift)
 	if !player.is_connected("goal_reached", _on_player_follow_goal_reached):
 		player.connect("goal_reached", _on_player_follow_goal_reached)
+#	if !player.is_connected("launch_curve", player_launch):
+#		player.connect("launch_curve", player_launch)
+#	if !player.is_connected("landed", player_land):
+#		player.connect("landed", player_land)
 
 
 func _physics_process(delta):
@@ -29,6 +34,10 @@ func _physics_process(delta):
 		var target = player.get_parent().to_global(player.position)
 		var rot_vis_point = player_vis_point.position.rotated(player.rotation)
 		position = position.lerp(target + rot_vis_point, 0.3).round()
+#	if $GPUParticles2D.emitting:
+	$GPUParticles2D.rotation = player.rotation
+	$GPUParticles2D.emitting = (player.status == "riding" and !player.finished)
+	$GPUParticles2D.amount = emission_stages[player.speed_stage]
 
 
 func _on_player_follow_brakes(tf):
@@ -49,4 +58,15 @@ func _on_player_follow_speed_stage_shift(stage):
 func _on_player_follow_goal_reached():
 	print("Goal Reached, Playing Slam")
 	anim.play("slam")
-	
+
+
+#func player_land(_dummy):
+#	if !$GPUParticles2D.emitting:
+#		print("Player Vis enabling Particles")
+#		$GPUParticles2D.emitting = true
+#
+#
+#func player_launch(_dummy):
+#	if $GPUParticles2D.emitting:
+#		print("Player Vis Disabling Particles")
+#		$GPUParticles2D.emitting = false

@@ -1,14 +1,49 @@
-[gd_scene load_steps=5 format=3 uid="uid://bqrdpqwrcgx5q"]
+[gd_scene load_steps=8 format=3 uid="uid://bqrdpqwrcgx5q"]
 
 [ext_resource type="Texture2D" uid="uid://bqb7yawwso2kk" path="res://art/sprites/test_circle.png" id="1_cslv3"]
 [ext_resource type="Script" path="res://gameplay/player_visual.gd" id="1_pqn52"]
+[ext_resource type="Texture2D" uid="uid://yypiuw51sfse" path="res://art/sprites/leaf_sprite_atlas.png" id="2_61dtb"]
 [ext_resource type="PackedScene" uid="uid://bo4cho2ys6t71" path="res://art/player_pumpkin.tscn" id="3_xbk7v"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_ba5tm"]
+particles_animation = true
+particles_anim_h_frames = 3
+particles_anim_v_frames = 1
+particles_anim_loop = true
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_xbrkt"]
+lifetime_randomness = 0.43
+particle_flag_disable_z = true
+direction = Vector3(-1, 0, 0)
+gravity = Vector3(0, -50, 0)
+initial_velocity_min = 500.0
+initial_velocity_max = 500.0
+angular_velocity_min = -50.0
+angular_velocity_max = 50.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+scale_min = 2.0
+scale_max = 2.0
+turbulence_enabled = true
+anim_speed_max = 3.0
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_id0uk"]
 viewport_path = NodePath("SubViewport")
 
 [node name="player_visual" type="Node2D" groups=["player_visual"]]
 script = ExtResource("1_pqn52")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+z_index = 2
+material = SubResource("CanvasItemMaterial_ba5tm")
+position = Vector2(0, 23)
+emitting = false
+amount = 40
+process_material = SubResource("ParticleProcessMaterial_xbrkt")
+texture = ExtResource("2_61dtb")
+lifetime = 2.0
+explosiveness = 0.09
+randomness = 0.13
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 visible = false
