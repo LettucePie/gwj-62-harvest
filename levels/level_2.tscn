@@ -6,7 +6,7 @@
 
 [node name="level_2" type="Node" node_paths=PackedStringArray("stage", "gui")]
 script = ExtResource("1_1vixh")
-stage = NodePath("")
+stage = NodePath("stage_2")
 gui = NodePath("CanvasLayer/gui")
 
 [node name="stage_2" parent="." instance=ExtResource("2_rp1a6")]

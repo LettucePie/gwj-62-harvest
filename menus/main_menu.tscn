@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://chkianxdawnj0"]
+[gd_scene load_steps=16 format=3 uid="uid://chkianxdawnj0"]
 
 [ext_resource type="Script" path="res://menus/main_menu.gd" id="1_0v7hf"]
 [ext_resource type="Theme" uid="uid://vi4vba5f6fdc" path="res://menus/pumpkin_style.tres" id="1_tlia2"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://5db6ysg5pooi" path="res://jam-banner.png" id="3_1q2qc"]
 [ext_resource type="Texture2D" uid="uid://du72v8s2bnv56" path="res://art/ui/cover_no_bg.png" id="3_6g6rs"]
 [ext_resource type="Texture2D" uid="uid://dca17xbntkqey" path="res://art/ui/wallpaper.png" id="3_h2bwg"]
+[ext_resource type="AudioStream" uid="uid://ckyutwb4p66tx" path="res://sounds/kenney/Retro Beat.ogg" id="3_t81v0"]
 [ext_resource type="Script" path="res://menus/bg_slide.gd" id="4_2v4ke"]
 [ext_resource type="Texture2D" uid="uid://dhk73um8vc68u" path="res://art/ui/level_1_icon.png" id="8_2facm"]
 [ext_resource type="Texture2D" uid="uid://bpiriha4rkg47" path="res://art/ui/level_2_icon.png" id="9_mstvw"]
@@ -725,7 +726,7 @@ _data = {
 [sub_resource type="LabelSettings" id="LabelSettings_c1fpu"]
 font_size = 28
 
-[node name="main_menu" type="Control"]
+[node name="main_menu" type="Control" groups=["sfx"]]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -734,6 +735,11 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_tlia2")
 script = ExtResource("1_0v7hf")
+
+[node name="music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_t81v0")
+autoplay = true
+bus = &"Music"
 
 [node name="anim" type="AnimationPlayer" parent="."]
 autoplay = "show_main"
@@ -877,6 +883,8 @@ I used to put my twitter handle here...
 
 Made using Godot 4.0.3, Aseprite, blender, Krita
 
+Menu and Play music by Kenney-nl
+
 Thanks for checking out my submission to the Godot Wild Jam #62 - Harvest"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -986,6 +994,7 @@ text = "Back"
 [connection signal="pressed" from="VBoxContainer/website" to="." method="_on_website_pressed"]
 [connection signal="pressed" from="VBoxContainer/credits" to="." method="_on_credits_pressed"]
 [connection signal="pressed" from="VBoxContainer/quit" to="." method="_on_quit_pressed"]
+[connection signal="button_sfx" from="help_menu" to="." method="_on_help_menu_button_sfx"]
 [connection signal="close_help" from="help_menu" to="." method="_on_help_menu_close_help"]
 [connection signal="pressed" from="credit/close_credit" to="." method="_on_close_credit_pressed"]
 [connection signal="pressed" from="level_select/HBoxContainer/1_container/play_1" to="." method="level_selected" binds= [0]]

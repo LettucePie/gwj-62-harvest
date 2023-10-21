@@ -1,6 +1,7 @@
 extends Control
 
 signal close_help()
+signal button_sfx()
 
 @export var page_titles : PackedStringArray
 @export var page_infos : PackedStringArray
@@ -36,18 +37,21 @@ func button_validation():
 
 
 func _on_left_pressed():
+	emit_signal("button_sfx")
 	if current_page > 0:
 		current_page -= 1
 		load_page(current_page)
 
 
 func _on_right_pressed():
+	emit_signal("button_sfx")
 	if current_page < page_titles.size():
 		current_page += 1
 		load_page(current_page)
 
 
 func _on_done_pressed():
+	emit_signal("button_sfx")
 	emit_signal("close_help")
 
 

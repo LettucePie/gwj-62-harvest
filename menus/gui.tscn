@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bvdj1sdrxhikw"]
+[gd_scene load_steps=11 format=3 uid="uid://bvdj1sdrxhikw"]
 
 [ext_resource type="Theme" uid="uid://vi4vba5f6fdc" path="res://menus/pumpkin_style.tres" id="1_bp7u0"]
 [ext_resource type="Texture2D" uid="uid://co5a8mgebg377" path="res://art/ui/speedometer_white.png" id="1_jte6h"]
@@ -9,8 +9,9 @@
 [ext_resource type="Texture2D" uid="uid://dx6bgirlxq67j" path="res://art/ui/speedometer_color.png" id="2_wyucv"]
 [ext_resource type="Texture2D" uid="uid://hmgxfcyhhckg" path="res://art/ui/momentum_trim.png" id="3_ke33s"]
 [ext_resource type="Texture2D" uid="uid://dgkxjw7e125r5" path="res://art/ui/pause_icon_only.png" id="3_kfrrs"]
+[ext_resource type="AudioStream" uid="uid://ciuv4sqw4hcvy" path="res://sounds/kenney/Retro Polka.ogg" id="3_w5cux"]
 
-[node name="gui" type="Control"]
+[node name="gui" type="Control" groups=["sfx"]]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -19,6 +20,11 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_bp7u0")
 script = ExtResource("1_n7c1k")
+
+[node name="music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_w5cux")
+autoplay = true
+bus = &"Music"
 
 [node name="pause_button" type="Button" parent="."]
 layout_mode = 1

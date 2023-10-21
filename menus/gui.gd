@@ -2,6 +2,8 @@ extends Control
 
 class_name GUI
 
+signal button_sfx()
+
 signal player_start()
 signal player_pause()
 signal player_resume()
@@ -94,31 +96,38 @@ func display_results():
 
 
 func _on_start_button_pressed():
+	emit_signal("button_sfx")
 	print("Start Button")
 	emit_signal("player_start")
 #	play_mode()
 
 
 func _on_results_finish_pressed():
+	emit_signal("button_sfx")
 	print("Finish Button")
 	emit_signal("level_done")
 
 
 func _on_pause_button_pressed():
+	emit_signal("button_sfx")
 	emit_signal("player_pause")
 
 
 func _on_resume_pause_pressed():
+	emit_signal("button_sfx")
 	emit_signal("player_resume")
 
 
 func _on_retry_pause_pressed():
+	emit_signal("button_sfx")
 	emit_signal("player_retry")
 
 
 func _on_return_pause_pressed():
+	emit_signal("button_sfx")
 	emit_signal("player_return")
 
 
 func _on_quit_pause_pressed():
+	emit_signal("button_sfx")
 	get_tree().quit()

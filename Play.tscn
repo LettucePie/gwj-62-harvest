@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://dddgqx330m10v"]
+[gd_scene load_steps=7 format=3 uid="uid://dddgqx330m10v"]
 
 [ext_resource type="Script" path="res://Play.gd" id="1_x6o1f"]
 [ext_resource type="PackedScene" uid="uid://dqfqc1g82b7hh" path="res://levels/level_1.tscn" id="2_27nde"]
 [ext_resource type="PackedScene" uid="uid://chkianxdawnj0" path="res://menus/main_menu.tscn" id="2_cwoyh"]
 [ext_resource type="AudioBusLayout" uid="uid://d30edpct4iovl" path="res://default_bus_layout.tres" id="3_75oec"]
 [ext_resource type="PackedScene" uid="uid://b6fc756oc7uej" path="res://levels/level_2.tscn" id="3_cgblw"]
+[ext_resource type="AudioStream" uid="uid://dxqrkgytbk0hr" path="res://sounds/menu_1.wav" id="6_5sfc4"]
 
 [node name="Play" type="Node" groups=["persist"]]
 script = ExtResource("1_x6o1f")
@@ -12,3 +13,10 @@ level_scenes = [ExtResource("2_27nde"), ExtResource("3_cgblw")]
 android_audio = ExtResource("3_75oec")
 
 [node name="main_menu" parent="." instance=ExtResource("2_cwoyh")]
+
+[node name="buttonsfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_5sfc4")
+volume_db = -15.0
+bus = &"SFX"
+
+[connection signal="child_entered_tree" from="." to="." method="_on_child_entered_tree"]

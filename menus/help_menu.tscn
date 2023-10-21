@@ -8,7 +8,7 @@
 [sub_resource type="LabelSettings" id="LabelSettings_ecye4"]
 font_size = 20
 
-[node name="help_menu" type="Control"]
+[node name="help_menu" type="Control" groups=["sfx"]]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

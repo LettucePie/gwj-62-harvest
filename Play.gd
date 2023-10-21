@@ -25,6 +25,7 @@ func load_stage(num):
 		new_scene.connect("load_main", load_menu)
 	else:
 		print("Couldn't connect Level to Play... uh oh")
+	scan_buttons()
 
 
 func load_menu():
@@ -33,8 +34,25 @@ func load_menu():
 		current_stage.queue_free()
 		current_stage = null
 		add_child(main_menu)
+	scan_buttons()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
+
+
+func _on_child_entered_tree(node):
+	scan_buttons()
+
+
+func scan_buttons():
+	var sfx_nodes = get_tree().get_nodes_in_group("sfx")
+	if sfx_nodes.size() > 0:
+		for n in sfx_nodes:
+			if n.has_signal("button_sfx") and !n.is_connected("button_sfx", play_button_sfx):
+				n.connect("button_sfx", play_button_sfx)
+
+
+func play_button_sfx():
+	$buttonsfx.play()
