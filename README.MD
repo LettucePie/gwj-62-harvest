@@ -1,6 +1,7 @@
 # Gourd Rush
 
 Free Open Source Game made for the Godot Wild Jam 62
+https://lettucepie.itch.io/gourd-rush
 
 Made using Godot 4.0.3
 
