@@ -25,7 +25,7 @@ orbit_velocity_max = 0.0
 scale_min = 2.0
 scale_max = 2.0
 turbulence_enabled = true
-anim_speed_max = 3.0
+anim_offset_max = 1.0
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_id0uk"]
 viewport_path = NodePath("SubViewport")
