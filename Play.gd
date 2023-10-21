@@ -2,7 +2,9 @@ extends Node
 
 class_name Play
 
-@export var stage_scene : PackedScene
+@export var level_scenes : Array
+#@export var level_1 : PackedScene
+#@export var level_2 : PackedScene
 @export var android_audio : AudioBusLayout
 
 var main_menu : Control
@@ -13,8 +15,8 @@ func _ready():
 	main_menu = get_node("main_menu")
 
 
-func load_stage():
-	var new_scene = stage_scene.instantiate()
+func load_stage(num):
+	var new_scene = level_scenes[num].instantiate()
 	remove_child(main_menu)
 	add_child(new_scene)
 	current_stage = new_scene

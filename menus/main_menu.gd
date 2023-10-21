@@ -16,10 +16,24 @@ func _ready():
 func hide_all():
 	$help_menu.hide()
 	$credit.hide()
+	$level_select.hide()
 
 
 func _on_play_pressed():
-	play_manager.load_stage()
+	$title.hide()
+	$VBoxContainer.hide()
+	$level_select.show()
+
+
+func _on_close_level_select_pressed():
+	$title.show()
+	$VBoxContainer.show()
+	$level_select.hide()
+
+
+func level_selected(num : int):
+	print("Level Selected: ", num)
+	play_manager.load_stage(num)
 
 
 func _on_help_pressed():
@@ -48,3 +62,5 @@ func _on_help_menu_close_help():
 
 func _on_close_credit_pressed():
 	$credit.hide()
+
+
